@@ -1,0 +1,6 @@
+# junk
+.*.sw?
+**/.DS_Store
+
+# output of build-docs.sh
+/docs/
