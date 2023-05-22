@@ -1,0 +1,7 @@
+,inheritance,anti-spoofing,anti_jamming,anti_tamper,application_sandboxing,attestation,authenticate_communication,confidentiality,control_physical_access,filter,formally_verified_kernel,immutable_data,in_house_development,least_privilege,limit_resource_use,memory_protections,monitor,non_repudiation,prevent_emf_leakage,prevent_privilege_escalation,trusted_protocols,virtualization,whitelist_communications,zeroize_data
+cam,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+cam.cam,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+cam.pan,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+cam.ptz,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+cam.tilt,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+cv,0,1,1,1,1,1,1,1,1,1,100,1,1,1,1,1,1,1,1,1,1,1,1,1

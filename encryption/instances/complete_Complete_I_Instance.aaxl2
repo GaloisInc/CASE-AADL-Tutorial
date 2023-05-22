@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="ASCII"?>
+<instance:SystemInstance xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aadl2="http://aadl.info/AADL/2.0" xmlns:instance="http://aadl.info/AADL/2.0/instance" name="Complete_I_Instance" category="system">
+  <featureInstance name="eavesdropper_success" category="eventPort" direction="out">
+    <feature xsi:type="aadl2:EventPort" href="../complete.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedEventPort.0"/>
+  </featureInstance>
+  <componentInstance name="Eavesdropper">
+    <featureInstance name="success" category="eventPort" direction="out">
+      <feature xsi:type="aadl2:EventPort" href="../complete.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedEventPort.0"/>
+    </featureInstance>
+    <featureInstance name="Radio_RX" category="eventDataPort">
+      <feature xsi:type="aadl2:EventDataPort" href="../complete.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedEventDataPort.0"/>
+    </featureInstance>
+    <featureInstance name="Wired_RX" category="eventDataPort">
+      <feature xsi:type="aadl2:EventDataPort" href="../complete.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedEventDataPort.1"/>
+    </featureInstance>
+    <subcomponent xsi:type="aadl2:AbstractSubcomponent" href="../complete.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAbstractSubcomponent.0"/>
+    <index>0</index>
+    <classifier xsi:type="aadl2:AbstractType" href="../complete.aadl#Complete.Eavesdropper"/>
+  </componentInstance>
+  <componentInstance name="UAV" category="system">
+    <featureInstance name="Radio_RX" category="eventDataPort">
+      <feature xsi:type="aadl2:EventDataPort" href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedEventDataPort.0"/>
+    </featureInstance>
+    <featureInstance name="Radio_TX" category="eventDataPort" direction="out">
+      <feature xsi:type="aadl2:EventDataPort" href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedEventDataPort.1"/>
+    </featureInstance>
+    <featureInstance name="Wired_RX" category="eventDataPort">
+      <feature xsi:type="aadl2:EventDataPort" href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedEventDataPort.2"/>
+    </featureInstance>
+    <featureInstance name="Wired_TX" category="eventDataPort" direction="out">
+      <feature xsi:type="aadl2:EventDataPort" href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedEventDataPort.3"/>
+    </featureInstance>
+    <componentInstance name="Platform">
+      <featureInstance name="RX" category="eventDataPort">
+        <feature xsi:type="aadl2:EventDataPort" href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventDataPort.0"/>
+      </featureInstance>
+      <featureInstance name="TX" category="eventDataPort" direction="out">
+        <feature xsi:type="aadl2:EventDataPort" href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventDataPort.1"/>
+      </featureInstance>
+      <subcomponent xsi:type="aadl2:AbstractSubcomponent" href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAbstractSubcomponent.0"/>
+      <index>0</index>
+      <classifier xsi:type="aadl2:AbstractType" href="../uav.aadl#UAV.UAV_Platform"/>
+    </componentInstance>
+    <componentInstance name="Enc_Dec">
+      <featureInstance name="RX_Int" category="eventDataPort">
+        <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedEventDataPort.0"/>
+      </featureInstance>
+      <featureInstance name="RX_Ext" category="eventDataPort">
+        <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedEventDataPort.2"/>
+      </featureInstance>
+      <featureInstance name="TX_Int" category="eventDataPort" direction="out">
+        <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedEventDataPort.0"/>
+      </featureInstance>
+      <featureInstance name="TX_Ext" category="eventDataPort" direction="out">
+        <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedEventDataPort.1"/>
+      </featureInstance>
+      <subcomponent xsi:type="aadl2:AbstractSubcomponent" href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAbstractSubcomponent.1"/>
+      <index>0</index>
+      <classifier xsi:type="aadl2:AbstractType" href="../comms.aadl#Comms.Enc_Dec_Module"/>
+    </componentInstance>
+    <componentInstance name="Switch" category="system">
+      <featureInstance name="RX0" category="eventDataPort">
+        <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventDataPort.0"/>
+      </featureInstance>
+      <featureInstance name="TX0" category="eventDataPort" direction="out">
+        <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventDataPort.1"/>
+      </featureInstance>
+      <featureInstance name="RX1" category="eventDataPort">
+        <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventDataPort.2"/>
+      </featureInstance>
+      <featureInstance name="TX1" category="eventDataPort" direction="out">
+        <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventDataPort.3"/>
+      </featureInstance>
+      <featureInstance name="RX2" category="eventDataPort">
+        <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventDataPort.4"/>
+      </featureInstance>
+      <featureInstance name="TX2" category="eventDataPort" direction="out">
+        <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventDataPort.5"/>
+      </featureInstance>
+      <featureInstance name="RX3" category="eventDataPort">
+        <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventDataPort.6"/>
+      </featureInstance>
+      <featureInstance name="TX3" category="eventDataPort" direction="out">
+        <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventDataPort.7"/>
+      </featureInstance>
+      <subcomponent xsi:type="aadl2:SystemSubcomponent" href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedSystemSubcomponent.0"/>
+      <index>0</index>
+      <classifier xsi:type="aadl2:SystemType" href="../comms.aadl#Comms.Hub4"/>
+    </componentInstance>
+    <connectionInstance name="Platform.TX -> Switch.RX0" complete="true" kind="portConnection" destination="//@componentInstance.1/@componentInstance.2/@featureInstance.0" source="//@componentInstance.1/@componentInstance.0/@featureInstance.1">
+      <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+        <property href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#Communication_Properties.Timing"/>
+        <ownedValue>
+          <ownedValue xsi:type="aadl2:NamedValue">
+            <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#/0/@ownedProperty.7/@ownedPropertyType/@ownedLiteral.1"/>
+          </ownedValue>
+        </ownedValue>
+        <propertyAssociation href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+      </ownedPropertyAssociation>
+      <connectionReference context="//@componentInstance.1" source="//@componentInstance.1/@componentInstance.0/@featureInstance.1" destination="//@componentInstance.1/@componentInstance.2/@featureInstance.0">
+        <connection xsi:type="aadl2:PortConnection" href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.0"/>
+      </connectionReference>
+    </connectionInstance>
+    <connectionInstance name="Enc_Dec.TX_Int -> Switch.RX2" complete="true" kind="portConnection" destination="//@componentInstance.1/@componentInstance.2/@featureInstance.4" source="//@componentInstance.1/@componentInstance.1/@featureInstance.2">
+      <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+        <property href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#Communication_Properties.Timing"/>
+        <ownedValue>
+          <ownedValue xsi:type="aadl2:NamedValue">
+            <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#/0/@ownedProperty.7/@ownedPropertyType/@ownedLiteral.1"/>
+          </ownedValue>
+        </ownedValue>
+        <propertyAssociation href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+      </ownedPropertyAssociation>
+      <connectionReference context="//@componentInstance.1" source="//@componentInstance.1/@componentInstance.1/@featureInstance.2" destination="//@componentInstance.1/@componentInstance.2/@featureInstance.4">
+        <connection xsi:type="aadl2:PortConnection" href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.5"/>
+      </connectionReference>
+    </connectionInstance>
+    <connectionInstance name="Switch.TX0 -> Platform.RX" complete="true" kind="portConnection" destination="//@componentInstance.1/@componentInstance.0/@featureInstance.0" source="//@componentInstance.1/@componentInstance.2/@featureInstance.1">
+      <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+        <property href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#Communication_Properties.Timing"/>
+        <ownedValue>
+          <ownedValue xsi:type="aadl2:NamedValue">
+            <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#/0/@ownedProperty.7/@ownedPropertyType/@ownedLiteral.1"/>
+          </ownedValue>
+        </ownedValue>
+        <propertyAssociation href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+      </ownedPropertyAssociation>
+      <connectionReference context="//@componentInstance.1" source="//@componentInstance.1/@componentInstance.2/@featureInstance.1" destination="//@componentInstance.1/@componentInstance.0/@featureInstance.0">
+        <connection xsi:type="aadl2:PortConnection" href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.1"/>
+      </connectionReference>
+    </connectionInstance>
+    <connectionInstance name="Switch.TX2 -> Enc_Dec.RX_Int" complete="true" kind="portConnection" destination="//@componentInstance.1/@componentInstance.1/@featureInstance.0" source="//@componentInstance.1/@componentInstance.2/@featureInstance.5">
+      <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+        <property href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#Communication_Properties.Timing"/>
+        <ownedValue>
+          <ownedValue xsi:type="aadl2:NamedValue">
+            <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#/0/@ownedProperty.7/@ownedPropertyType/@ownedLiteral.1"/>
+          </ownedValue>
+        </ownedValue>
+        <propertyAssociation href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+      </ownedPropertyAssociation>
+      <connectionReference context="//@componentInstance.1" source="//@componentInstance.1/@componentInstance.2/@featureInstance.5" destination="//@componentInstance.1/@componentInstance.1/@featureInstance.0">
+        <connection xsi:type="aadl2:PortConnection" href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.4"/>
+      </connectionReference>
+    </connectionInstance>
+    <subcomponent xsi:type="aadl2:SystemSubcomponent" href="../complete.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedSystemSubcomponent.0"/>
+    <index>0</index>
+    <classifier xsi:type="aadl2:SystemImplementation" href="../uav.aadl#UAV.UAV.I"/>
+  </componentInstance>
+  <componentInstance name="GC" category="system">
+    <featureInstance name="Radio_RX" category="eventDataPort">
+      <feature xsi:type="aadl2:EventDataPort" href="../ground_control.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedEventDataPort.0"/>
+    </featureInstance>
+    <featureInstance name="Radio_TX" category="eventDataPort" direction="out">
+      <feature xsi:type="aadl2:EventDataPort" href="../ground_control.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedEventDataPort.1"/>
+    </featureInstance>
+    <subcomponent xsi:type="aadl2:SystemSubcomponent" href="../complete.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedSystemSubcomponent.1"/>
+    <index>0</index>
+    <classifier xsi:type="aadl2:SystemType" href="../ground_control.aadl#GC.GC"/>
+  </componentInstance>
+  <componentInstance name="Radio" category="system">
+    <featureInstance name="RX0" category="eventDataPort">
+      <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventDataPort.0"/>
+    </featureInstance>
+    <featureInstance name="TX0" category="eventDataPort" direction="out">
+      <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventDataPort.1"/>
+    </featureInstance>
+    <featureInstance name="RX1" category="eventDataPort">
+      <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventDataPort.2"/>
+    </featureInstance>
+    <featureInstance name="TX1" category="eventDataPort" direction="out">
+      <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventDataPort.3"/>
+    </featureInstance>
+    <featureInstance name="RX2" category="eventDataPort">
+      <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventDataPort.4"/>
+    </featureInstance>
+    <featureInstance name="TX2" category="eventDataPort" direction="out">
+      <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventDataPort.5"/>
+    </featureInstance>
+    <featureInstance name="RX3" category="eventDataPort">
+      <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventDataPort.6"/>
+    </featureInstance>
+    <featureInstance name="TX3" category="eventDataPort" direction="out">
+      <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventDataPort.7"/>
+    </featureInstance>
+    <subcomponent xsi:type="aadl2:SystemSubcomponent" href="../complete.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedSystemSubcomponent.2"/>
+    <index>0</index>
+    <classifier xsi:type="aadl2:SystemType" href="../comms.aadl#Comms.Hub4"/>
+  </componentInstance>
+  <connectionInstance name="Eavesdropper.success -> eavesdropper_success" kind="portConnection" destination="//@featureInstance.0" source="//@componentInstance.0/@featureInstance.0">
+    <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+      <property href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#Communication_Properties.Timing"/>
+      <ownedValue>
+        <ownedValue xsi:type="aadl2:NamedValue">
+          <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#/0/@ownedProperty.7/@ownedPropertyType/@ownedLiteral.1"/>
+        </ownedValue>
+      </ownedValue>
+      <propertyAssociation href="../complete.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+    </ownedPropertyAssociation>
+    <connectionReference context="/" source="//@componentInstance.0/@featureInstance.0" destination="//@featureInstance.0">
+      <connection xsi:type="aadl2:PortConnection" href="../complete.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.5"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="UAV.Enc_Dec.TX_Ext -> Radio.RX0" complete="true" kind="portConnection" destination="//@componentInstance.3/@featureInstance.0" source="//@componentInstance.1/@componentInstance.1/@featureInstance.3">
+    <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+      <property href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#Communication_Properties.Timing"/>
+      <ownedValue>
+        <ownedValue xsi:type="aadl2:NamedValue">
+          <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#/0/@ownedProperty.7/@ownedPropertyType/@ownedLiteral.1"/>
+        </ownedValue>
+      </ownedValue>
+      <propertyAssociation href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+    </ownedPropertyAssociation>
+    <connectionReference context="//@componentInstance.1" source="//@componentInstance.1/@componentInstance.1/@featureInstance.3" destination="//@componentInstance.1/@featureInstance.1">
+      <connection xsi:type="aadl2:PortConnection" href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.6"/>
+    </connectionReference>
+    <connectionReference context="/" source="//@componentInstance.1/@featureInstance.1" destination="//@componentInstance.3/@featureInstance.0">
+      <connection xsi:type="aadl2:PortConnection" href="../complete.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.0"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="GC.Radio_TX -> Radio.RX1" complete="true" kind="portConnection" destination="//@componentInstance.3/@featureInstance.2" source="//@componentInstance.2/@featureInstance.1">
+    <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+      <property href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#Communication_Properties.Timing"/>
+      <ownedValue>
+        <ownedValue xsi:type="aadl2:NamedValue">
+          <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#/0/@ownedProperty.7/@ownedPropertyType/@ownedLiteral.1"/>
+        </ownedValue>
+      </ownedValue>
+      <propertyAssociation href="../complete.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+    </ownedPropertyAssociation>
+    <connectionReference context="/" source="//@componentInstance.2/@featureInstance.1" destination="//@componentInstance.3/@featureInstance.2">
+      <connection xsi:type="aadl2:PortConnection" href="../complete.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.2"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="Radio.TX0 -> UAV.Enc_Dec.RX_Ext" complete="true" kind="portConnection" destination="//@componentInstance.1/@componentInstance.1/@featureInstance.1" source="//@componentInstance.3/@featureInstance.1">
+    <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+      <property href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#Communication_Properties.Timing"/>
+      <ownedValue>
+        <ownedValue xsi:type="aadl2:NamedValue">
+          <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#/0/@ownedProperty.7/@ownedPropertyType/@ownedLiteral.1"/>
+        </ownedValue>
+      </ownedValue>
+      <propertyAssociation href="../complete.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+    </ownedPropertyAssociation>
+    <connectionReference context="/" source="//@componentInstance.3/@featureInstance.1" destination="//@componentInstance.1/@featureInstance.0">
+      <connection xsi:type="aadl2:PortConnection" href="../complete.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.1"/>
+    </connectionReference>
+    <connectionReference context="//@componentInstance.1" source="//@componentInstance.1/@featureInstance.0" destination="//@componentInstance.1/@componentInstance.1/@featureInstance.1">
+      <connection xsi:type="aadl2:PortConnection" href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.7"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="Radio.TX1 -> GC.Radio_RX" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.0" source="//@componentInstance.3/@featureInstance.3">
+    <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+      <property href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#Communication_Properties.Timing"/>
+      <ownedValue>
+        <ownedValue xsi:type="aadl2:NamedValue">
+          <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#/0/@ownedProperty.7/@ownedPropertyType/@ownedLiteral.1"/>
+        </ownedValue>
+      </ownedValue>
+      <propertyAssociation href="../complete.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+    </ownedPropertyAssociation>
+    <connectionReference context="/" source="//@componentInstance.3/@featureInstance.3" destination="//@componentInstance.2/@featureInstance.0">
+      <connection xsi:type="aadl2:PortConnection" href="../complete.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.3"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="Radio.TX3 -> Eavesdropper.Radio_RX" complete="true" kind="portConnection" destination="//@componentInstance.0/@featureInstance.1" source="//@componentInstance.3/@featureInstance.7">
+    <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+      <property href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#Communication_Properties.Timing"/>
+      <ownedValue>
+        <ownedValue xsi:type="aadl2:NamedValue">
+          <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#/0/@ownedProperty.7/@ownedPropertyType/@ownedLiteral.1"/>
+        </ownedValue>
+      </ownedValue>
+      <propertyAssociation href="../complete.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+    </ownedPropertyAssociation>
+    <connectionReference context="/" source="//@componentInstance.3/@featureInstance.7" destination="//@componentInstance.0/@featureInstance.1">
+      <connection xsi:type="aadl2:PortConnection" href="../complete.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.4"/>
+    </connectionReference>
+  </connectionInstance>
+  <systemOperationMode name="No Modes"/>
+  <componentImplementation xsi:type="aadl2:SystemImplementation" href="../complete.aadl#Complete.Complete.I"/>
+</instance:SystemInstance>

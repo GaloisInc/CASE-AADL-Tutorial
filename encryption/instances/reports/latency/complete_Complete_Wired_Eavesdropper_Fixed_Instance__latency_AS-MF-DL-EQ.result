@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="ASCII"?>
+<result:AnalysisResult xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:result="http://www.osate.org/result/Result" analysis="latency" message="AS-MF-DL-EQ">
+  <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#/"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <results message="Latency results for UAVtoPeripheral" resultType="FAILURE">
+    <values xsi:type="result:StringValue" value=""/>
+    <values xsi:type="result:RealValue" value="20.0"/>
+    <values xsi:type="result:RealValue" value="30.0"/>
+    <values xsi:type="result:RealValue" value="20.0"/>
+    <values xsi:type="result:RealValue" value="30.0"/>
+    <values xsi:type="result:RealValue"/>
+    <values xsi:type="result:RealValue" value="25.0"/>
+    <diagnostics diagnosticType="INFO" message="Minimum actual latency total 20.0ms is greater or equal to expected minimum end to end latency 0.000ms">
+      <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@endToEndFlow.0"/>
+    </diagnostics>
+    <diagnostics diagnosticType="ERROR" message="Maximum specified flow latency total 30.0ms exceeds expected maximum end to end latency 25.0ms">
+      <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@endToEndFlow.0"/>
+    </diagnostics>
+    <diagnostics diagnosticType="ERROR" message="Maximum actual latency total 30.0ms exceeds expected maximum end to end latency 25.0ms">
+      <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@endToEndFlow.0"/>
+    </diagnostics>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@componentInstance.1/@componentInstance.1/@componentInstance.0"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@componentInstance.1/@componentInstance.1/@connectionInstance.0"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="specified"/>
+      <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@componentInstance.1/@componentInstance.1/@componentInstance.2"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@componentInstance.1/@connectionInstance.1"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:StringValue" value="specified"/>
+      <values xsi:type="result:StringValue" value="specified"/>
+      <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@componentInstance.1/@componentInstance.0"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@connectionInstance.1"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@componentInstance.2"/>
+    </subResults>
+    <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@endToEndFlow.0"/>
+  </results>
+  <results message="Latency results for UAVfromPeripheral" resultType="FAILURE">
+    <values xsi:type="result:StringValue" value=""/>
+    <values xsi:type="result:RealValue" value="20.0"/>
+    <values xsi:type="result:RealValue" value="30.0"/>
+    <values xsi:type="result:RealValue" value="20.0"/>
+    <values xsi:type="result:RealValue" value="30.0"/>
+    <values xsi:type="result:RealValue"/>
+    <values xsi:type="result:RealValue" value="25.0"/>
+    <diagnostics diagnosticType="INFO" message="Minimum actual latency total 20.0ms is greater or equal to expected minimum end to end latency 0.000ms">
+      <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@endToEndFlow.1"/>
+    </diagnostics>
+    <diagnostics diagnosticType="ERROR" message="Maximum specified flow latency total 30.0ms exceeds expected maximum end to end latency 25.0ms">
+      <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@endToEndFlow.1"/>
+    </diagnostics>
+    <diagnostics diagnosticType="ERROR" message="Maximum actual latency total 30.0ms exceeds expected maximum end to end latency 25.0ms">
+      <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@endToEndFlow.1"/>
+    </diagnostics>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@componentInstance.2"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@connectionInstance.3"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:RealValue" value="20.0"/>
+      <values xsi:type="result:StringValue" value="specified"/>
+      <values xsi:type="result:StringValue" value="specified"/>
+      <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@componentInstance.1/@componentInstance.0"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@componentInstance.1/@connectionInstance.0"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="10.0"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="specified"/>
+      <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@componentInstance.1/@componentInstance.1/@componentInstance.2"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@componentInstance.1/@componentInstance.1/@connectionInstance.2"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@componentInstance.1/@componentInstance.1/@componentInstance.0"/>
+    </subResults>
+    <modelElement href="../../complete_Complete_Wired_Eavesdropper_Fixed_Instance.aaxl2#//@endToEndFlow.1"/>
+  </results>
+</result:AnalysisResult>

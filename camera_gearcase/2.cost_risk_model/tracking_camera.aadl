@@ -1,0 +1,18 @@
+package tracking_camera
+public
+	with arducam, sbc;
+
+	system Complete
+	end Complete;
+
+	system implementation Complete.i
+		subcomponents
+			cam: system arducam::Complete.i;
+			cv: system sbc::jetson_nano;
+
+		connections
+			spi: port cv.spi -> cam.spi;
+			csi: port cam.csi -> cv.csi;
+	end Complete.i;
+	
+end tracking_camera;

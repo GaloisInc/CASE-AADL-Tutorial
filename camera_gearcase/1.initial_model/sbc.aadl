@@ -1,0 +1,12 @@
+package sbc
+public
+	with arducam;
+	
+	system jetson_nano
+	-- single-board computer
+		features
+			csi: in data port arducam::csi_data;
+			spi: out data port;
+	end jetson_nano;
+	
+end sbc;

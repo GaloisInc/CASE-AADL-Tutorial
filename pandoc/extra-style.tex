@@ -1,0 +1,7 @@
+\usepackage{truncate}
+
+\let\oldShaded\Shaded
+
+\renewenvironment{Shaded}
+{\begin{oldShaded}\begin{boxed2}\begin{small}}
+{\end{small}\end{boxed2}\end{oldShaded}}

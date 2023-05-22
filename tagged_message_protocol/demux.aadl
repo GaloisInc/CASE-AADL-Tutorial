@@ -1,0 +1,32 @@
+package Demux
+public
+    with Messages;
+
+    abstract Demux
+    features
+        Left_Turn  : in  event data port Messages::Msg.Left_Turn;
+        Right_Turn : in  event data port Messages::Msg.Right_Turn;
+        Output     : out event data port Messages::Msg.Tagged;
+    annex agree {**
+        assume "Left and right turn inputs are mutually exclusive" :
+            not (event(Left_Turn) and event(Right_Turn));
+
+        guarantee "Output matches input" :
+            if event(Left_Turn)
+                then event(Output) and output_matches_left
+            else if event(Right_Turn)
+                then event(Output) and output_matches_right
+            else not event(Output);
+
+        property output_matches_left =
+            Output.length = Left_Turn.length and
+            (Output.length >= Messages::tag_length
+                => Output.Tag = Left_Turn.Tag);
+        property output_matches_right =
+            Output.length = Right_Turn.length and
+            (Output.length >= Messages::tag_length
+               => Output.Tag = Right_Turn.Tag);
+    **};
+    end Demux;
+
+end Demux;

@@ -1,0 +1,61 @@
+package arducam
+public
+	with base_types;
+
+	system Complete
+		features
+			spi: in data port;
+			csi: out data port csi_data;
+	end Complete;
+	
+	system implementation Complete.i
+		subcomponents
+			ptz : device ptz_board;
+			cam : device imx477;
+			pan : device servo.ds3115mg;
+			tilt : device servo.ds3115mg;
+		connections
+			spi_conn: port spi -> ptz.spi;
+			csi_conn: port cam.csi -> csi;
+			focus_conn: port ptz.focus_ctrl -> cam.focus_ctrl;
+			zoom_conn: port ptz.zoom_ctrl -> cam.zoom_ctrl;
+			ir_cut_conn: port ptz.ir_cut -> cam.ir_cut;
+			pan_conn: port ptz.pan_ctrl -> pan.ctrl;
+			tilt_conn: port ptz.tilt_ctrl -> tilt.ctrl;
+			
+	end Complete.i;
+	
+	device ptz_board
+		-- camera and servo control
+		features
+			spi: in data port;
+			pan_ctrl: out data port base_types::Integer;
+			tilt_ctrl: out data port base_types::Integer;
+			zoom_ctrl: out data port base_types::Integer;
+			focus_ctrl: out data port base_types::Integer;
+			ir_cut: out event port;
+	end ptz_board;
+	
+	device imx477
+		-- camera sensor board
+		features
+			zoom_ctrl: in data port base_types::Integer;
+			focus_ctrl: in data port base_types::Integer;
+			ir_cut: in event port;
+			csi: out data port csi_data;
+	end imx477;
+	
+	data csi_data
+	end csi_data;
+	
+	device servo
+		features
+			ctrl: in data port base_types::Integer;
+	end servo;
+	
+	device implementation servo.ds3115mg
+		-- 5V digital servo motor
+
+	end servo.ds3115mg;
+	
+end arducam;

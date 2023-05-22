@@ -1,0 +1,17 @@
+package sbc
+public
+	with arducam;
+	with CASE_Properties;
+	
+	system jetson_nano
+	-- single-board computer
+		features
+			csi: in data port arducam::csi_data;
+			spi: out data port;
+			
+		properties
+			CASE_Properties::Trust_Level_Confidentiality => 100;
+			CASE_Properties::Filtering => 100;
+	end jetson_nano;
+	
+end sbc;

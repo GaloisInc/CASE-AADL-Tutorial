@@ -1,0 +1,57 @@
+package UAV
+public
+    with Msg, Base_Types;
+
+    system UAV
+    features
+        Input                : in  event data port Msg::Msg.C2UAV_Loc;
+        Output               : out event data port Msg::Msg.UAV2C_Loc;
+        autopilot_state_good : out       data port Base_Types::Boolean;
+    annex agree {**
+        guarantee "Autopilot state remains good" : autopilot_state_good;
+    **};
+    end UAV;
+
+    system implementation UAV.Unsanitized
+    subcomponents
+        Autopilot : abstract Autopilot;
+    connections
+        DC0 : port Input                -> Autopilot.Input;
+        DC1 : port Autopilot.Output     -> Output;
+        DC2 : port Autopilot.state_good -> autopilot_state_good;
+    end UAV.Unsanitized;
+
+    abstract Autopilot
+    features
+        Input      : in  event data port Msg::Msg.C2UAV_Loc;
+        Output     : out event data port Msg::Msg.UAV2C_Loc;
+        state_good : out       data port Base_Types::Boolean;
+    annex agree {**
+        assume "Input C2UAV payload is valid, if present" :
+            event(Input) => in_c2uav_loc_payload_valid;
+        guarantee "Autopilot state remains good" : state_good;
+
+        -- ||| Important property here |||
+        -- VVV                         VVV
+        property in_c2uav_loc_payload_valid =
+            Input.Payload.Latitude  <= 180.0 and
+            Input.Payload.Longitude <= 360.0;
+    **};
+    end Autopilot;
+
+    ------------------------------
+    -- Fixed UAV implementation --
+    ------------------------------
+
+    system implementation UAV.Sanitized
+    subcomponents
+        C2UAV_Loc_Filter : abstract Msg::C2UAV_Loc_Filter;
+        Autopilot        : abstract Autopilot;
+    connections
+        DC0 : port Input                   -> C2UAV_Loc_Filter.Input;
+        DC1 : port C2UAV_Loc_Filter.Output -> Autopilot.Input;
+        DC2 : port Autopilot.Output        -> Output;
+        DC3 : port Autopilot.state_good    -> autopilot_state_good;
+    end UAV.Sanitized;
+
+end UAV;

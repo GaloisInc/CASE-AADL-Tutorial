@@ -1,0 +1,120 @@
+package Vehicle
+public
+    with Messages, Mux;
+
+    process Steering
+    features
+        Left_Turn     : in  event data port Messages::Msg.Left_Turn;
+        Right_Turn    : in  event data port Messages::Msg.Right_Turn;
+        actuate_left  : out event      port;
+        actuate_right : out event      port;
+    annex agree {**
+        assume "Left and right turn input mutually exclusive" :
+            not (event(Left_Turn) and event(Right_Turn));
+
+        guarantee "Left turn actuation requires left input" :
+            event(actuate_left) => event(Left_Turn);
+        guarantee "Right turn actuation requires right input" :
+            event(actuate_right) => event(Right_Turn);
+    **};
+    end Steering;
+
+    process implementation Steering.I
+    properties
+        --Source_Language => (C);
+        Source_Text => ("vehicle.c");
+    end Steering.I;
+
+    system Vehicle
+    features
+        Input         : in  event data port Messages::Msg.Tagged;
+        actuate_left  : out event      port;
+        actuate_right : out event      port;
+    annex agree {**
+        guarantee "Left turn actuation requires left input" :
+            event(actuate_left) => left_input;
+        guarantee "Right turn actuation requires right input" :
+            event(actuate_right) => right_input;
+
+        property left_input = event(Input) and
+            Input.Tag = Messages::left_turn_tag;
+        property right_input = event(Input) and
+            Input.Tag = Messages::right_turn_tag;
+
+        -- Note: We fail to check the message length here, mirroring the
+        -- bug in `vehicle.c`.
+    **};
+    end Vehicle;
+
+    system implementation Vehicle.I
+    subcomponents
+        Mux      : abstract Mux::Mux;
+        Steering : process  Steering;
+    connections
+        DC0 : port Input                  -> Mux.Input;
+        DC1 : port Mux.Left_Turn          -> Steering.Left_Turn;
+        DC2 : port Mux.Right_Turn         -> Steering.Right_Turn;
+        DC3 : port Steering.actuate_left  -> actuate_left;
+        DC4 : port Steering.actuate_right -> actuate_right;
+    properties
+        Communication_Properties::Timing => Immediate
+            applies to DC0, DC1, DC2, DC3, DC4;
+    end Vehicle.I;
+
+    abstract Tag_Filter
+    features
+        Input  : in  event data port Messages::Msg.Tagged;
+        Output : out event data port Messages::Msg.Tagged;
+    annex agree {**
+        guarantee "Output requires non-null input" :
+            event(Output) => non_null_input;
+        guarantee "Output equals input if present" :
+            event(Output) => output_equals_input;
+
+        property output_equals_input =
+            Output.length = Input.length and
+            Output.Tag    = Input.Tag;
+
+        property non_null_input = event(Input) and Input.length <> 0;
+    **};
+    end Tag_Filter;
+
+    system Vehicle_Fixed
+    features
+        Input         : in  event data port Messages::Msg.Tagged;
+        actuate_left  : out event      port;
+        actuate_right : out event      port;
+    annex agree {**
+        guarantee "Left turn actuation requires left input" :
+            event(actuate_left) => left_input;
+        guarantee "Right turn actuation requires right input" :
+            event(actuate_right) => right_input;
+
+        property left_input = non_null_input and
+            Input.Tag = Messages::left_turn_tag;
+        property right_input = non_null_input and
+            Input.Tag = Messages::right_turn_tag;
+
+        property non_null_input = event(Input) and Input.length <> 0;
+        -- Note: ^ Length check added to contract.
+    **};
+    end Vehicle_Fixed;
+
+    system implementation Vehicle_Fixed.I
+    subcomponents
+        Tag_Filter : abstract Tag_Filter;
+        Mux        : abstract Mux::Mux;
+        Steering   : process  Steering;
+    connections
+        DC0 : port Input                  -> Tag_Filter.Input;
+        DC1 : port Tag_Filter.Output      -> Mux.Input;
+        DC2 : port Mux.Left_Turn          -> Steering.Left_Turn;
+        DC3 : port Mux.Right_Turn         -> Steering.Right_Turn;
+        DC4 : port Steering.actuate_left  -> actuate_left;
+        DC5 : port Steering.actuate_right -> actuate_right;
+    properties
+        Communication_Properties::Timing => Immediate
+            applies to DC0, DC1, DC2, DC3, DC4;
+    end Vehicle_Fixed.I;
+
+end Vehicle;

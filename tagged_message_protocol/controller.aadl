@@ -1,0 +1,85 @@
+package Controller
+public
+    with Messages, Demux;
+
+    process Control
+    features
+        left_control  : in  event      port;
+        right_control : in  event      port;
+        Left_Turn     : out event data port Messages::Msg.Left_Turn;
+        Right_Turn    : out event data port Messages::Msg.Right_Turn;
+    annex agree {**
+        assume lr_mutex "Left and right turn are mutually exclusive" :
+            not (event(left_control) and event(right_control));
+
+        guarantee l_control "Left turn sent only if control present" :
+            event(Left_Turn) = event(left_control);
+        guarantee l_well_formed "Left turn well formed if present" :
+            event(Left_Turn) => well_formed_left;
+
+        guarantee r_control "Right turn sent only if control present" :
+            event(Right_Turn) = event(right_control);
+        guarantee r_well_formed "Right turn well formed if present" :
+            event(Right_Turn) => well_formed_right;
+
+        property well_formed_left =
+            Left_Turn.length = Messages::msg_left_turn_length and
+            Left_Turn.Tag    = Messages::left_turn_tag;
+        property well_formed_right =
+            Right_Turn.length = Messages::msg_right_turn_length and
+            Right_Turn.Tag    = Messages::right_turn_tag;
+    **};
+    end Control;
+
+    process implementation Control.I
+    properties
+        Source_Language => (C);
+        Source_Text => ("controller.c");
+    end Control.I;
+
+    system Controller
+    features
+        left_control  : in  event      port;
+        right_control : in  event      port;
+        Output        : out event data port Messages::Msg.Tagged;
+    annex agree {**
+        assume "Left and right control are mutually exclusive" :
+            not (event(left_control) and event(right_control));
+
+        guarantee "Non-null left sent only if control present" :
+            non_null_left = event(left_control);
+        guarantee "Non-null left well formed if present" :
+            non_null_left => Output.length = Messages::msg_left_turn_length;
+
+        guarantee "Non-null right sent only if control present" :
+            non_null_right = event(right_control);
+        guarantee "Non-null right well formed if present" :
+            non_null_right => Output.length = Messages::msg_right_turn_length;
+
+        property non_null_left = event(Output) and
+            Output.length <> 0 and
+            Output.Tag = Messages::left_turn_tag;
+        property non_null_right = event(Output) and
+            Output.length <> 0 and
+            Output.Tag = Messages::right_turn_tag;
+        -- Note: The system might output an empty message, e.g., if the socket
+        -- is closed due to a crash.
+    **};
+    end Controller;
+
+    system implementation Controller.I
+    subcomponents
+        Control : process  Control;
+        Demux   : abstract Demux::Demux;
+    connections
+        DC0 : port left_control       -> Control.left_control;
+        DC1 : port right_control      -> Control.right_control;
+        DC2 : port Control.Left_Turn  -> Demux.Left_Turn;
+        DC3 : port Control.Right_Turn -> Demux.Right_Turn;
+        DC4 : port Demux.Output       -> Output;
+    properties
+        Communication_Properties::Timing => Immediate
+            applies to DC0, DC1, DC2, DC3, DC4;
+    end Controller.I;
+
+end Controller;

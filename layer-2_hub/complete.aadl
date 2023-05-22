@@ -1,0 +1,60 @@
+package Complete
+public
+    with Hub, Eth, Eth_Properties;
+
+    system Complete
+    annex agree {**
+    **};
+    end Complete;
+
+    system implementation Complete.Hubbed
+    subcomponents
+        NIC1 : system Eth::NIC { Eth_Properties::Address => 1; };
+        NIC2 : system Eth::NIC { Eth_Properties::Address => 2; };
+        NIC3 : system Eth::NIC { Eth_Properties::Address => 3; };
+
+        Hub : system Hub::Hub4;
+    connections
+        DC0 : port NIC1.TX -> Hub.RX1;
+        DC1 : port Hub.TX1 -> NIC1.RX;
+        DC2 : port NIC2.TX -> Hub.RX2;
+        DC3 : port Hub.TX2 -> NIC2.RX;
+        DC4 : port NIC3.TX -> Hub.RX3;
+        DC5 : port Hub.TX3 -> NIC3.RX;
+    annex agree {**
+        lemma "NICs receive correctly addressed events" :
+            (event(NIC1.Recv) => addr_eq_or_bcast(NIC1.Recv, 1)) and
+            (event(NIC2.Recv) => addr_eq_or_bcast(NIC2.Recv, 2)) and
+            (event(NIC3.Recv) => addr_eq_or_bcast(NIC3.Recv, 3));
+
+        fun addr_eq_or_bcast(frame : Eth::Frame.Base, addr : int) : bool =
+            frame.Dst_Addr = addr or frame.Dst_Addr = Eth::broadcast_addr;
+    **};
+    end Complete.Hubbed;
+
+    system implementation Complete.Hubbed_Promisc
+    subcomponents
+        NIC1 : system Eth::NIC { Eth_Properties::Address => 1; Eth_Properties::Promiscuous => true; };
+        NIC2 : system Eth::NIC { Eth_Properties::Address => 2; };
+        NIC3 : system Eth::NIC { Eth_Properties::Address => 3; };
+
+        Hub : system Hub::Hub4;
+    connections
+        DC0 : port NIC1.TX -> Hub.RX1;
+        DC1 : port Hub.TX1 -> NIC1.RX;
+        DC2 : port NIC2.TX -> Hub.RX2;
+        DC3 : port Hub.TX2 -> NIC2.RX;
+        DC4 : port NIC3.TX -> Hub.RX3;
+        DC5 : port Hub.TX3 -> NIC3.RX;
+    annex agree {**
+        lemma "NICs receive correctly addressed events" :
+            (event(NIC1.Recv) => addr_eq_or_bcast(NIC1.Recv, 1)) and
+            (event(NIC2.Recv) => addr_eq_or_bcast(NIC2.Recv, 2)) and
+            (event(NIC3.Recv) => addr_eq_or_bcast(NIC3.Recv, 3));
+
+        fun addr_eq_or_bcast(frame : Eth::Frame.Base, addr : int) : bool =
+            frame.Dst_Addr = addr or frame.Dst_Addr = Eth::broadcast_addr;
+    **};
+    end Complete.Hubbed_Promisc;
+
+end Complete;

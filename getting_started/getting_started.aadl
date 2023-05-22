@@ -1,0 +1,71 @@
+package Getting_Started
+private
+
+system UAS
+features
+    none;
+end UAS;
+
+system implementation UAS.Abstr
+subcomponents
+    Ground_Station : abstract;
+    Vehicle : abstract;
+
+    Radio : bus;
+connections
+    none;
+    -- We'll connect components together here in our concrete implementation
+end UAS.Abstr;
+
+bus IEEE80211
+end IEEE80211;
+
+system UAV
+features
+    Radio : requires bus access IEEE80211;
+
+    UDP8080 : in data port;
+    UDP8081 : in out data port;
+    -- Additional communication ports
+end UAV;
+
+system GS
+features
+    Radio : requires bus access IEEE80211;
+
+    UDP8080 : out data port;
+    UDP8081 : in out data port;
+    -- Additional communication ports
+end GS;
+
+system implementation UAS.Concrete extends UAS.Abstr
+subcomponents
+    Ground_Station : refined to system GS;
+    Vehicle : refined to system UAV;
+
+    Radio : refined to bus IEEE80211;
+connections
+    Ground_Station_BA : bus access Radio -> Ground_Station.Radio;
+    Vehicle_RADIO_BA : bus access Radio -> Vehicle.Radio;
+
+    UDP8080 : port Ground_Station.UDP8080 -> Vehicle.UDP8080;
+    UDP8081 : port Ground_Station.UDP8081 <-> Vehicle.UDP8081;
+properties
+    actual_connection_binding => (reference (Radio))
+        applies to UDP8080, UDP8081;
+end UAS.Concrete;
+
+system implementation UAV.Abstr
+subcomponents
+    Flight_Controller : abstract;
+    Mission_Controller : abstract;
+    IMU : abstract;
+    Camera : abstract;
+
+    Wifi_Modem : abstract;
+    Ethernet : bus;
+
+    -- Additional subcomponents;
+end UAV.Abstr;
+
+end Getting_Started;

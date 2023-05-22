@@ -1,0 +1,7 @@
+property set Eth_Properties is
+
+    Address : aadlinteger applies to (system, system implementation);
+
+    Promiscuous : aadlboolean applies to (system, system implementation);
+
+end Eth_Properties;

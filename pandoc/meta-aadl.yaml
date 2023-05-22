@@ -1,0 +1,32 @@
+---
+title: |
+  ![Galois, Inc.](Galois-BY.png)
+
+  So You Want To AADL
+subtitle: Practical AADL for Cyber Resilience
+author:
+  - Don Barrett
+  - Matt Clark
+  - Ben Hamlin
+  - Scott LaChance
+  - Max Orhai
+  - Matt Bauer
+  - Adam Wick
+  - Joe Kiniry
+thanks: |
+  Distribution Statement C: Distribution authorized to U.S. Government agencies and their contractors only due to the inclusion of proprietary information and to prevent Premature Dissemination of potentially critical technological information. Other requests for this document shall be referred to DARPA Public Release Center (PRC) via email at PRC@darpa.mil.
+
+  This material is based upon work supported by the Defense Advanced Research Projects Agency (DARPA) under Contract No. HR0011-18-C-0030. Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the Defense Advanced Research Projects Agency (DARPA).
+subject: "AADL"
+keywords:
+  - "Systems Engineering"
+  - AADL
+documentclass: scrbook
+top-level-division: chapter
+number-sections: true
+toc: true
+toc-depth: 1
+titlepage: true
+papersize: letter
+colorlinks: true
+---

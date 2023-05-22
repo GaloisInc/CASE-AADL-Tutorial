@@ -1,0 +1,52 @@
+package Complete
+public
+    with Controller, Vehicle;
+
+    system Complete
+    features
+        left_control  : in  event port;
+        right_control : in  event port;
+        actuate_left  : out event port;
+        actuate_right : out event port;
+    annex agree {**
+        assume lr_mutex "Left and right control are mutually exclusive" :
+            not (event(left_control) and event(right_control));
+
+        guarantee l_control "Left actuation requires left control" :
+            event(actuate_left) => event(left_control);
+        guarantee r_control "Right actuation requires right control" :
+            event(actuate_right) => event(right_control);
+    **};
+    end Complete;
+
+    system implementation Complete.I
+    subcomponents
+        Controller : system Controller::Controller.I;
+        Vehicle    : system Vehicle::Vehicle.I;
+    connections
+        DC0 : port left_control          -> Controller.left_control;
+        DC1 : port right_control         -> Controller.right_control;
+        DC2 : port Controller.Output     -> Vehicle.Input;
+        DC3 : port Vehicle.actuate_left  -> actuate_left;
+        DC4 : port Vehicle.actuate_right -> actuate_right;
+    properties
+        Communication_Properties::Timing => Immediate
+            applies to DC0, DC1, DC2, DC3, DC4;
+    end Complete.I;
+
+    system implementation Complete.Fixed
+    subcomponents
+        Controller : system Controller::Controller.I;
+        Vehicle    : system Vehicle::Vehicle_Fixed.I;
+    connections
+        DC0 : port left_control          -> Controller.left_control;
+        DC1 : port right_control         -> Controller.right_control;
+        DC2 : port Controller.Output     -> Vehicle.Input;
+        DC3 : port Vehicle.actuate_left  -> actuate_left;
+        DC4 : port Vehicle.actuate_right -> actuate_right;
+    properties
+        Communication_Properties::Timing => Immediate
+            applies to DC0, DC1, DC2, DC3, DC4;
+    end Complete.Fixed;
+
+end Complete;
