@@ -7,15 +7,17 @@ jobs:
         container:
             image: texlive/texlive:TL2021-historic
         steps:
-            - uses: actions/checkout@v3
+            - name: Checkout repository
+              uses: actions/checkout@v3
 
-            - name: install-pandoc
+            - name: Install Pandoc
               run: apt-get update && apt-get install -y bash git pandoc
 
-            - name: build
-              run: ./build-docs.sh
+            - name: Build
+              run: bash build-docs.sh
 
-            - uses: actions/upload-artifact@v3
+            - name: Upload Artifacts
+              uses: actions/upload-artifact@v3
               with:
                   name: output
                   path: docs/
