@@ -4,10 +4,15 @@ on: [push]
 jobs:
     build-tutorial:
         runs-on: ubuntu-latest
+        container:
+            image: texlive/texlive:TL2021-historic
         steps:
             - uses: actions/checkout@v3
 
-            - uses: docker://pandoc/latex:2.9
+            - name: install-pandoc
+              run: apt-get update && apt-get install -y bash git pandoc
+
+            - name: build
               run: ./build-docs.sh
 
             - uses: actions/upload-artifact@v3
