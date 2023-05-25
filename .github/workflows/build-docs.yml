@@ -7,9 +7,6 @@ jobs:
         steps:
             - uses: actions/checkout@v3
 
-            - name: compile
-              id: tutorial
-
             - uses: docker://pandoc/latex:2.9
               run: ./build-docs.sh
 
