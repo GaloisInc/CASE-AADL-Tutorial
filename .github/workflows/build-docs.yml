@@ -1,0 +1,19 @@
+name: build-docs
+run-name: ${{ github.actor }} is building docs
+on: [push]
+jobs:
+    build-tutorial:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: compile
+              id: tutorial
+
+            - uses: docker://pandoc/latex:2.9
+              run: ./build-docs.sh
+
+            - uses: actions/upload-artifact@v3
+              with:
+                  name: output
+                  path: docs/
