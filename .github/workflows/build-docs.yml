@@ -10,7 +10,7 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v3
               with:
-                  set-safe-directory: ''
+                  set-safe-directory: '*'
 
             - name: Install Pandoc
               run: apt-get update && apt-get install -y bash git pandoc
