@@ -13,6 +13,9 @@ jobs:
             - name: Install Pandoc
               run: apt-get update && apt-get install -y bash git pandoc
 
+            - name: FIX
+              run: git config --global --add safe.directory /__w/CASE-AADL-Tutorial/CASE-AADL-Tutorial
+
             - name: Build
               run: bash build-docs.sh
 
