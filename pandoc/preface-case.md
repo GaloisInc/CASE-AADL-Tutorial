@@ -20,10 +20,9 @@ A key observation we made when we began writing these chapters is that using
 each tool involves a development cycle:
 
 1. Develop an initial system model.
-2. Apply whatever tool-specific annotations given tool requires.
-3. Run the tool.
-4. Interpret the results and react to them by evolving the model and/or system
-   design.
+2. Apply tool-specific annotations.
+3. Run the tool and interpret the results.
+4. Use the results to evolve the model and/or system design.
 5. Return to step 2 and repeat as necessary.
 
 Therefore, we have structured each example so as to walk users through the steps

@@ -1,4 +1,4 @@
-So You Want To Check Your SWaP Math (and maybe a little security, too) with Resolute
+Resolute Tutorial
 ====================================================================================
 
 Goal

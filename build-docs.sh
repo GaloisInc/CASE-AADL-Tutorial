@@ -61,22 +61,23 @@ cp ${PROJ_ROOT}/pandoc/*.css ${HTML_CSS_DIR}
 makedocs aadl_basics "01-So-You-Want-To-AADL"
 makedocs data_descriptions "02-So-You-Want-To-Describe-Some-Data"
 makedocs getting_started "03-So-You-Want-To-Reverse-Engineer-Your-Existing-System"
+## Below chapters require AGREE
 makedocs filters "04-So-You-Want-To-Validate-Your-Data"
 makedocs authentication "05-So-You-Want-To-Talk-About-Authentication"
 makedocs encryption "06-So-You-Want-To-Make-Sure-Your-Data-Is-Encrypted"
 makedocs tagged_message_protocol "07-So-You-Want-To-Parse-Wire-Protocols"
 makedocs stateful "08-So-You-Want-To-Model-A-Stateful-Protocol"
 makedocs layer-2_hub "09-So-You-Want-To-Model-A-Shared-Hub"
-makedocs resolute-drone "10-So-You-Want-To-Check-Your-SWaP-Math"
+#makedocs chapter5_resolute "10-So-You-Want-To-Check-Your-SWaP-Math"
 
 
 # Individual "CASE Tools" content
 
-makedocs gnc "VERDICT-tutorial"
-makedocs drone "DCRYPPS-tutorial"
-makedocs camera_gearcase "GearCASE-tutorial" "-H ${PROJ_ROOT}/pandoc/extra-style.tex"
-makedocs hamr "HAMR-tutorial"
-makedocs resolute-drone "Resolute-tutorial"
+makedocs chapter1_verdict "VERDICT-tutorial"
+makedocs chapter2_dcrypps "DCRYPPS-tutorial"
+makedocs chapter3_gearcase "GearCASE-tutorial" "-H ${PROJ_ROOT}/pandoc/extra-style.tex"
+makedocs chapter4_hamr "HAMR-tutorial"
+makedocs chapter5_resolute "Resolute-tutorial"
 
 # note: the Resolute tutorial is the resolute-drone/SWaP-Math chapter above
 
@@ -93,14 +94,15 @@ AADL_CHAPTERS="
   tagged_message_protocol/README.md
   stateful/README.md
   layer-2_hub/README.md
-  resolute-drone/README.md
 "
+#chapter5_resolute/README.md
 
 CASE_CHAPTERS="
-  gnc/README.md
-  drone/README.md
-  camera_gearcase/README.md
-  hamr/README.md
+  chapter1_verdict/README.md
+  chapter2_dcrypps/README.md
+  chapter3_gearcase/README.md
+  chapter4_hamr/README.md
+  chapter5_resolute/README.md
 "
 # NOTE: we also add the Resolute tutorial below, changing the AADL-book title
 # inline to better match the other CASE chapters
@@ -123,8 +125,8 @@ pandoc -s -f gfm \
   --metadata-file ${PROJ_ROOT}/pandoc/meta-case.yaml \
   --number-sections \
   ${PROJ_ROOT}/pandoc/preface-case.md \
-  ${CASE_CHAPTERS} \
-  <(sed '1s/.*/Resolute Tutorial/' resolute-drone/README.md)
+  ${CASE_CHAPTERS}
+  #<(sed '1s/.*/Resolute Tutorial/' chapter5_resolute/README.md)
 
 echo "Success: docs built in ${PROJ_ROOT}/docs/"
 echo "To create a zip of this content, run:"

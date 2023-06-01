@@ -51,9 +51,9 @@ top-level system implementation. In our case, that is `Complete.i` in
 `tracking_camera.aadl`. Running the tool has three steps, which will need to be
 repeated each time we change the model:
 
-1. Place the cursor in the the desired component implementation.
+1. Place the cursor in the desired component implementation.
 2. Click the ![Configure GearCASE](icons/gearshift.png) button in
-   the menubar to generate the database and wait for a pop-up indicating that
+   the menu bar to generate the database and wait for a pop-up indicating that
    the database and associated tables have been created. **Note:** This will
    overwrite `costTable.csv` and `riskTable.csv`, so if you have edited these
    files you should back them up first.
@@ -208,7 +208,7 @@ the table looks like this, with the risk for each attack set to 1:
 For illustration's sake, we will assume that what we care about most are
 man-in-the-middle and command-injection attacks on the CV processor. In other
 words, we want to ensure that a third party with access to the appropriate
-connection can't immitate the camera to the CV processor and cause it to process
+connection can't imitate the camera to the CV processor and cause it to process
 the wrong signal, or similarly to inject erroneous commands to the processor. In
 concrete terms, we do this by setting the cell corresponding to
 `man_in_the_middle` and `command-injection` attacks on the `cv` component to 10

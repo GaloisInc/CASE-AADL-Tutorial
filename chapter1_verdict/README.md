@@ -288,7 +288,7 @@ The probability of attack for the CAPEC-438 and CAPEC-439 vulnerabilities goes f
 Also notice that the `Implemented Defenses` column has been updated to include the properties we added.
 We can repeat this process of examining other attack paths and applying system defenses until the
 desired level of security is achieved. On our simple system this would require going though 88 attack
-paths. Fortunately, a streamlined method of deriving requirements is avaliable through the MBAS tool.
+paths. Fortunately, a streamlined method of deriving requirements is available through the MBAS tool.
 MBAS will synthesize required cyber defenses according to a cost model. If no model is supplied, MBAS will
 include all cyber defenses needed to mitigate the attacks uncovered during
 the architecture analysis (with default costs).
@@ -419,7 +419,7 @@ current and destination positions differ, even though they may not. This can res
 commands being issued. To defend against this attack, we'll need to make sure the necessary communication
 links between sub-components are trusted. CRV can aid in identifying these links through the
 `critical links` section in its output. It's also possible to right click on the violated property and
-select "View counter-example" to exame concretely how values are manipulated during a concrete attack
+select "View counter-example" to examine concretely how values are manipulated during a concrete attack
 trace. Once we've identified the critical links, the appropriate cyber requirements can be added to ensure
 they are trusted. For example, the following property will require system implementations to
 design the connection that transmits the move command between the `Navigation` and `FlightControl` components

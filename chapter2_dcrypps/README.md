@@ -142,8 +142,8 @@ DCRYPPS component type, and the value is a JSON vector of strings, where each st
 component type name that is semantically equivalent to the top-level DCRYPPS component type.
 The currently defined keys in the class dictionary are `"ExternalConnections"`,
 `"InternalConnections"`, `"NavigationalSensor"`, `"NavigationalSensorNotDependentOnRadio"`,
-`"Workstation"`, `"Router"`, `"SmartController"`, `"SmartCamera"` and `"SmartRadio"`. A
-a complete description of the component types is included in the DCRYPPS documentation.
+`"Workstation"`, `"Router"`, `"SmartController"`, `"SmartCamera"` and `"SmartRadio"`. A 
+complete description of the component types is included in the DCRYPPS documentation.
 An example class dictionary for the delivery drone is given below.
 
 ```json

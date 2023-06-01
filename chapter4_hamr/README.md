@@ -357,7 +357,7 @@ The `timeTriggered` function is invoked when the thread is dispatched. It only d
 Per the AADL semantics, ports are frozen during dispatch to ensure arrival of new data doesn't impact computation.
 
 All of the code populated in the `initialise`, `finalize` and `timeTriggered` functions is example
-code. The contents of those functions can be edited to include the desired implemation logic.
+code. The contents of those functions can be edited to include the desired implementation logic.
 
 When to use HAMR
 ----------------
