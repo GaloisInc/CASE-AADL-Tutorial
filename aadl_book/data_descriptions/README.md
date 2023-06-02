@@ -167,8 +167,6 @@ Bounded and unbounded arrays can be represented using the `Array` value for
 is represented using `Base_Type`, and the array bounds are given in
 `Dimension`:
 
-(TODO: What's a good concrete example of a component that outputs an array?)
-
 ```aadl
 data Array_Of_3_Integers
 properties

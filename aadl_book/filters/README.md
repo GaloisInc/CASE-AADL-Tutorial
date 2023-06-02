@@ -26,8 +26,7 @@ various actuators on the UAV. Note that, while `Control` and `UAV` are modeled
 as hardware systems, the autopilot is modeled as an abstract component. This
 represents an early stage in the process of reverse engineering the UAS: We
 know that the autopilot functionality exists, but we haven't yet established
-the UAV's internal structure. [TODO: Add a pointer to the intro chapter on
-modeling abstraction.]
+the UAV's internal structure.
 
 The `Control` system sends messages to the `UAV` system, which are forwarded
 on to an `Autopilot` component. These messages contain a latitude and a
@@ -58,9 +57,7 @@ behaves correctly. This behavior most likely has to do with the UAV's
 actuators---for example, we might want to ensure that the propellers don't
 turn off while the UAV is in the air. For now we use a simplifying shortcut
 and just attach a boolean port called `state_good` to the autopilot asserting
-whether it is in a good state. In a later chapter [TODO: Forward reference],
-we will see how to model specific behavioral requirements on actuators and
-other components.
+whether it is in a good state.
 
 Modeling Functional Requirements
 --------------------------------
@@ -70,14 +67,12 @@ You can crash the autopilot by sending `C2UAV_Loc` messages with a latitude
 greater than 180 or a longitude greater than 360. Obviously, if you were
 designing this system from scratch, you would want your autopilot to handle
 this case gracefully. But if you are describing an existing system, you have
-to work with what you have. [TODO: Add pointer to chapter on descriptive v.
-prescriptive modeling.]
+to work with what you have.
 
-You can annotate functional requirements like this in several ways. [TODO:
-Pointer to appendix on requirements languages.] But here, we will use the
-AGREE annex, so that we can formally analyze whether our requirements are met
-or not. [TODO: Pointer to AGREE documentation.] The above requirements can be
-stated as follows in the `Autopilot` type:
+You can annotate functional requirements like this in several ways. But here, 
+we will use the AGREE annex, so that we can formally analyze whether our 
+requirements are met or not. The above requirements can be stated as follows in
+ the `Autopilot` type:
 
 ```aadl
 abstract Autopilot
