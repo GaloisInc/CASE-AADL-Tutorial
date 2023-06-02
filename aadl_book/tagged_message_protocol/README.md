@@ -217,7 +217,7 @@ across the wire is actually of the base type `Msg.Tagged`.
 To translate between these two representations, we use the abstract components
 `Demux` and `Mux`. These do nothing more than copy the common fields from
 `Tagged` to `Left_Turn`/`Right_Turn` and back. On the `Mux` side, we check the
-`Tag` field to decide which out port to use. The other port has its `present`
+`Tag` field to decide which output port to use. The other port has its `present`
 field set to `false`, ensuring mutual exclusivity.
 
 Fixing the Bug
@@ -258,4 +258,4 @@ end Tag_Filter;
 
 To check that this works, we simply plug it into an implementation of the
 `Complete` system, called `Complete.Fixed`. Running `Verify All Components` on
-this will show that all prooperties are valid.
+this will show that all properties are valid.

@@ -94,7 +94,7 @@ Running the Example Code
 ------------------------
 
 Executing `make run` at the shell within `authentication` will run both the
-simulated UAV and ground control station. Whether the signin key is correct (for
+simulated UAV and ground control station. Whether the signing key is correct (for
 illustration purposes) is a random 1 in 2 chance.
 
 Safety Properties
@@ -323,4 +323,4 @@ end C.I;
 
 In practice, this means `GC` makes no assumptions about `UAV`'s output, while
 `UAV` does make assumptions about `GC`'s output. The model probably could have
-been made to work the other way as welln
+been made to work the other way as well.

@@ -23,7 +23,7 @@ accept commands, but automatically reboots (transitions to `BOOTING`) when the
 update is complete.
 
 The UAV accepts the commands `TAKE_OFF`, `LAND`, `REBOOT`, and `UPDATE`. The
-update command is accompanied by firmware data, preceeded by a 14-bit length
+update command is accompanied by firmware data, preceded by a 14-bit length
 field. The message format is as follows:
 
 ```text

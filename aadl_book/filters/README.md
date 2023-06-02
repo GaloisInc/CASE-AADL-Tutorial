@@ -209,8 +209,8 @@ the controller. If we were to put the UAV into a different environment---say,
 one where other components might have access to the same input port---the
 autopilot's precondition might not be satisfied.
 
-More specifically, when AGREE checks to ensure that the assumes for a
-component are satisfied, it only check the immediate environment. As
+More specifically, when AGREE checks to ensure that the assumptions for a
+component are satisfied, it only checks the immediate environment. As
 demonstrated here, this can be useful because it requires the model to
 guarantee either that a component's preconditions are satisfied in *any*
 environment.

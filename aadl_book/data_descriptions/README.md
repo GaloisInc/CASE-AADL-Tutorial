@@ -2,7 +2,7 @@ So You Want To Describe Some Data
 =================================
 
 Data in AADL is represented using the `data` component category, along with
-properties from the standard `Data_Model` library (also refered to as the Data
+properties from the standard `Data_Model` library (also referred to as the Data
 Annex, or DAnnex). Together, these allow you to represent scalar types,
 arrays, records / structures, unions, and enumerations.
 
