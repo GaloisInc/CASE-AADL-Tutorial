@@ -58,26 +58,26 @@ cp ${PROJ_ROOT}/pandoc/*.css ${HTML_CSS_DIR}
 
 # Individual "So You Want To AADL" content
 
-makedocs aadl_basics "01-So-You-Want-To-AADL"
-makedocs data_descriptions "02-So-You-Want-To-Describe-Some-Data"
-makedocs getting_started "03-So-You-Want-To-Reverse-Engineer-Your-Existing-System"
+makedocs "aadl_book/aadl_basics" "01-So-You-Want-To-AADL"
+makedocs "aadl_book/data_descriptions" "02-So-You-Want-To-Describe-Some-Data"
+makedocs "aadl_book/getting_started" "03-So-You-Want-To-Reverse-Engineer-Your-Existing-System"
 ## Below chapters require AGREE
-makedocs filters "04-So-You-Want-To-Validate-Your-Data"
-makedocs authentication "05-So-You-Want-To-Talk-About-Authentication"
-makedocs encryption "06-So-You-Want-To-Make-Sure-Your-Data-Is-Encrypted"
-makedocs tagged_message_protocol "07-So-You-Want-To-Parse-Wire-Protocols"
-makedocs stateful "08-So-You-Want-To-Model-A-Stateful-Protocol"
-makedocs layer-2_hub "09-So-You-Want-To-Model-A-Shared-Hub"
+makedocs "aadl_book/filters" "04-So-You-Want-To-Validate-Your-Data"
+makedocs "aadl_book/authentication" "05-So-You-Want-To-Talk-About-Authentication"
+makedocs "aadl_book/encryption" "06-So-You-Want-To-Make-Sure-Your-Data-Is-Encrypted"
+makedocs "aadl_book/tagged_message_protocol" "07-So-You-Want-To-Parse-Wire-Protocols"
+makedocs "aadl_book/stateful" "08-So-You-Want-To-Model-A-Stateful-Protocol"
+makedocs "aadl_book/layer-2_hub" "09-So-You-Want-To-Model-A-Shared-Hub"
 #makedocs chapter5_resolute "10-So-You-Want-To-Check-Your-SWaP-Math"
 
 
 # Individual "CASE Tools" content
 
-makedocs chapter1_verdict "VERDICT-tutorial"
-makedocs chapter2_dcrypps "DCRYPPS-tutorial"
-makedocs chapter3_gearcase "GearCASE-tutorial" "-H ${PROJ_ROOT}/pandoc/extra-style.tex"
-makedocs chapter4_hamr "HAMR-tutorial"
-makedocs chapter5_resolute "Resolute-tutorial"
+makedocs "case_book/chapter1_verdict" "VERDICT-tutorial"
+makedocs "case_book/chapter2_dcrypps" "DCRYPPS-tutorial"
+makedocs "case_book/chapter3_gearcase" "GearCASE-tutorial" "-H ${PROJ_ROOT}/pandoc/extra-style.tex"
+makedocs "case_book/chapter4_hamr" "HAMR-tutorial"
+makedocs "case_book/chapter5_resolute" "Resolute-tutorial"
 
 # note: the Resolute tutorial is the resolute-drone/SWaP-Math chapter above
 
@@ -85,24 +85,24 @@ makedocs chapter5_resolute "Resolute-tutorial"
 # Combined content
 
 AADL_CHAPTERS="
-  aadl_basics/README.md
-  data_descriptions/README.md
-  getting_started/README.md
-  filters/README.md
-  authentication/README.md
-  encryption/README.md
-  tagged_message_protocol/README.md
-  stateful/README.md
-  layer-2_hub/README.md
+  aadl_book/aadl_basics/README.md
+  aadl_book/data_descriptions/README.md
+  aadl_book/getting_started/README.md
+  aadl_book/filters/README.md
+  aadl_book/authentication/README.md
+  aadl_book/encryption/README.md
+  aadl_book/tagged_message_protocol/README.md
+  aadl_book/stateful/README.md
+  aadl_book/layer-2_hub/README.md
 "
 #chapter5_resolute/README.md
 
 CASE_CHAPTERS="
-  chapter1_verdict/README.md
-  chapter2_dcrypps/README.md
-  chapter3_gearcase/README.md
-  chapter4_hamr/README.md
-  chapter5_resolute/README.md
+  case_book/chapter1_verdict/README.md
+  case_book/chapter2_dcrypps/README.md
+  case_book/chapter3_gearcase/README.md
+  case_book/chapter4_hamr/README.md
+  case_book/chapter5_resolute/README.md
 "
 # NOTE: we also add the Resolute tutorial below, changing the AADL-book title
 # inline to better match the other CASE chapters
