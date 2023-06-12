@@ -1,0 +1,31 @@
+property set Physics is
+
+	-- Mass / thrust
+	
+	Weight_Units: type units (g, kg => g * 1000);
+	
+	Weight: aadlreal units Physics::Weight_Units applies to (device, system, processor, memory, bus);
+	Weight_Budget: aadlreal units Physics::Weight_Units applies to (system);
+	
+	-- Power
+	
+	Current_Units: type units (mA, A => mA * 1000);
+	Voltage_Units: type units (V, kv => V * 1000);
+	Charge_Units: type units (mAh, Ah => mAh * 1000);
+	Power_Units: type units (mW, W => mW * 1000);
+	Time_Units: type units (hr);
+	
+	Current_Draw: aadlreal units Physics::Current_Units applies to (device, system, processor);
+	Power_Draw: aadlreal units Physics::Power_Units applies to (device, system, processor);
+	
+	Rated_Voltage: range of aadlreal units Physics::Voltage_Units applies to (device, system, processor);
+	
+	Current_Rating: aadlreal units Physics::Current_Units applies to (device, system, processor);
+	
+	Max_Charge: aadlreal units Physics::Charge_Units applies to (device, system);
+	Nominal_Output_Voltage: aadlreal units Physics::Voltage_Units applies to (device, system);
+	Desired_Battery_Life: aadlreal units Physics::Time_Units applies to (device, system);
+	
+	Power_Source: reference applies to (device, system, processor);
+	
+end Physics;

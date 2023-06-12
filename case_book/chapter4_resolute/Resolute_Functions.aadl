@@ -1,0 +1,94 @@
+package Resolute_Functions
+public
+	with Resolute_Helpers;
+	
+	annex resolute {**
+		
+		--
+		-- Weight quota
+		--
+		
+		-- Weight of a (possibly composed) component in grams
+		weight(c: component): real =
+			if has_property(c, Physics::Weight)
+				then property(c, Physics::Weight)
+				else realsum([weight(s) for (s: subcomponents(c))])
+		
+		Weight_Under_Budget(s: system) <=
+			** s " meets weight budget" **
+			weight(s) <= property(s, Physics::Weight_Budget)
+		
+		--
+		-- Battery life
+		--
+		
+		-- Power draw of a component in mW given its voltage
+		wattage(V: real, c: component): real =
+			if has_property(c, Physics::Power_Draw)
+				then property(c, Physics::Power_Draw)
+				else if has_property(c, Physics::Current_Draw)
+					then V * property(c, Physics::Current_Draw)
+					else 0.0
+		
+		-- Power draw of a component in mW, deriving its voltage from its
+		-- power source
+		power_draw(c: component): real =
+			let V: real = property(property(c, Physics::Power_Source), Physics::Nominal_Output_Voltage);
+			wattage(V, c)
+		
+		-- Return true iff s is the power source of c
+		is_power_source_of(c: component, s: component): bool =
+			has_property(c, Physics::Power_Source) and property(c, Physics::Power_Source) = s
+		
+		-- Battery life of power source c in hours, based on the power draw of
+		-- the components attached to it
+		battery_life(c: component): real =
+			let V: real = property(c, Physics::Nominal_Output_Voltage);
+			let Ih: real = property(c, Physics::Max_Charge);
+			let W: real = realsum([power_draw(l) for (l: component) | is_power_source_of(l, c)]);
+			(V * Ih) / W
+		
+		-- Checks that the batery life of the component bat is at least the
+		-- desired battery life
+		Desired_Battery_Life_Achieved(bat: device) <=
+			** bat " achieve desired battery life" **
+			let desired: real = property(bat, Physics::Desired_Battery_Life);
+			let actual: real = battery_life(bat);
+			actual >= desired
+				orelse fail ** bat " has battery life " actual " hr, but " desired " hr is desired" **
+		
+		--
+		-- Supply chain
+		--	
+		
+		-- Process connections in order, keeping track of unmet assurance
+		-- requirements, ensuring that all requirements are met if a component
+		-- from a sanctioned country is encountered.
+		check_cia_on_supply_chain(cs: [connection]): bool =
+			check_cia_on_supply_chain_rec({}, cs)
+		
+		-- Helper for the above.
+		check_cia_on_supply_chain_rec(prev_reqs: {string}, cs: [connection]): bool =
+			if length(cs) = 0 then true else
+				let cur_conn: connection = head(cs);
+				let src_comp: aadl = parent(source(cur_conn));
+				let dst_comp: aadl = parent(destination(cur_conn));
+				let new_prvs: {string} = as_set(property(source(cur_conn), Supply_Chain::Provided_Assurances));
+				let new_reqs: {string} = as_set(property(source(cur_conn), Supply_Chain::Required_Assurances));
+				let cur_reqs: {string} = { r for (r: union(prev_reqs, new_reqs)) | forall (p: new_prvs). r <> p };
+				if component_is_from_sanctioned_country(dst_comp) and length(cur_reqs) > 0
+					then fail ** "Unmet requirements " cur_reqs " at component " dst_comp " from sanctioned country" **
+					else check_cia_on_supply_chain_rec(cur_reqs, tail(cs))
+		
+		-- Check whether component is from a sanctioned country.
+		component_is_from_sanctioned_country(c: aadl): bool =
+			let countries_of_origin: {string} = as_set(property(c, Supply_Chain::Provenance));
+			let sanctioned_countries: {string} = as_set(property(c, Supply_Chain::Sanctioned_Countries));
+			exists (country: countries_of_origin). member(country, sanctioned_countries)
+				
+		Supply_Chain_Attacks_Mitigated() <=
+			** "CIA requirements satisfied on flows at components with untrusted supply chain" **
+			forall (f: end_to_end_flow). check_cia_on_supply_chain(sorted_flow_connections(f))
+		
+	**};
+end Resolute_Functions;

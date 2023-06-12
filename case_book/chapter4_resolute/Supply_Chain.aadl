@@ -1,0 +1,14 @@
+property set Supply_Chain is
+
+	Country: type enumeration (USA, France, Germany, China, Singapore, India, North_Korea, South_Korea, Saudi_Arabia, Afghanistan);
+	
+	Sanctioned_Countries: list of Supply_Chain::Country => (North_Korea) applies to (all);
+	
+	Provenance: list of Supply_Chain::Country => () applies to (all);
+	
+	CIA: type enumeration (Confidentiality, Integrity, Availability);
+	
+	Required_Assurances: list of Supply_Chain::CIA => () applies to (feature);
+	Provided_Assurances: list of Supply_Chain::CIA => () applies to (feature);
+	
+end Supply_Chain;
