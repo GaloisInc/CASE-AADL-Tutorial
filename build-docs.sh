@@ -75,9 +75,9 @@ makedocs "aadl_book/layer-2_hub" "09-So-You-Want-To-Model-A-Shared-Hub"
 
 makedocs "case_book/chapter1_verdict" "VERDICT-tutorial"
 makedocs "case_book/chapter2_dcrypps" "DCRYPPS-tutorial"
-makedocs "case_book/chapter3_gearcase" "GearCASE-tutorial" "-H ${PROJ_ROOT}/pandoc/extra-style.tex"
-makedocs "case_book/chapter4_hamr" "HAMR-tutorial"
-makedocs "case_book/chapter5_resolute" "Resolute-tutorial"
+#makedocs "case_book/chapter3_gearcase" "GearCASE-tutorial" "-H ${PROJ_ROOT}/pandoc/extra-style.tex"
+makedocs "case_book/chapter3_hamr" "HAMR-tutorial"
+makedocs "case_book/chapter4_resolute" "Resolute-tutorial"
 
 # note: the Resolute tutorial is the resolute-drone/SWaP-Math chapter above
 
@@ -100,9 +100,8 @@ AADL_CHAPTERS="
 CASE_CHAPTERS="
   case_book/chapter1_verdict/README.md
   case_book/chapter2_dcrypps/README.md
-  case_book/chapter3_gearcase/README.md
-  case_book/chapter4_hamr/README.md
-  case_book/chapter5_resolute/README.md
+  case_book/chapter3_hamr/README.md
+  case_book/chapter4_resolute/README.md
 "
 # NOTE: we also add the Resolute tutorial below, changing the AADL-book title
 # inline to better match the other CASE chapters
