@@ -19,7 +19,7 @@ AADL beginners should start with the this volume. The chapters cover the basics 
 - Ocarina: http://www.openaadl.org/ocarina.html
 
 # Volume II:   Introduction to DARPA CASE Tooling (AADL-based Tooling for Cyber Resilience)
-The second volume focuses on the [tools](#case-tools) developed on the DARPA CASE program. Tools that are private were omitted from this tutorial (namely GearCASE). Each chapter is devoted to a tool and can be read out-of-order. More information [here](pandoc/preface-case.md).
+The second volume focuses on the [tools](#case-tools) developed on the DARPA CASE program. Tools that are private were omitted from this tutorial (namely GearCASE and BriefCASE). Each chapter is devoted to a tool and can be read out-of-order. More information [here](pandoc/preface-case.md).
 
 # Tutorial Requirements
 
