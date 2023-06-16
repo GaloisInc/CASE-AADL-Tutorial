@@ -4,11 +4,11 @@ As part of the [DARPA CASE](https://www.darpa.mil/program/cyber-assured-systems-
 
 The two part tutorial is split between training users on how to model systems with AADL and using DARPA CASE tools. The book is divided into two volumes titled - "So You Want To AADL" and "Introduction to DARPA CASE Tooling". The tutorial does not aim to be complete but is instead a starting point that leaves the reader with enough exposure to begin their own modeling journey. No prior experience in the tools are assumed. The tutorial was written in markdown and can be compiled in pdf and html using the included build script.
 
-# Volume I: So You Want To AADL (AADL-based Tooling for Cyber Resilience)
+## Volume I: So You Want To AADL (AADL-based Tooling for Cyber Resilience)
 
 AADL beginners should start with the this volume. The chapters cover the basics and disparate modeling aspects including authentication, encryption, protocol modeling and message filtering and more. Along with AADL the tutorial uses the AGREE Annex that requires the use of the AGREE tool. More information [here](pandoc/preface-aadl.md).
 
-# Tutorial Requirements
+### Tutorial Requirements
 
   The tutorial has been tested on [OSATE 2.10.2](https://osate.org/). The only other dependency is AGREE and its tested version is discussed in the [following table](#volume-ii-introduction-to-darpa-case-tooling-aadl-based-tooling-for-cyber-resilience). Some  useful references are included below.
 
@@ -18,10 +18,10 @@ AADL beginners should start with the this volume. The chapters cover the basics 
 - AADL: http://www.openaadl.org/ and http://aadl.info/
 - Ocarina: http://www.openaadl.org/ocarina.html
 
-# Volume II:   Introduction to DARPA CASE Tooling (AADL-based Tooling for Cyber Resilience)
+## Volume II:   Introduction to DARPA CASE Tooling (AADL-based Tooling for Cyber Resilience)
 The second volume focuses on the [tools](#case-tools) developed on the DARPA CASE program. Tools that are private were omitted from this tutorial (namely GearCASE and BriefCASE). Each chapter is devoted to a tool and can be read out-of-order. More information [here](pandoc/preface-case.md).
 
-# Tutorial Requirements
+### Tutorial Requirements
 
   The tutorial has been tested on [OSATE 2.10.2](https://osate.org/) and the tool versions mentioned in the below table.
 
