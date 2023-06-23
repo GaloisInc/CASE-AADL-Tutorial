@@ -4,9 +4,11 @@ As part of the [DARPA CASE](https://www.darpa.mil/program/cyber-assured-systems-
 
 The two part tutorial is split between training users on how to model systems with AADL and using DARPA CASE tools. The book is divided into two volumes titled - "So You Want To AADL" and "Introduction to DARPA CASE Tooling". The tutorial does not aim to be complete but is instead a starting point that leaves the reader with enough exposure to begin their own modeling journey. No prior experience in the tools are assumed. The tutorial was written in markdown and can be compiled in pdf and html using the included build script.
 
+The two volumes are built using Pandoc and available as Pdfs. Download the latest release to read.
+
 ## Volume I: So You Want To AADL (AADL-based Tooling for Cyber Resilience)
 
-AADL beginners should start with the this volume. The chapters cover the basics and disparate modeling aspects including authentication, encryption, protocol modeling and message filtering and more. Along with AADL the tutorial uses the AGREE Annex that requires the use of the AGREE tool. More information [here](pandoc/preface-aadl.md).
+AADL beginners should start with the this volume. The chapters cover the basics and disparate modeling aspects including authentication, encryption, protocol modeling and message filtering and more. Along with AADL the tutorial uses the AGREE Annex that requires the use of the AGREE tool. More information on this volume can be found in the [preface](pandoc/preface-aadl.md).
 
 ### Tutorial Requirements
 

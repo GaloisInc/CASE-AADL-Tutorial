@@ -131,3 +131,7 @@ echo "Success: docs built in ${PROJ_ROOT}/docs/"
 echo "To create a zip of this content, run:"
 echo "  cd ${PROJ_ROOT}"
 echo "  zip -r docs.zip docs"
+
+## Generate single markdown for each book volumes.
+# pandoc -f gfm --toc -s ${AADL_CHAPTERS} -o ./aadl_book/README.md
+# pandoc -f gfm --toc -s ${CASE_CHAPTERS} -o ./case_book/README.md
