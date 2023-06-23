@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# NOTE: This script requires pandoc and pdflatex to be installed
+## NOTE: This script requires pandoc and pdflatex to be installed
 
 set -e
 
@@ -19,6 +19,20 @@ HTML_IMAGE_DIR=${PROJ_ROOT}/docs/html/images
 HTML_ICON_DIR=${PROJ_ROOT}/docs/html/icons
 HTML_FIGURES_DIR=${PROJ_ROOT}/docs/html/figures
 HTML_CSS_DIR=${PROJ_ROOT}/docs/html/css
+
+makebook() {
+  while read -r line; do
+    # Remove leading and trailing spaces
+    line=$(echo "$line" | tr -d '[:space:]')
+
+    # Extract chapter name using regex
+    if [[ $line =~ .*chapter([[:alnum:]_]+).* ]]; then
+      chapter="${BASH_REMATCH[1]}"
+    fi
+
+    makedocs $line chapter$chapter
+  done <<< "$1"
+}
 
 makedocs() {
   pushd ${PROJ_ROOT}/${1}
@@ -55,56 +69,36 @@ mkdir -p ${HTML_FIGURES_DIR}
 mkdir -p ${HTML_CSS_DIR}
 cp ${PROJ_ROOT}/pandoc/*.css ${HTML_CSS_DIR}
 
-
-# Individual "So You Want To AADL" content
-
-makedocs "aadl_book/aadl_basics" "01-So-You-Want-To-AADL"
-makedocs "aadl_book/data_descriptions" "02-So-You-Want-To-Describe-Some-Data"
-makedocs "aadl_book/getting_started" "03-So-You-Want-To-Reverse-Engineer-Your-Existing-System"
-## Below chapters require AGREE
-makedocs "aadl_book/filters" "04-So-You-Want-To-Validate-Your-Data"
-makedocs "aadl_book/authentication" "05-So-You-Want-To-Talk-About-Authentication"
-makedocs "aadl_book/encryption" "06-So-You-Want-To-Make-Sure-Your-Data-Is-Encrypted"
-makedocs "aadl_book/tagged_message_protocol" "07-So-You-Want-To-Parse-Wire-Protocols"
-makedocs "aadl_book/stateful" "08-So-You-Want-To-Model-A-Stateful-Protocol"
-makedocs "aadl_book/layer-2_hub" "09-So-You-Want-To-Model-A-Shared-Hub"
-#makedocs chapter5_resolute "10-So-You-Want-To-Check-Your-SWaP-Math"
-
-
-# Individual "CASE Tools" content
-
-makedocs "case_book/chapter1_verdict" "VERDICT-tutorial"
-makedocs "case_book/chapter2_dcrypps" "DCRYPPS-tutorial"
-#makedocs "case_book/chapter3_gearcase" "GearCASE-tutorial" "-H ${PROJ_ROOT}/pandoc/extra-style.tex"
-makedocs "case_book/chapter3_hamr" "HAMR-tutorial"
-makedocs "case_book/chapter4_resolute" "Resolute-tutorial"
-
-# note: the Resolute tutorial is the resolute-drone/SWaP-Math chapter above
-
-
-# Combined content
-
 AADL_CHAPTERS="
-  aadl_book/aadl_basics/README.md
-  aadl_book/data_descriptions/README.md
-  aadl_book/getting_started/README.md
-  aadl_book/filters/README.md
-  aadl_book/authentication/README.md
-  aadl_book/encryption/README.md
-  aadl_book/tagged_message_protocol/README.md
-  aadl_book/stateful/README.md
-  aadl_book/layer-2_hub/README.md
+  aadl_book/chapter1_aadl_basics
+  aadl_book/chapter2_data_descriptions
+  aadl_book/chapter3_reverse_engineer
+  aadl_book/chapter4_filters
+  aadl_book/chapter5_authentication
+  aadl_book/chapter6_encryption
+  aadl_book/chapter7_tagged_message_protocol
+  aadl_book/chapter8_stateful_protocol
+  aadl_book/chapter9_layer2_hub
 "
 #chapter5_resolute/README.md
 
 CASE_CHAPTERS="
-  case_book/chapter1_verdict/README.md
-  case_book/chapter2_dcrypps/README.md
-  case_book/chapter3_hamr/README.md
-  case_book/chapter4_resolute/README.md
+  case_book/chapter1_verdict
+  case_book/chapter2_dcrypps
+  case_book/chapter3_hamr
+  case_book/chapter4_resolute
 "
-# NOTE: we also add the Resolute tutorial below, changing the AADL-book title
-# inline to better match the other CASE chapters
+
+## Remove empty newlines
+AADL_CHAPTERS=$(echo "$AADL_CHAPTERS" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' -e '/^$/d')
+CASE_CHAPTERS=$(echo "$CASE_CHAPTERS" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' -e '/^$/d')
+
+makebook "${AADL_CHAPTERS}"
+makebook "${CASE_CHAPTERS}"
+
+## Construct README.md paths
+AADL_CHAPTERS_README=$(echo "$AADL_CHAPTERS" | sed 's|$|/README.md|')
+CASE_CHAPTERS_README=$(echo "$CASE_CHAPTERS" | sed 's|$|/README.md|')
 
 pandoc -s -f gfm \
   -V geometry:margin=1.8cm \
@@ -114,7 +108,7 @@ pandoc -s -f gfm \
   --metadata-file ${PROJ_ROOT}/pandoc/meta-aadl.yaml \
   --number-sections \
   ${PROJ_ROOT}/pandoc/preface-aadl.md \
-  ${AADL_CHAPTERS}
+  ${AADL_CHAPTERS_README}
 
 pandoc -s -f gfm \
   -V geometry:margin=1.8cm \
@@ -124,7 +118,7 @@ pandoc -s -f gfm \
   --metadata-file ${PROJ_ROOT}/pandoc/meta-case.yaml \
   --number-sections \
   ${PROJ_ROOT}/pandoc/preface-case.md \
-  ${CASE_CHAPTERS}
+  ${CASE_CHAPTERS_README}
   #<(sed '1s/.*/Resolute Tutorial/' chapter5_resolute/README.md)
 
 echo "Success: docs built in ${PROJ_ROOT}/docs/"
@@ -132,6 +126,6 @@ echo "To create a zip of this content, run:"
 echo "  cd ${PROJ_ROOT}"
 echo "  zip -r docs.zip docs"
 
-## Generate single markdown for each book volumes.
-# pandoc -f gfm --toc -s ${AADL_CHAPTERS} -o ./aadl_book/README.md
-# pandoc -f gfm --toc -s ${CASE_CHAPTERS} -o ./case_book/README.md
+# ## Generate single markdown for each book volumes.
+# # pandoc -f gfm --toc -s ${AADL_CHAPTERS} -o ./aadl_book/README.md
+# # pandoc -f gfm --toc -s ${CASE_CHAPTERS} -o ./case_book/README.md
