@@ -19,22 +19,24 @@ AADL beginners should start with the this volume. The chapters cover the basics 
 - Ocarina: http://www.openaadl.org/ocarina.html
 
 # Volume II:   Introduction to DARPA CASE Tooling (AADL-based Tooling for Cyber Resilience)
-The second volume focuses on the [tools](#case-tools) developed on the DARPA CASE program. Tools that are private were omitted from this tutorial (namely GearCASE and BriefCASE). Each chapter is devoted to a tool and can be read out-of-order. More information [here](pandoc/preface-case.md).
+The second volume focuses on the tools developed on the [DARPA CASE](https://www.darpa.mil/program/cyber-assured-systems-engineering) program. Tools that are private were omitted from this tutorial (namely GearCASE). Each chapter is devoted to a single tool and can be read out-of-order. More information [here](pandoc/preface-case.md).
 
 # Tutorial Requirements
 
-  The tutorial has been tested on [OSATE 2.10.2](https://osate.org/) and the tool versions mentioned in the below table.
+  The tutorial has been tested on [OSATE 2.10.2](https://osate.org/) and the below CASE tool versions.
 
 | Tool | Version | Repository | Documentation | Developers (PI) |
 |-|-|-|-|:-:|
-| [BriefCASE](http://loonwerks.com/projects/case.html) | 0.8.0 | [GitHub](https://github.com/loonwerks/BriefCase) | <ul><li>[User Guide](https://github.com/loonwerks/formal-methods-workbench/blob/master/documentation/BriefCASE/Collins%20BriefCASE%20User%20Guide.pdf)</li><li>[Videos](http://loonwerks.com/projects/case.html)</li></ul> | [Collins/Loonwerks](https://github.com/loonwerks)<br>([Darren Cofer](mailto:Darren.Cofer@collins.com)) |
-| [DCRYPPS](https://www.dollabs.com/project/dcryp) | March2022-v1 <br>(code is archived)| [Google Drive](https://drive.google.com/drive/folders/1Xx3ZN_gjjBAmGsiqrW3V6qls4QH9QQhW) | <ul><li>User guide included in the zip archive</li><li>[YouTube Video](https://www.youtube.com/watch?v=VLt8LTNhktg)</li></ul> | Vanderbilt/[DOLL Labs](https://www.dollabs.com/)<br>([Bob Laddaga](mailto:robert.laddaga@vanderbilt.edu)) |
-| [RESOLUTE](http://loonwerks.com/publications/gacek2014hilt.html) | 3.0.0 | [GitHub](https://github.com/loonwerks/Resolute) | <ul><li>[List of publications](http://loonwerks.com/tools/resolute.html)</li></ul> | [Collins/Loonwerks](https://github.com/loonwerks)<br>([Darren Cofer](mailto:Darren.Cofer@collins.com)) |
 | [AGREE](http://loonwerks.com/tools/agree.html) | 2.9.1 | [GitHub](https://github.com/loonwerks/AGREE) | <ul><li>[User Guide](https://github.com/loonwerks/AGREE/tree/master/com.rockwellcollins.atc.agree.doc/src-gen)</li><li>[Documentation repo](https://github.com/loonwerks/AGREE/tree/master/com.rockwellcollins.atc.agree.doc)</li></ul> | [Collins/Loonwerks](https://github.com/loonwerks)<br>([Darren Cofer](mailto:Darren.Cofer@collins.com)) |
-| [VERDICT](https://ge-high-assurance.github.io/VERDICT/) | 1.7.3 | [GitHub](https://github.com/ge-high-assurance/VERDICT/) | <ul><li>[README](https://github.com/ge-high-assurance/VERDICT/blob/master/README.md)</li><li>[Docs](https://github.com/ge-high-assurance/VERDICT/tree/master/docs)</li><li>[Wiki](https://github.com/ge-high-assurance/VERDICT/wiki)</li></ul>| [GE](https://github.com/ge-high-assurance)/Uni. of Iowa<br>([Michael Durling](mailto:durling@ge.com)) |
+| [BriefCASE](http://loonwerks.com/projects/case.html)[^1] | 0.8.0 | [GitHub](https://github.com/loonwerks/BriefCase) | <ul><li>[User Guide](https://github.com/loonwerks/formal-methods-workbench/blob/master/documentation/BriefCASE/Collins%20BriefCASE%20User%20Guide.pdf)</li><li>[Videos](http://loonwerks.com/projects/case.html)</li></ul> | [Collins/Loonwerks](https://github.com/loonwerks)<br>([Darren Cofer](mailto:Darren.Cofer@collins.com)) |
+| [DCRYPPS](https://www.dollabs.com/project/dcryp) | March2022-v1 <br>(code is archived)| [Google Drive](https://drive.google.com/drive/folders/1Xx3ZN_gjjBAmGsiqrW3V6qls4QH9QQhW) | <ul><li>User guide included in the zip archive</li><li>[YouTube Video](https://www.youtube.com/watch?v=VLt8LTNhktg)</li></ul> | Vanderbilt/[DOLL Labs](https://www.dollabs.com/)<br>([Bob Laddaga](mailto:robert.laddaga@vanderbilt.edu)) |
 | [HAMR](https://hamr.sireum.org/index.html) | 1.2022.07051018.a740565 | [GitHub](https://github.com/sireum/hamr-codegen) | <ul><li>[Documentation](https://hamr.sireum.org/hamr-doc/hamr-index.html)</li></ul> | Kansas State University/[SAnToS Lab](mailto:hamr@santoslab.org)<br>([John Hatcliff](mailto:hatcliff@ksu.edu))|
+| [RESOLUTE](http://loonwerks.com/publications/gacek2014hilt.html) | 3.0.0 | [GitHub](https://github.com/loonwerks/Resolute) | <ul><li>[List of publications](http://loonwerks.com/tools/resolute.html)</li></ul> | [Collins/Loonwerks](https://github.com/loonwerks)<br>([Darren Cofer](mailto:Darren.Cofer@collins.com)) |
+| [VERDICT](https://ge-high-assurance.github.io/VERDICT/) | 1.7.3 | [GitHub](https://github.com/ge-high-assurance/VERDICT/) | <ul><li>[README](https://github.com/ge-high-assurance/VERDICT/blob/master/README.md)</li><li>[Docs](https://github.com/ge-high-assurance/VERDICT/tree/master/docs)</li><li>[Wiki](https://github.com/ge-high-assurance/VERDICT/wiki)</li></ul>| [GE](https://github.com/ge-high-assurance)/Uni. of Iowa<br>([Michael Durling](mailto:durling@ge.com)) |
 
 Related commercial/propritary tools that are worth mentioning but were not developed on the program include:
 - [CAMET](https://www.adventiumlabs.com/camet-access-request)
 - [STOOD](https://www.ellidiss.com/products/stood/)
 - [AADL Inspector](https://www.ellidiss.com/products/aadl-inspector/)
+
+[^1]:At the time of writing BriefCASE was undergoing intensive development and had not yet reached a stable state, and a decision was made not to include BriefCASE in the book.
