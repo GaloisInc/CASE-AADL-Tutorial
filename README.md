@@ -4,11 +4,11 @@ As part of the [DARPA CASE](https://www.darpa.mil/program/cyber-assured-systems-
 
 The two part tutorial is split between training users on how to model systems with AADL and using DARPA CASE tools. The book is divided into two volumes titled - "So You Want To AADL" and "Introduction to DARPA CASE Tooling". The tutorial does not aim to be complete but is instead a starting point that leaves the reader with enough exposure to begin their own modeling journey. No prior experience in the tools are assumed. The tutorial was written in markdown and can be compiled in pdf and html using the included build script.
 
-# Volume I: So You Want To AADL (AADL-based Tooling for Cyber Resilience)
+## Volume I: So You Want To AADL (AADL-based Tooling for Cyber Resilience)
 
 AADL beginners should start with the this volume. The chapters cover the basics and disparate modeling aspects including authentication, encryption, protocol modeling and message filtering and more. Along with AADL the tutorial uses the AGREE Annex that requires the use of the AGREE tool. More information [here](pandoc/preface-aadl.md).
 
-# Tutorial Requirements
+### Tutorial Requirements
 
   The tutorial has been tested on [OSATE 2.10.2](https://osate.org/). The only other dependency is AGREE and its tested version is discussed in the [following table](#volume-ii-introduction-to-darpa-case-tooling-aadl-based-tooling-for-cyber-resilience). Some  useful references are included below.
 
@@ -21,7 +21,10 @@ AADL beginners should start with the this volume. The chapters cover the basics 
 # Volume II:   Introduction to DARPA CASE Tooling (AADL-based Tooling for Cyber Resilience)
 The second volume focuses on the tools developed on the [DARPA CASE](https://www.darpa.mil/program/cyber-assured-systems-engineering) program. Tools that are private were omitted from this tutorial (namely GearCASE). Each chapter is devoted to a single tool and can be read out-of-order. More information [here](pandoc/preface-case.md).
 
-# Tutorial Requirements
+## Volume II:   Introduction to DARPA CASE Tooling (AADL-based Tooling for Cyber Resilience)
+The second volume focuses on the tools developed on the [DARPA CASE](https://www.darpa.mil/program/cyber-assured-systems-engineering) program. Tools that are private were omitted from this tutorial (namely GearCASE). Each chapter is devoted to a single tool and can be read out-of-order. More information on this volume can be found in the [preface](pandoc/preface-case.md).
+
+### Tutorial Requirements
 
   The tutorial has been tested on [OSATE 2.10.2](https://osate.org/) and the below CASE tool versions.
 
@@ -34,7 +37,7 @@ The second volume focuses on the tools developed on the [DARPA CASE](https://www
 | [RESOLUTE](http://loonwerks.com/publications/gacek2014hilt.html) | 3.0.0 | [GitHub](https://github.com/loonwerks/Resolute) | <ul><li>[List of publications](http://loonwerks.com/tools/resolute.html)</li></ul> | [Collins/Loonwerks](https://github.com/loonwerks)<br>([Darren Cofer](mailto:Darren.Cofer@collins.com)) |
 | [VERDICT](https://ge-high-assurance.github.io/VERDICT/) | 1.7.3 | [GitHub](https://github.com/ge-high-assurance/VERDICT/) | <ul><li>[README](https://github.com/ge-high-assurance/VERDICT/blob/master/README.md)</li><li>[Docs](https://github.com/ge-high-assurance/VERDICT/tree/master/docs)</li><li>[Wiki](https://github.com/ge-high-assurance/VERDICT/wiki)</li></ul>| [GE](https://github.com/ge-high-assurance)/Uni. of Iowa<br>([Michael Durling](mailto:durling@ge.com)) |
 
-Related commercial/propritary tools that are worth mentioning but were not developed on the program include:
+Related commercial/propritary tools that were not developed on the program include:
 - [CAMET](https://www.adventiumlabs.com/camet-access-request)
 - [STOOD](https://www.ellidiss.com/products/stood/)
 - [AADL Inspector](https://www.ellidiss.com/products/aadl-inspector/)
