@@ -160,4 +160,4 @@ end Complete.Hubbed_Promisc;
 ```
 
 Running "Verify all layers" on `Complete.Hubbed_Promisc` should yield a
-counterexample like the following:
+counterexample.
