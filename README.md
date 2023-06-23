@@ -34,7 +34,7 @@ The second volume focuses on the [tools](#case-tools) developed on the DARPA CAS
 | [VERDICT](https://ge-high-assurance.github.io/VERDICT/) | 1.7.3 | [GitHub](https://github.com/ge-high-assurance/VERDICT/) | <ul><li>[README](https://github.com/ge-high-assurance/VERDICT/blob/master/README.md)</li><li>[Docs](https://github.com/ge-high-assurance/VERDICT/tree/master/docs)</li><li>[Wiki](https://github.com/ge-high-assurance/VERDICT/wiki)</li></ul>| [GE](https://github.com/ge-high-assurance)/Uni. of Iowa<br>([Michael Durling](mailto:durling@ge.com)) |
 | [HAMR](https://hamr.sireum.org/index.html) | 1.2022.07051018.a740565 | [GitHub](https://github.com/sireum/hamr-codegen) | <ul><li>[Documentation](https://hamr.sireum.org/hamr-doc/hamr-index.html)</li></ul> | Kansas State University/[SAnToS Lab](mailto:hamr@santoslab.org)<br>([John Hatcliff](mailto:hatcliff@ksu.edu))|
 
-Related commercial/propritary tools that are worth mentioning but were not developed on the program include:
+Related commercial/propritary tools that were not developed on the program include:
 - [CAMET](https://www.adventiumlabs.com/camet-access-request)
 - [STOOD](https://www.ellidiss.com/products/stood/)
 - [AADL Inspector](https://www.ellidiss.com/products/aadl-inspector/)
