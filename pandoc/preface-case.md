@@ -2,7 +2,7 @@ Preface
 =======
 
 This document contains our training material for the CASE tools. We have devoted
-a chapter to each of the tools: VERDICT, DCRYPPS, GearCASE, HAMR, and Resolute.
+a chapter to each of the tools: VERDICT, DCRYPPS, HAMR, and Resolute.
 In each case, we begin by describing the tool---what it does, and why you would
 want to use it---then walk the user through the process of applying it to an
 example model.
