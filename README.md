@@ -1,6 +1,6 @@
-# CASE-AADL-Tutorial
-
 Distribution Statement “A” (Approved for Public Release, Distribution Unlimited)
+
+# CASE-AADL-Tutorial
 
 As part of the [DARPA CASE](https://www.darpa.mil/program/cyber-assured-systems-engineering) program, tools were developed to aid system engineers in designing complex embedded computing systems with built-in cyber resiliency. This tutorial is intended for MBSE enthusiasts and professionals who want to learn about CASE tooling. The CASE tools use AADL as their language of choice. AADL or the [Architecture Analysis & Design Language](https://en.wikipedia.org/wiki/Architecture_Analysis_%26_Design_Language) was standardized by SAE and primarily developed by [SEI](https://www.sei.cmu.edu/our-work/projects/display.cfm?customel_datapageid_4050=191439,191439). Originally intended for the Avionics domain, it has been used for modeling embedded software. The language provides a high level abstraction for describing software components and the connections between them. AADL is extensible, and many annexes have been introduced throughout the years to model different modeling aspects like correctness, cybersecurity aspects, behavior extensions and more.
 
