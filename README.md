@@ -1,5 +1,7 @@
 # CASE-AADL-Tutorial
 
+Distribution Statement “A” (Approved for Public Release, Distribution Unlimited)
+
 As part of the [DARPA CASE](https://www.darpa.mil/program/cyber-assured-systems-engineering) program, tools were developed to aid system engineers in designing complex embedded computing systems with built-in cyber resiliency. This tutorial is intended for MBSE enthusiasts and professionals who want to learn about CASE tooling. The CASE tools use AADL as their language of choice. AADL or the [Architecture Analysis & Design Language](https://en.wikipedia.org/wiki/Architecture_Analysis_%26_Design_Language) was standardized by SAE and primarily developed by [SEI](https://www.sei.cmu.edu/our-work/projects/display.cfm?customel_datapageid_4050=191439,191439). Originally intended for the Avionics domain, it has been used for modeling embedded software. The language provides a high level abstraction for describing software components and the connections between them. AADL is extensible, and many annexes have been introduced throughout the years to model different modeling aspects like correctness, cybersecurity aspects, behavior extensions and more.
 
 The two part tutorial is split between training users on how to model systems with AADL and using DARPA CASE tools. The book is divided into two volumes titled - "So You Want To AADL" and "Introduction to DARPA CASE Tooling". The tutorial does not aim to be complete but is instead a starting point that leaves the reader with enough exposure to begin their own modeling journey. No prior experience in the tools are assumed. The tutorial was written in markdown and can be compiled in pdf and html using the included build script.
@@ -42,3 +44,5 @@ Related commercial/propritary tools that were not developed on the program inclu
 - [AADL Inspector](https://www.ellidiss.com/products/aadl-inspector/)
 
 [^1]:At the time of writing BriefCASE was undergoing intensive development and had not yet reached a stable state, and a decision was made not to include BriefCASE in the book.
+
+Distribution Statement “A” (Approved for Public Release, Distribution Unlimited)
