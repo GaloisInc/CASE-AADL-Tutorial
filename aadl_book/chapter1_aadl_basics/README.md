@@ -1,3 +1,5 @@
+Distribution Statement “A” (Approved for Public Release, Distribution Unlimited)
+
 AADL Basics (or "So You Want to AADL")
 ======================================
 
