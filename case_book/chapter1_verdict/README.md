@@ -1,3 +1,5 @@
+Distribution Statement “A” (Approved for Public Release, Distribution Unlimited)
+ 
 VERDICT Tutorial: Loop Example
 ==============================
 
