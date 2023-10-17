@@ -1,0 +1,33 @@
+package Complete
+public
+	with GC;
+	with Types;
+	with UAV;
+	
+	system Complete
+		features
+			output : out event data port Types::Command.I;
+		annex agree {**
+			-- Here to make AGREE reason about subcomponents
+		**};
+	end Complete;
+	
+	
+	system implementation Complete.I
+		subcomponents
+			-- We say GC.I as opposed to GC to cause an AGREE verification at this level 
+			-- to dive down into GC.I as well
+			GC  : system GC::GC.I;
+			UAV : system UAV::UAV.I;
+		
+		connections
+			C0 : port GC.output -> UAV.input;
+			C1 : port UAV.action -> output;
+			C2 : port UAV.auth -> GC.auth_recv;
+			
+		properties
+			Communication_Properties::Timing => Delayed
+				applies to C0, C1, C2;
+	end Complete.I;
+	
+end Complete;

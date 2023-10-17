@@ -1,0 +1,31 @@
+Latency analysis with preference settings: asynchronous system/major partition frame/worst case as deadline/best case as empty queue
+
+Latency results for end-to-end flow 'UAVtoPeripheral' of system 'Complete.Radio_Eavesdropper'
+
+Result,Min Specified,Min Actual,Min Method,Max Specified,Max Actual,Max Method,Comments
+abstract UAV.Platform,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+connection Platform.TX -> Switch.RX0,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+system UAV.Switch,0.0ms,0.0ms,no sampling/queuing latency,10.0ms,10.0ms,specified
+connection UAV.Switch.TX1 -> UAV_Peripheral.RX,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+system UAV_Peripheral,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+Latency Total,0.0ms,0.0ms,,10.0ms,10.0ms
+Specified End To End Latency,,0.0ms,,,15.0ms
+End to end Latency Summary
+INFO,Minimum actual latency total 0.000ms is greater or equal to expected minimum end to end latency 0.000ms
+INFO,Maximum actual latency total 10.0ms is less or equal to expected maximum end to end latency 15.0ms
+
+
+
+Latency results for end-to-end flow 'UAVfromPeripheral' of system 'Complete.Radio_Eavesdropper'
+
+Result,Min Specified,Min Actual,Min Method,Max Specified,Max Actual,Max Method,Comments
+system UAV_Peripheral,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+connection UAV_Peripheral.TX -> UAV.Switch.RX1,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+system UAV,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+Latency Total,0.0ms,0.0ms,,0.0ms,0.0ms
+Specified End To End Latency,,0.0ms,,,15.0ms
+End to end Latency Summary
+INFO,Minimum actual latency total 0.000ms is greater or equal to expected minimum end to end latency 0.000ms
+
+
+

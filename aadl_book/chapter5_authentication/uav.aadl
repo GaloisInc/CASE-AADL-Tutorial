@@ -1,0 +1,130 @@
+package uav
+public
+	with AGREE_PLTL;
+	with Types;
+	
+	system UAV
+		features
+			input  : in  event data port Types::Message.I;
+			auth   : out event data port Types::Auth_Level.I;
+			action : out event data port Types::Command.I;
+			
+		annex agree {**
+			eq UNAUTH : Types::Auth_Level.I = Types::UNAUTH;
+			eq AUTH   : Types::Auth_Level.I = Types::AUTH;
+			
+			eq LOGIN : Types::Command.I = Types::LOGIN;
+			
+			assume "Valid commands received" :
+				event(input) => Types::valid_command(input.command);
+				
+			assume "LOGIN messages are not authorized" :
+				event(input) => ((input.command = Types::LOGIN) => (not input.authorized));
+				
+			-- The model can operate without this assumption but if it fails
+			-- when checking `complete` then something's wrong
+			assume "Sanity check: authorized input implies successful LOGIN in the past" :
+				event(input) => (input.authorized => AGREE_PLTL::Once(input.command = Types::LOGIN and auth = Types::AUTH));
+				
+
+			guarantee "Responds only to LOGIN messages" : if event(input) and input.command = LOGIN
+				then event(auth) and (auth = UNAUTH or auth = AUTH)
+				else not event(auth);
+				
+			guarantee "Action performed requires authorized input" :
+				event(action) => input.authorized;
+
+			guarantee "Action performed requires LOGIN in the past" : 
+				event(action) => AGREE_PLTL::Once(event(input) and input.command = Types::LOGIN and auth = Types::AUTH);
+	
+			guarantee "Valid auth level exported" :
+				event(auth) => Types::valid_auth_level(auth);
+		
+			
+		**};
+	end UAV;
+	
+	
+	system implementation UAV.I
+		subcomponents
+			Authentication : process Authentication;
+			FlightControl : system FlightControl;
+			
+		connections
+			C0 : port input -> Authentication.input;
+			C1 : port Authentication.output -> FlightControl.input;
+			C2 : port Authentication.auth -> auth;
+			C3 : port FlightControl.output -> action;
+			
+		properties
+        	Communication_Properties::Timing => Immediate
+            	applies to C0, C1, C2, C3;
+	end UAV.I;
+	
+	
+	abstract Authentication
+		features
+			input  : in  event data port Types::Message.I;
+			auth   : out event data port Types::Auth_Level.I;
+			output : out event data port Types::Message.I;
+			
+		annex agree {**
+			eq UNAUTH : Types::Auth_Level.I = Types::UNAUTH;
+			eq AUTH   : Types::Auth_Level.I = Types::AUTH;
+			
+			eq LOGIN : Types::Command.I = Types::LOGIN;
+	
+			property good_login = event(input) and input.command = Types::LOGIN and authenticate(input.key);
+			property bad_login  = event(input) and input.command = Types::LOGIN and not authenticate(input.key);
+			guarantee "AUTH sent iff good LOGIN received" :
+				if good_login
+				then event(auth) and auth = AUTH
+				else
+				
+				if bad_login
+				then event(auth) and auth = UNAUTH
+				else
+				
+				not event(auth);
+				
+			guarantee "No output without authorized input" : if input.authorized
+				then output = input
+				else not event(output);
+				
+			property after_good_login = AGREE_PLTL::Once(good_login);
+			guarantee "No output before LOGIN" : 
+				event(output) => after_good_login;
+				
+			guarantee "LOGIN not forwarded" : 
+				event(output) => input.command != LOGIN;
+		**};
+	end Authentication;
+
+	
+	abstract FlightControl
+		features
+			input  : in  event data port Types::Message.I;
+			output : out event data port Types::Command.I;
+			
+		annex agree {**
+			guarantee "No output without input" :
+				event(output) => event(input);
+				
+			guarantee "Obeys only authorized commands" : 
+				if input.authorized
+					then event(output) and output = input.command
+					else not event(output);
+		**};
+	end FlightControl;
+	
+	
+	annex agree {**
+		fun hash(k : Types::Key.I) : Types::Key.I = k;
+		fun concat(k1 : Types::Key.I, k2 : Types::Key.I) : Types::Key.I = k1 + k2;
+		
+		fun authenticate(key_them : Types::Key.I) : bool =
+			hash(concat(key_us, key_them)) = hash(23456);
+			
+		const key_us : Types::Key.I = 11111;
+	**};
+end uav;

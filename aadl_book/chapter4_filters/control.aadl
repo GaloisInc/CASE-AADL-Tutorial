@@ -1,0 +1,18 @@
+package control
+public
+    with Msg;
+
+system Control
+features
+    Output : out event data port Msg::Msg.C2UAV_Loc;
+    Input  : in  event data port Msg::Msg.UAV2C_Loc;
+end Control;
+
+system implementation Control.Sanitized
+subcomponents
+    C2UAV_Loc_Filter : abstract Msg::C2UAV_Loc_Filter;
+connections
+    DC0 : port C2UAV_Loc_Filter.Output -> Output;
+end Control.Sanitized;
+
+end control;

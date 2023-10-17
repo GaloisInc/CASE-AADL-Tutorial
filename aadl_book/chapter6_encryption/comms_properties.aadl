@@ -1,0 +1,14 @@
+property set Comms_Properties is
+
+    Address: inherit aadlinteger => 0 applies to (system, abstract);
+    
+    -- Address constants
+    UAV_Address            : constant aadlinteger => 1;
+    UAV_Peripheral_Address : constant aadlinteger => 2;
+    GC_Address             : constant aadlinteger => 3;
+    Corrupted_UAV_Address  : constant aadlinteger => 4;
+    
+    -- Timing
+    UAV_Peripheral_Deadline : constant Time => 25 ms;
+
+end Comms_Properties;

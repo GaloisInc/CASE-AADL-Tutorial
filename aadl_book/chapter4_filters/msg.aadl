@@ -1,0 +1,60 @@
+package Msg
+public
+    with Base_Types;
+
+    data Msg
+    end Msg;
+
+    data implementation Msg.Abstr
+    subcomponents
+        Payload_Type   : data Base_Types::Natural;
+        Payload        : data Payload.Base;
+    end Msg.Abstr;
+
+    data implementation Msg.C2UAV_Loc extends Msg.Abstr
+    subcomponents
+        Payload : refined to data Payload.C2UAV_Loc;
+    end Msg.C2UAV_Loc;
+
+    data implementation Msg.UAV2C_Loc extends Msg.Abstr
+    subcomponents
+        Payload : refined to data Payload.UAV2C_Loc;
+    end Msg.UAV2C_Loc;
+
+    data Payload
+    end Payload;
+
+    data implementation Payload.Base
+    subcomponents none;
+    end Payload.Base;
+
+    data implementation Payload.UAV2C_Loc extends Payload.Base
+    subcomponents
+        Altitude  : data Base_Types::Float;
+        Latitude  : data Base_Types::Float;
+        Longitude : data Base_Types::Float;
+    end Payload.UAV2C_Loc;
+
+    data implementation Payload.C2UAV_Loc extends Payload.Base
+    subcomponents
+        Latitude  : data Base_Types::Float;
+        Longitude : data Base_Types::Float;
+    end Payload.C2UAV_Loc;
+
+    abstract C2UAV_Loc_Filter
+    features
+        Input  : in  event data port Msg::Msg.C2UAV_Loc;
+        Output : out event data port Msg::Msg.C2UAV_Loc;
+    annex agree {**
+        guarantee "Output equals input, if present" :
+            event(Output) => event(Input) and Output = Input;
+        guarantee "Output is present only if input payload is valid" :
+            event(Output) <=> input_payload_valid;
+
+        property input_payload_valid =
+            Input.Payload.Latitude  <= 180.0 and
+            Input.Payload.Longitude <= 360.0;
+    **};
+    end C2UAV_Loc_Filter;
+
+end Msg;

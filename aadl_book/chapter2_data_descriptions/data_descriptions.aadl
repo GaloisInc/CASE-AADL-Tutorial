@@ -1,0 +1,96 @@
+-- NOTE: This example syntax checks, then crashes Ocarina for some reason.
+
+package Data_Descriptions
+public
+with Base_Types, Data_Model;
+
+device Light_Sensor
+features
+    Light : out data port Base_Types::Unsigned_16;
+end Light_Sensor;
+
+data LuxWorks_Data extends Base_Types::Unsigned_16
+properties
+    Data_Model::Integer_Range => 0 .. 50000;
+    Data_Model::Measurement_Unit => "lx";
+end LuxWorks_Data;
+
+device LuxWorks_Light_Sensor extends Light_Sensor
+features
+    Light : refined to out data port LuxWorks_Data;
+end LuxWorks_Light_Sensor;
+
+data Voltage_Data
+properties
+    Data_Model::Data_Representation => Fixed;
+    Data_Model::Data_Digits => 7; -- xxxx.xxx
+    Data_Model::Data_Scale => 3;  -- 10**(-3) precision
+
+    Data_Model::Measurement_Unit => "v";
+end Voltage_Data;
+
+device Servo
+features
+    Actuate : in data port;
+    Voltage : out data port Voltage_Data;
+end Servo;
+
+data Acceleration
+properties
+    Data_Model::Data_Representation => Fixed;
+    Data_Model::Data_Digits => 6;
+    Data_Model::Data_Scale => 2;
+    Data_Model::Measurement_Unit => "m/s^2";
+end Acceleration;
+
+data XYZ_Acceleration
+properties
+    Data_Model::Data_Representation => Struct;
+end XYZ_Acceleration;
+
+data implementation XYZ_Acceleration.Impl
+subcomponents
+    X : data Acceleration;
+    Y : data Acceleration;
+    Z : data Acceleration;
+end XYZ_Acceleration.Impl;
+
+device Accelerometer
+features
+    XYZ_Accel : out data port XYZ_Acceleration;
+end Accelerometer;
+
+data XYZ_Acceleration2
+properties
+    Data_Model::Data_Representation => Struct;
+    Data_Model::Element_Names => ("X", "Y", "Z");
+    Data_Model::Base_Type =>
+       (classifier (Acceleration),
+        classifier (Acceleration),
+        classifier (Acceleration));
+end XYZ_Acceleration2;
+
+data Either_Integer_Or_Float
+properties
+    Data_Model::Data_Representation => Union;
+    Data_Model::Element_Names => ("The_Integer", "The_Float");
+    Data_Model::Base_Type =>
+       (classifier (Base_Types::Integer_32),
+        classifier (Base_Types::Float_32));
+end Either_Integer_Or_Float;
+
+data Array_Of_3_Integers
+properties
+    Data_Model::Data_Representation => Array;
+    Data_Model::Base_Type => (classifier (Base_Types::Integer_32));
+    Data_Model::Dimension => (3);
+end Array_Of_3_Integers;
+
+data Unbounded_Array_Of_Integers
+properties
+    Data_Model::Data_Representation => Array;
+    Data_Model::Base_Type => (classifier (Base_Types::Integer_32));
+    -- Data_Model::Dimension => (Data_Model::Infinite_Dimension);
+end Unbounded_Array_Of_Integers;
+
+end Data_Descriptions;

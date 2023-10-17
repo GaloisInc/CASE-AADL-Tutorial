@@ -1,0 +1,40 @@
+package Eth
+public
+    with Base_Types, Eth_Properties;
+
+    data Frame
+    end Frame;
+
+    data implementation Frame.Base
+    subcomponents
+        Dst_Addr : data Base_Types::Natural;
+    end Frame.Base;
+
+    system NIC
+    features
+        RX : in  event data port Frame.Base;
+        TX : out event data port Frame.Base;
+
+        Send : in  event data port Frame.Base;
+        Recv : out event data port Frame.Base;
+    properties
+        Eth_Properties::Address     => 0;
+        Eth_Properties::Promiscuous => false;
+    annex agree {**
+        guarantee "Relay sent data to TX" :
+            event(TX) = event(Send) and TX = Send;
+        guarantee "Filter recv'd data by address" :
+            event(Recv) = filter_rx and Recv = RX;
+
+        property filter_rx = event(RX) and (
+            RX.Dst_Addr = Get_Property(this, Eth_Properties::Address) or
+            RX.Dst_Addr = broadcast_addr
+        ) or Get_Property(this, Eth_Properties::Promiscuous);
+    **};
+    end NIC;
+
+    annex agree {**
+        const broadcast_addr : int = 0;
+    **};
+
+end Eth;

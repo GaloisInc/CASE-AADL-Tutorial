@@ -1,0 +1,50 @@
+package Messages
+public
+    with Base_Types;
+
+    data Msg
+    end Msg;
+
+    data implementation Msg.Base
+    subcomponents
+        length  : data Base_Types::Natural;
+    end Msg.Base;
+
+    data implementation Msg.Tagged extends Msg.Base
+    subcomponents
+        Tag     : data Base_Types::Boolean; -- {Data_Size => 1 bits;};
+        Payload : data Payload;
+    end Msg.Tagged;
+
+    data implementation Msg.Left_Turn extends Msg.Tagged
+    subcomponents
+        Payload : refined to data Payload.Angle;
+    end Msg.Left_Turn;
+
+    data implementation Msg.Right_Turn extends Msg.Tagged
+    subcomponents
+        Payload : refined to data Payload.Angle;
+    end Msg.Right_Turn;
+
+    data Payload
+    end Payload;
+
+    data implementation Payload.Angle
+    subcomponents
+        Angle : data Base_Types::Float; -- {Data_Size => 15 bits;};
+    end Payload.Angle;
+
+    annex agree {**
+        const left_turn_tag  : bool = false;
+        const right_turn_tag : bool = true;
+
+        const tag_length           : int = 1;
+        const payload_angle_length : int = 15;
+
+        const msg_left_turn_length  : int =
+            tag_length + payload_angle_length;
+        const msg_right_turn_length : int =
+            tag_length + payload_angle_length;
+    **};
+
+end Messages;

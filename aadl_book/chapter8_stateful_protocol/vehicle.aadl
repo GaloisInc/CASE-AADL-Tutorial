@@ -1,0 +1,81 @@
+package Vehicle
+public
+    with Base_Types, AGREE_PLTL, Protocol, Autopilot;
+
+    system Vehicle
+    features
+        Input : in event data port Protocol::Message.I;
+
+        state : out data port Base_Types::Integer;
+    annex agree {**
+        guarantee "Vehicle does not reboot while flying" :
+            is_booting => is_grounded(state);
+
+        eq is_booting  : bool = state = Autopilot::BOOTING;
+        eq is_standby  : bool = state = Autopilot::STANDBY;
+        eq is_flying   : bool = state = Autopilot::FLYING;
+        eq is_updating : bool = state = Autopilot::UPDATING;
+    **};
+    end Vehicle;
+
+    system implementation Vehicle.Broken
+    subcomponents
+        Mux       : abstract Protocol::Mux;
+        Autopilot : process Autopilot::Autopilot;
+    connections
+        DC0 : port Input           -> Mux.Input;
+        DC1 : port Mux.Take_Off    -> Autopilot.Take_Off;
+        DC2 : port Mux.Land        -> Autopilot.Land;
+        DC3 : port Mux.Reboot      -> Autopilot.Reboot;
+        DC4 : port Mux.Update      -> Autopilot.Update;
+
+        DC5 : port Autopilot.state -> state;
+    properties
+        Communication_Properties::Timing => Immediate
+            applies to DC0, DC1, DC2, DC3, DC4, DC5;
+    end Vehicle.Broken;
+
+    abstract Tag_Filter
+    features
+        Input  : in  event data port Protocol::Message.I;
+        Output : out event data port Protocol::Message.I;
+
+        state : in data port Base_Types::Integer;
+    annex agree {**
+        guarantee "Output is filtered input" :
+            if filter_input_tag
+                then event(Output) and Output = Input
+                else not event(Output);
+
+        eq filter_input_tag : bool =
+            is_airborne(state) => Input.Tag != Protocol::UPDATE;
+    **};
+    end Tag_Filter;
+
+    system implementation Vehicle.Fixed
+    subcomponents
+        Mux        : abstract Protocol::Mux;
+        Tag_Filter : abstract Tag_Filter;
+        Autopilot  : process Autopilot::Autopilot;
+    connections
+        DC0 : port Input             -> Tag_Filter.Input;
+        DC1 : port Tag_Filter.Output -> Mux.Input;
+        DC2 : port Mux.Take_Off      -> Autopilot.Take_Off;
+        DC3 : port Mux.Land          -> Autopilot.Land;
+        DC4 : port Mux.Reboot        -> Autopilot.Reboot;
+        DC5 : port Mux.Update        -> Autopilot.Update;
+
+        DC6 : port Autopilot.state   -> Tag_Filter.state;
+        DC7 : port Autopilot.state   -> state;
+    properties
+        Communication_Properties::Timing => Immediate
+            applies to DC0, DC1, DC2, DC3, DC4, DC5, DC6, DC7;
+    end Vehicle.Fixed;
+
+    annex agree {**
+        fun is_grounded(st : int) : bool = not is_airborne(st);
+        fun is_airborne(st : int) : bool =
+            AGREE_PLTL::Since(not (st = Autopilot::STANDBY), st = Autopilot::FLYING);
+    **};
+
+end Vehicle;

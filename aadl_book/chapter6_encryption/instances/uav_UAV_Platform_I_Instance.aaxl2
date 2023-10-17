@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ASCII"?>
+<instance:SystemInstance xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aadl2="http://aadl.info/AADL/2.0" xmlns:instance="http://aadl.info/AADL/2.0/instance" name="UAV_Platform_I_Instance">
+  <featureInstance name="RX" category="eventDataPort">
+    <feature xsi:type="aadl2:EventDataPort" href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventDataPort.0"/>
+  </featureInstance>
+  <featureInstance name="TX" category="eventDataPort" direction="out">
+    <feature xsi:type="aadl2:EventDataPort" href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventDataPort.1"/>
+  </featureInstance>
+  <flowSpecification name="RX_Sink" source="//@featureInstance.0">
+    <flowSpecification href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedFlowSpecification.0"/>
+  </flowSpecification>
+  <flowSpecification name="TX_Source" destination="//@featureInstance.1">
+    <flowSpecification href="../uav.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedFlowSpecification.1"/>
+  </flowSpecification>
+  <systemOperationMode name="No Modes"/>
+  <componentImplementation xsi:type="aadl2:AbstractImplementation" href="../uav.aadl#UAV.UAV_Platform.I"/>
+</instance:SystemInstance>

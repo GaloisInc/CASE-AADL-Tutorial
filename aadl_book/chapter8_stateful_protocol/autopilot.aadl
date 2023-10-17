@@ -1,0 +1,63 @@
+package Autopilot
+public
+    with Base_Types;
+
+    process Autopilot
+    features
+        Take_Off : in event port;
+        Land     : in event port;
+        Reboot   : in event port;
+        Update   : in event port;
+
+        state : out data port Base_Types::Integer;
+    annex agree {**
+        assume "Input messages mutually exclusive" :
+            mutex4(event(Take_Off), event(Land), event(Reboot), event(Update));
+        guarantee "State transitions" : state = (BOOTING ->
+            -- If in BOOTING or UPDATING mode, ignore commands and transition
+            -- to next state.
+            if pre(state) = BOOTING
+                then STANDBY
+            else if pre(state) = UPDATING
+                then BOOTING
+
+            -- Otherwise accept commands and change state. The order doesn't
+            -- matter, since inputs are mutually exclusive.
+            else if pre(event(Land))
+                then STANDBY
+            else if pre(event(Take_Off))
+                then FLYING
+            else if pre(event(Update))
+                then UPDATING
+
+            -- Guard against accepting reboot command when airbourne.
+            else if pre(state) <> FLYING and pre(event(Reboot))
+                then BOOTING
+
+            -- Retain state otherwise.
+            else
+                pre(state)
+        );
+    **};
+    end Autopilot;
+
+    process implementation Autopilot.I
+    properties
+        Source_Language => (C);
+        Source_Text     => ("autopilot.c");
+    end Autopilot.I;
+
+    annex agree {**
+        -- Vehicle states
+        const BOOTING  : int = 0;
+        const STANDBY  : int = 1;
+        const FLYING   : int = 2;
+        const UPDATING : int = 3;
+
+        fun mutex4(a : bool, b : bool, c : bool, d : bool) : bool =
+            bool2int(a) + bool2int(b) + bool2int(c) + bool2int(d) <= 1;
+
+        fun bool2int(b : bool) : int = if b then 1 else 0;
+    **};
+
+end Autopilot;

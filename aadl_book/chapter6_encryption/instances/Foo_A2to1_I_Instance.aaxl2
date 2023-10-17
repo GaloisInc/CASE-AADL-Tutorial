@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="ASCII"?>
+<instance:SystemInstance xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aadl2="http://aadl.info/AADL/2.0" xmlns:instance="http://aadl.info/AADL/2.0/instance" name="A2to1_I_Instance" category="system">
+  <featureInstance name="RX0" category="eventDataPort">
+    <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+      <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Integer_Range"/>
+      <ownedValue>
+        <ownedValue xsi:type="aadl2:RangeValue">
+          <minimum xsi:type="aadl2:IntegerLiteral"/>
+          <maximum xsi:type="aadl2:IntegerLiteral" value="4294967296"/>
+        </ownedValue>
+      </ownedValue>
+      <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedPropertyAssociation.0"/>
+    </ownedPropertyAssociation>
+    <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+      <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+      <ownedValue>
+        <ownedValue xsi:type="aadl2:NamedValue">
+          <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.6"/>
+        </ownedValue>
+      </ownedValue>
+      <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+    </ownedPropertyAssociation>
+    <feature xsi:type="aadl2:EventDataPort" href="../Foo.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedEventDataPort.0"/>
+  </featureInstance>
+  <featureInstance name="RX1" category="eventDataPort">
+    <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+      <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Integer_Range"/>
+      <ownedValue>
+        <ownedValue xsi:type="aadl2:RangeValue">
+          <minimum xsi:type="aadl2:IntegerLiteral"/>
+          <maximum xsi:type="aadl2:IntegerLiteral" value="4294967296"/>
+        </ownedValue>
+      </ownedValue>
+      <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedPropertyAssociation.0"/>
+    </ownedPropertyAssociation>
+    <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+      <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+      <ownedValue>
+        <ownedValue xsi:type="aadl2:NamedValue">
+          <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.6"/>
+        </ownedValue>
+      </ownedValue>
+      <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+    </ownedPropertyAssociation>
+    <feature xsi:type="aadl2:EventDataPort" href="../Foo.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedEventDataPort.1"/>
+  </featureInstance>
+  <featureInstance name="TX" category="eventDataPort" direction="out">
+    <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+      <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Integer_Range"/>
+      <ownedValue>
+        <ownedValue xsi:type="aadl2:RangeValue">
+          <minimum xsi:type="aadl2:IntegerLiteral"/>
+          <maximum xsi:type="aadl2:IntegerLiteral" value="4294967296"/>
+        </ownedValue>
+      </ownedValue>
+      <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedPropertyAssociation.0"/>
+    </ownedPropertyAssociation>
+    <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+      <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+      <ownedValue>
+        <ownedValue xsi:type="aadl2:NamedValue">
+          <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.6"/>
+        </ownedValue>
+      </ownedValue>
+      <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+    </ownedPropertyAssociation>
+    <feature xsi:type="aadl2:EventDataPort" href="../Foo.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedEventDataPort.2"/>
+  </featureInstance>
+  <componentInstance name="Diode" category="system">
+    <featureInstance name="Input" category="eventDataPort">
+      <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+        <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Integer_Range"/>
+        <ownedValue>
+          <ownedValue xsi:type="aadl2:RangeValue">
+            <minimum xsi:type="aadl2:IntegerLiteral"/>
+            <maximum xsi:type="aadl2:IntegerLiteral" value="4294967296"/>
+          </ownedValue>
+        </ownedValue>
+        <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedPropertyAssociation.0"/>
+      </ownedPropertyAssociation>
+      <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+        <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+        <ownedValue>
+          <ownedValue xsi:type="aadl2:NamedValue">
+            <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.6"/>
+          </ownedValue>
+        </ownedValue>
+        <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+      </ownedPropertyAssociation>
+      <feature xsi:type="aadl2:EventDataPort" href="../Foo.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedEventDataPort.0"/>
+    </featureInstance>
+    <featureInstance name="Output" category="eventDataPort" direction="out">
+      <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+        <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Integer_Range"/>
+        <ownedValue>
+          <ownedValue xsi:type="aadl2:RangeValue">
+            <minimum xsi:type="aadl2:IntegerLiteral"/>
+            <maximum xsi:type="aadl2:IntegerLiteral" value="4294967296"/>
+          </ownedValue>
+        </ownedValue>
+        <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedPropertyAssociation.0"/>
+      </ownedPropertyAssociation>
+      <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+        <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+        <ownedValue>
+          <ownedValue xsi:type="aadl2:NamedValue">
+            <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.6"/>
+          </ownedValue>
+        </ownedValue>
+        <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+      </ownedPropertyAssociation>
+      <feature xsi:type="aadl2:EventDataPort" href="../Foo.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedEventDataPort.1"/>
+    </featureInstance>
+    <subcomponent xsi:type="aadl2:SystemSubcomponent" href="../Foo.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedSystemSubcomponent.0"/>
+    <index>0</index>
+    <classifier xsi:type="aadl2:SystemType" href="../Foo.aadl#Foo.Diode"/>
+  </componentInstance>
+  <connectionInstance name="RX0 -> Diode.Input" kind="portConnection" destination="//@componentInstance.0/@featureInstance.0" source="//@featureInstance.0">
+    <connectionReference context="/" source="//@featureInstance.0" destination="//@componentInstance.0/@featureInstance.0">
+      <connection xsi:type="aadl2:PortConnection" href="../Foo.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedPortConnection.0"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="RX1 -> Diode.Input" kind="portConnection" destination="//@componentInstance.0/@featureInstance.0" source="//@featureInstance.1">
+    <connectionReference context="/" source="//@featureInstance.1" destination="//@componentInstance.0/@featureInstance.0">
+      <connection xsi:type="aadl2:PortConnection" href="../Foo.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedPortConnection.1"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="Diode.Output -> TX" kind="portConnection" destination="//@featureInstance.2" source="//@componentInstance.0/@featureInstance.1">
+    <connectionReference context="/" source="//@componentInstance.0/@featureInstance.1" destination="//@featureInstance.2">
+      <connection xsi:type="aadl2:PortConnection" href="../Foo.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedPortConnection.2"/>
+    </connectionReference>
+  </connectionInstance>
+  <systemOperationMode name="No Modes"/>
+  <componentImplementation xsi:type="aadl2:SystemImplementation" href="../Foo.aadl#Foo.A2to1.I"/>
+</instance:SystemInstance>

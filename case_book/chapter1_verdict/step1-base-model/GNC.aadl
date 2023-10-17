@@ -1,0 +1,129 @@
+package GNC
+
+public
+	with Base_Types;
+	with Data_Types;
+
+	system GPS
+		features
+			-- inputs
+			constellation: in data port Data_Types::Constellation;
+			satellite0_pos: in data port Data_Types::Position.impl;
+			satellite1_pos: in data port Data_Types::Position.impl;
+			
+			-- outputs
+			gps_pos: out data port Data_Types::Position.impl;
+			health_status: out data port Base_Types::Boolean;
+			probe_constellation: out data port Data_Types::Constellation;
+			
+	end GPS;
+
+	system IMU
+		features
+			-- inputs
+			launch_pos: in data port Data_Types::Position.impl;
+			
+			-- outputs
+			imu_pos: out data port Data_Types::Position.impl;
+			health_status: out data port Base_Types::Boolean;
+			probe_launch_pos: out data port Data_Types::Position.impl;
+			
+	end IMU;
+		
+	system PositionEstimator 
+		features
+			-- inputs
+			gps_pos: in data port Data_Types::Position.impl;
+			imu_pos: in data port Data_Types::Position.impl;	
+			pos_act_in: in data port Data_Types::Position.impl;
+			
+			-- outputs
+			est_pos: out data port Data_Types::Position.impl;
+			
+	end PositionEstimator;
+
+	system Navigation
+		features
+			-- inputs
+			est_pos: in data port Data_Types::Position.impl; 
+			dest_pos: in data port Data_Types::Position.impl;
+			cmd: in data port Base_Types::Boolean;
+			flight_control_state: in data port Base_Types::Boolean;
+			
+			-- outputs
+			move: out data port Base_Types::Boolean;				
+			cur_pos: out data port Data_Types::Position.impl;
+			pos_act_out: out data port Data_Types::Position.impl;
+			probe_dest_pos: out data port Data_Types::Position.impl;
+			
+	end Navigation;
+	
+	system FlightControl
+		features
+			-- inputs
+			actuation_response: in data port Base_Types::Boolean;
+			move: in data port Base_Types::Boolean;
+			
+			-- outputs
+			motor_cmd: out data port Base_Types::Boolean;
+			fc_state: out data port Base_Types::Boolean;
+			
+	end FlightControl;
+	
+	system GNC
+		features
+			-- inputs
+			constellation: in data port Data_Types::Constellation;
+			satellite0_pos: in data port Data_Types::Position.impl;
+			satellite1_pos: in data port Data_Types::Position.impl;
+			launch_pos: in data port Data_Types::Position.impl;
+			navigation_cmd: in data port Base_Types::Boolean;
+			navigation_dest_pos: in data port Data_Types::Position.impl;
+			fc_actuation_response: in data port Base_Types::Boolean;
+			
+			-- outputs
+			gps_health_status: out data port Base_Types::Boolean;
+			probe_constellation: out data port Data_Types::Constellation;
+			imu_health_status: out data port Base_Types::Boolean;
+			probe_launch_pos: out data port Data_Types::Position.impl;
+			navigation_cur_pos: out data port Data_Types::Position.impl;
+			navigation_probe_dest_pos: out data port Data_Types::Position.impl;
+			fc_motor_cmd: out data port Base_Types::Boolean;
+			
+	end GNC;
+	
+	system implementation GNC.Impl
+		subcomponents
+			gps: system GPS;
+			imu: system IMU;
+			positionEstimator: system PositionEstimator;
+			navigation: system Navigation;
+			fc: system FlightControl;
+			
+		connections
+			i1: port constellation -> gps.constellation;
+			i2: port satellite0_pos -> gps.satellite0_pos;
+			i3: port satellite1_pos -> gps.satellite1_pos;
+			i4: port launch_pos -> imu.launch_pos;
+			i5: port gps.gps_pos -> positionEstimator.gps_pos;
+			i6: port gps.health_status -> gps_health_status;
+			i7: port gps.probe_constellation -> probe_constellation;
+			i8: port imu.imu_pos -> positionEstimator.imu_pos;
+			i9: port imu.health_status -> imu_health_status;
+			i10: port imu.probe_launch_pos -> probe_launch_pos;
+			
+			c1: port positionEstimator.est_pos -> navigation.est_pos;
+			c2: port navigation.move -> fc.move;
+			c3: port fc.fc_state -> navigation.flight_control_state;
+			c24: port navigation.pos_act_out -> positionEstimator.pos_act_in;
+			
+			cc1: port navigation.cur_pos -> navigation_cur_pos;
+			cc2: port navigation_cmd -> navigation.cmd ;
+			cc3: port navigation_dest_pos -> navigation.dest_pos;
+			cc4: port navigation.probe_dest_pos -> navigation_probe_dest_pos;
+			cc5: port fc.motor_cmd -> fc_motor_cmd;
+			cc6: port fc_actuation_response -> fc.actuation_response;			
+			
+	end GNC.Impl;
+end GNC;
+

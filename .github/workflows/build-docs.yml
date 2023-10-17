@@ -1,0 +1,31 @@
+name: build-docs
+run-name: ${{ github.actor }} is building docs
+on: [push]
+jobs:
+    build-tutorial:
+        runs-on: ubuntu-latest
+        container:
+            image: texlive/texlive:TL2021-historic
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
+
+            - name: Install Pandoc
+              run: apt-get update && apt-get install -y bash git pandoc
+
+              #- name: FIX
+              #run: git config --global --add safe.directory /__w/CASE-AADL-Tutorial/CASE-AADL-Tutorial
+
+            - name: Set ownership
+              run: chown -R $(id -u):$(id -g) $PWD
+
+            - name: Build
+              run: bash build-docs.sh
+
+            - name: Upload Artifacts
+              uses: actions/upload-artifact@v3
+              with:
+                  name: output
+                  path: |
+                      docs/
+                      docs/*.pdf

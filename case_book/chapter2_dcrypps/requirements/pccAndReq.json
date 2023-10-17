@@ -1,0 +1,740 @@
+{
+  "requirements": [
+    {
+      "requirement": [
+        "Should-be-guaranteed-to-be-absent-of-backdoors",
+        "DeliveryPlanner"
+      ],
+      "desirable-properties": 1,
+      "capecs": [
+        {
+          "capec-id": 443,
+          "capec-short-description": "Malicious Logic Inserted Into Product Software by Authorized Developer",
+          "capec-long-description": "An adversary uses their privileged position within an authorized software development organization to inject malicious logic into a codebase or product. Supply chain attacks from approved or trusted developers are extremely difficult to detect as it is generally assumed the quality control and internal security measures of these organizations conform to best practices. In some cases the malicious logic is intentional, embedded by a disgruntled employee, programmer, or individual with an otherwise hidden agenda. In other cases, the integrity of the product is compromised by accident (e.g. by lapse in the internal security of the organization that results in a product becoming contaminated). In other cases, the developer embeds a backdoor into a product to serve some purpose, such as product support, but discovery of the backdoor results in its malicious use by adversaries.",
+          "capec-category-id": 512
+        }
+      ]
+    },
+    {
+      "requirement": [
+        "Should-be-guaranteed-to-resiliant-to-pw-guessing",
+        "Camera"
+      ],
+      "desirable-properties": 1,
+      "capecs": [
+        {
+          "capec-id": 70,
+          "capec-short-description": "Try Common or Default Usernames and Passwords",
+          "capec-long-description": "An adversary may try certain common or default usernames and passwords to gain access into the system and perform unauthorized actions. An adversary may try an intelligent brute force using empty passwords, known vendor default credentials, as well as a dictionary of common usernames and passwords. Many vendor products come preconfigured with default (and thus well-known) usernames and passwords that should be deleted prior to usage in a production environment. It is a common mistake to forget to remove these default login credentials. Another problem is that users would pick very simple (common) passwords (e.g. \"secret\" or \"password\") that make it easier for the attacker to gain access to the system compared to using a brute force attack or even a dictionary attack using a full dictionary.",
+          "capec-category-id": 512
+        }
+      ]
+    },
+    {
+      "requirement": [
+        "Should-be-guaranteed-to-be-absent-of-backdoors",
+        "Radio"
+      ],
+      "desirable-properties": 1,
+      "capecs": [
+        {
+          "capec-id": 443,
+          "capec-short-description": "Malicious Logic Inserted Into Product Software by Authorized Developer",
+          "capec-long-description": "An adversary uses their privileged position within an authorized software development organization to inject malicious logic into a codebase or product. Supply chain attacks from approved or trusted developers are extremely difficult to detect as it is generally assumed the quality control and internal security measures of these organizations conform to best practices. In some cases the malicious logic is intentional, embedded by a disgruntled employee, programmer, or individual with an otherwise hidden agenda. In other cases, the integrity of the product is compromised by accident (e.g. by lapse in the internal security of the organization that results in a product becoming contaminated). In other cases, the developer embeds a backdoor into a product to serve some purpose, such as product support, but discovery of the backdoor results in its malicious use by adversaries.",
+          "capec-category-id": 512
+        }
+      ]
+    },
+    {
+      "requirement": [
+        "communications-should-guard-against-lateral-attacks-between",
+        "DeliveryPlanner",
+        "Navigation"
+      ],
+      "desirable-properties": [
+        1
+      ],
+      "capecs": [
+        {
+          "capec-id": 94,
+          "capec-short-description": "Man in the Middle Attack",
+          "capec-long-description": "This type of attack targets the communication between two components (typically client and server). The attacker places himself in the communication channel between the two components. Whenever one component attempts to communicate with the other (data flow, authentication challenges, etc.), the data first goes to the attacker, who has the opportunity to observe or alter it, and it is then passed on to the other component as if it was never observed. This interposition is transparent leaving the two compromised components unaware of the potential corruption or leakage of their communications. The potential for Man-in-the-Middle attacks yields an implicit lack of trust in communication or identify between two components. MITM attacks differ from sniffing attacks since they often modify the communications prior to delivering it to the intended recipient. These attacks also differ from interception attacks since they may forward the sender's original unmodified data, after copying it, instead of keeping it for themselves.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "component-a": "FinControl_Impl",
+            "component-b": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 151,
+          "capec-short-description": "Identity Spoofing",
+          "capec-long-description": "Identity Spoofing refers to the action of assuming (i.e., taking on) the identity of some other entity (human or non-human) and then using that identity to accomplish a goal. An adversary may craft messages that appear to come from a different principle or use stolen / spoofed authentication credentials. Alternatively, an adversary may intercept a message from a legitimate sender and attempt to make it look like the message comes from them without changing its content. The latter form of this attack can be used to hijack credentials from legitimate users. Identity Spoofing attacks need not be limited to transmitted messages - any resource that is associated with an identity (for example, a file with a signature) can be the target of an attack where the adversary attempts to change the apparent identity. This attack differs from Content Spoofing attacks where the adversary does not wish to change the apparent identity of the message but instead wishes to change what the message says. In an Identity Spoofing attack, the adversary is attempting to change the identity of the content.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "component-identity-spoofed": "FinControl_Impl",
+            "component-under-attack": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 148,
+          "capec-short-description": "Content Spoofing",
+          "capec-long-description": "An adversary modifies content to make it contain something other than what the original content producer intended while keeping the apparent source of the content unchanged. The term content spoofing is most often used to describe modification of web pages hosted by a target to display the adversary's content instead of the owner's content. However, any content can be spoofed, including the content of email messages, file transfers, or the content of other network communication protocols. Content can be modified at the source (e.g. modifying the source file for a web page) or in transit (e.g. intercepting and modifying a message between the sender and recipient). Usually, the adversary will attempt to hide the fact that the content has been modified, but in some cases, such as with web site defacement, this is not necessary. Content Spoofing can lead to malware exposure, financial fraud (if the content governs financial transactions), privacy violations, and other unwanted outcomes.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "content-source": "FinControl_Impl",
+            "content-dest": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 216,
+          "capec-short-description": "Communication Channel Manipulation",
+          "capec-long-description": "An adversary manipulates a setting or parameter on communications channel in order to compromise its security. This can result in information exposure, insertion/removal of information from the communications stream, and/or potentially system compromise.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "channel-endpoint-a": "FinControl_Impl",
+            "channel-endpoint-b": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 594,
+          "capec-short-description": "Traffic Injection",
+          "capec-long-description": "An adversary injects traffic into the target's network connection. The adversary is therefore able to degrade or disrupt the connection, and potentially modify the content. This is not a flooding attack, as the adversary is not focusing on exhausting resources. Instead, the adversary is crafting a specific input to affect the system in a particular way.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "channel-endpoint-a": "FinControl_Impl",
+            "channel-endpoint-b": "MissileGuidanceBus_Impl"
+          }
+        }
+      ]
+    },
+    {
+      "requirement": [
+        "communications-should-guard-against-lateral-attacks-between",
+        "DeliveryPlanner",
+        "GNC_dc_GPS"
+      ],
+      "desirable-properties": [
+        1
+      ],
+      "capecs": [
+        {
+          "capec-id": 94,
+          "capec-short-description": "Man in the Middle Attack",
+          "capec-long-description": "This type of attack targets the communication between two components (typically client and server). The attacker places himself in the communication channel between the two components. Whenever one component attempts to communicate with the other (data flow, authentication challenges, etc.), the data first goes to the attacker, who has the opportunity to observe or alter it, and it is then passed on to the other component as if it was never observed. This interposition is transparent leaving the two compromised components unaware of the potential corruption or leakage of their communications. The potential for Man-in-the-Middle attacks yields an implicit lack of trust in communication or identify between two components. MITM attacks differ from sniffing attacks since they often modify the communications prior to delivering it to the intended recipient. These attacks also differ from interception attacks since they may forward the sender's original unmodified data, after copying it, instead of keeping it for themselves.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "component-a": "FinControl_Impl",
+            "component-b": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 151,
+          "capec-short-description": "Identity Spoofing",
+          "capec-long-description": "Identity Spoofing refers to the action of assuming (i.e., taking on) the identity of some other entity (human or non-human) and then using that identity to accomplish a goal. An adversary may craft messages that appear to come from a different principle or use stolen / spoofed authentication credentials. Alternatively, an adversary may intercept a message from a legitimate sender and attempt to make it look like the message comes from them without changing its content. The latter form of this attack can be used to hijack credentials from legitimate users. Identity Spoofing attacks need not be limited to transmitted messages - any resource that is associated with an identity (for example, a file with a signature) can be the target of an attack where the adversary attempts to change the apparent identity. This attack differs from Content Spoofing attacks where the adversary does not wish to change the apparent identity of the message but instead wishes to change what the message says. In an Identity Spoofing attack, the adversary is attempting to change the identity of the content.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "component-identity-spoofed": "FinControl_Impl",
+            "component-under-attack": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 148,
+          "capec-short-description": "Content Spoofing",
+          "capec-long-description": "An adversary modifies content to make it contain something other than what the original content producer intended while keeping the apparent source of the content unchanged. The term content spoofing is most often used to describe modification of web pages hosted by a target to display the adversary's content instead of the owner's content. However, any content can be spoofed, including the content of email messages, file transfers, or the content of other network communication protocols. Content can be modified at the source (e.g. modifying the source file for a web page) or in transit (e.g. intercepting and modifying a message between the sender and recipient). Usually, the adversary will attempt to hide the fact that the content has been modified, but in some cases, such as with web site defacement, this is not necessary. Content Spoofing can lead to malware exposure, financial fraud (if the content governs financial transactions), privacy violations, and other unwanted outcomes.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "content-source": "FinControl_Impl",
+            "content-dest": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 216,
+          "capec-short-description": "Communication Channel Manipulation",
+          "capec-long-description": "An adversary manipulates a setting or parameter on communications channel in order to compromise its security. This can result in information exposure, insertion/removal of information from the communications stream, and/or potentially system compromise.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "channel-endpoint-a": "FinControl_Impl",
+            "channel-endpoint-b": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 594,
+          "capec-short-description": "Traffic Injection",
+          "capec-long-description": "An adversary injects traffic into the target's network connection. The adversary is therefore able to degrade or disrupt the connection, and potentially modify the content. This is not a flooding attack, as the adversary is not focusing on exhausting resources. Instead, the adversary is crafting a specific input to affect the system in a particular way.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "channel-endpoint-a": "FinControl_Impl",
+            "channel-endpoint-b": "MissileGuidanceBus_Impl"
+          }
+        }
+      ]
+    },
+    {
+      "requirement": [
+        "communications-should-guard-against-lateral-attacks-between",
+        "DeliveryPlanner",
+        "Camera"
+      ],
+      "desirable-properties": [
+        1
+      ],
+      "capecs": [
+        {
+          "capec-id": 94,
+          "capec-short-description": "Man in the Middle Attack",
+          "capec-long-description": "This type of attack targets the communication between two components (typically client and server). The attacker places himself in the communication channel between the two components. Whenever one component attempts to communicate with the other (data flow, authentication challenges, etc.), the data first goes to the attacker, who has the opportunity to observe or alter it, and it is then passed on to the other component as if it was never observed. This interposition is transparent leaving the two compromised components unaware of the potential corruption or leakage of their communications. The potential for Man-in-the-Middle attacks yields an implicit lack of trust in communication or identify between two components. MITM attacks differ from sniffing attacks since they often modify the communications prior to delivering it to the intended recipient. These attacks also differ from interception attacks since they may forward the sender's original unmodified data, after copying it, instead of keeping it for themselves.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "component-a": "FinControl_Impl",
+            "component-b": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 151,
+          "capec-short-description": "Identity Spoofing",
+          "capec-long-description": "Identity Spoofing refers to the action of assuming (i.e., taking on) the identity of some other entity (human or non-human) and then using that identity to accomplish a goal. An adversary may craft messages that appear to come from a different principle or use stolen / spoofed authentication credentials. Alternatively, an adversary may intercept a message from a legitimate sender and attempt to make it look like the message comes from them without changing its content. The latter form of this attack can be used to hijack credentials from legitimate users. Identity Spoofing attacks need not be limited to transmitted messages - any resource that is associated with an identity (for example, a file with a signature) can be the target of an attack where the adversary attempts to change the apparent identity. This attack differs from Content Spoofing attacks where the adversary does not wish to change the apparent identity of the message but instead wishes to change what the message says. In an Identity Spoofing attack, the adversary is attempting to change the identity of the content.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "component-identity-spoofed": "FinControl_Impl",
+            "component-under-attack": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 148,
+          "capec-short-description": "Content Spoofing",
+          "capec-long-description": "An adversary modifies content to make it contain something other than what the original content producer intended while keeping the apparent source of the content unchanged. The term content spoofing is most often used to describe modification of web pages hosted by a target to display the adversary's content instead of the owner's content. However, any content can be spoofed, including the content of email messages, file transfers, or the content of other network communication protocols. Content can be modified at the source (e.g. modifying the source file for a web page) or in transit (e.g. intercepting and modifying a message between the sender and recipient). Usually, the adversary will attempt to hide the fact that the content has been modified, but in some cases, such as with web site defacement, this is not necessary. Content Spoofing can lead to malware exposure, financial fraud (if the content governs financial transactions), privacy violations, and other unwanted outcomes.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "content-source": "FinControl_Impl",
+            "content-dest": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 216,
+          "capec-short-description": "Communication Channel Manipulation",
+          "capec-long-description": "An adversary manipulates a setting or parameter on communications channel in order to compromise its security. This can result in information exposure, insertion/removal of information from the communications stream, and/or potentially system compromise.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "channel-endpoint-a": "FinControl_Impl",
+            "channel-endpoint-b": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 594,
+          "capec-short-description": "Traffic Injection",
+          "capec-long-description": "An adversary injects traffic into the target's network connection. The adversary is therefore able to degrade or disrupt the connection, and potentially modify the content. This is not a flooding attack, as the adversary is not focusing on exhausting resources. Instead, the adversary is crafting a specific input to affect the system in a particular way.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "channel-endpoint-a": "FinControl_Impl",
+            "channel-endpoint-b": "MissileGuidanceBus_Impl"
+          }
+        }
+      ]
+    },
+    {
+      "requirement": [
+        "communications-should-guard-against-lateral-attacks-between",
+        "DeliveryPlanner",
+        "DeliveryItemMechanism"
+      ],
+      "desirable-properties": [
+        1
+      ],
+      "capecs": [
+        {
+          "capec-id": 94,
+          "capec-short-description": "Man in the Middle Attack",
+          "capec-long-description": "This type of attack targets the communication between two components (typically client and server). The attacker places himself in the communication channel between the two components. Whenever one component attempts to communicate with the other (data flow, authentication challenges, etc.), the data first goes to the attacker, who has the opportunity to observe or alter it, and it is then passed on to the other component as if it was never observed. This interposition is transparent leaving the two compromised components unaware of the potential corruption or leakage of their communications. The potential for Man-in-the-Middle attacks yields an implicit lack of trust in communication or identify between two components. MITM attacks differ from sniffing attacks since they often modify the communications prior to delivering it to the intended recipient. These attacks also differ from interception attacks since they may forward the sender's original unmodified data, after copying it, instead of keeping it for themselves.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "component-a": "FinControl_Impl",
+            "component-b": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 151,
+          "capec-short-description": "Identity Spoofing",
+          "capec-long-description": "Identity Spoofing refers to the action of assuming (i.e., taking on) the identity of some other entity (human or non-human) and then using that identity to accomplish a goal. An adversary may craft messages that appear to come from a different principle or use stolen / spoofed authentication credentials. Alternatively, an adversary may intercept a message from a legitimate sender and attempt to make it look like the message comes from them without changing its content. The latter form of this attack can be used to hijack credentials from legitimate users. Identity Spoofing attacks need not be limited to transmitted messages - any resource that is associated with an identity (for example, a file with a signature) can be the target of an attack where the adversary attempts to change the apparent identity. This attack differs from Content Spoofing attacks where the adversary does not wish to change the apparent identity of the message but instead wishes to change what the message says. In an Identity Spoofing attack, the adversary is attempting to change the identity of the content.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "component-identity-spoofed": "FinControl_Impl",
+            "component-under-attack": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 148,
+          "capec-short-description": "Content Spoofing",
+          "capec-long-description": "An adversary modifies content to make it contain something other than what the original content producer intended while keeping the apparent source of the content unchanged. The term content spoofing is most often used to describe modification of web pages hosted by a target to display the adversary's content instead of the owner's content. However, any content can be spoofed, including the content of email messages, file transfers, or the content of other network communication protocols. Content can be modified at the source (e.g. modifying the source file for a web page) or in transit (e.g. intercepting and modifying a message between the sender and recipient). Usually, the adversary will attempt to hide the fact that the content has been modified, but in some cases, such as with web site defacement, this is not necessary. Content Spoofing can lead to malware exposure, financial fraud (if the content governs financial transactions), privacy violations, and other unwanted outcomes.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "content-source": "FinControl_Impl",
+            "content-dest": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 216,
+          "capec-short-description": "Communication Channel Manipulation",
+          "capec-long-description": "An adversary manipulates a setting or parameter on communications channel in order to compromise its security. This can result in information exposure, insertion/removal of information from the communications stream, and/or potentially system compromise.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "channel-endpoint-a": "FinControl_Impl",
+            "channel-endpoint-b": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 594,
+          "capec-short-description": "Traffic Injection",
+          "capec-long-description": "An adversary injects traffic into the target's network connection. The adversary is therefore able to degrade or disrupt the connection, and potentially modify the content. This is not a flooding attack, as the adversary is not focusing on exhausting resources. Instead, the adversary is crafting a specific input to affect the system in a particular way.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "channel-endpoint-a": "FinControl_Impl",
+            "channel-endpoint-b": "MissileGuidanceBus_Impl"
+          }
+        }
+      ]
+    },
+    {
+      "requirement": [
+        "communications-requiring-pki-encryption-on-network",
+        "Main.radio"
+      ],
+      "desirable-properties": [
+        1
+      ],
+      "capecs": [
+        {
+          "capec-id": 94,
+          "capec-short-description": "Man in the Middle Attack",
+          "capec-long-description": "This type of attack targets the communication between two components (typically client and server). The attacker places himself in the communication channel between the two components. Whenever one component attempts to communicate with the other (data flow, authentication challenges, etc.), the data first goes to the attacker, who has the opportunity to observe or alter it, and it is then passed on to the other component as if it was never observed. This interposition is transparent leaving the two compromised components unaware of the potential corruption or leakage of their communications. The potential for Man-in-the-Middle attacks yields an implicit lack of trust in communication or identify between two components. MITM attacks differ from sniffing attacks since they often modify the communications prior to delivering it to the intended recipient. These attacks also differ from interception attacks since they may forward the sender's original unmodified data, after copying it, instead of keeping it for themselves.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "component-a": "ControllerBoard_Impl.TCPA",
+            "component-b": "all_connected_components"
+          }
+        },
+        {
+          "capec-id": 151,
+          "capec-short-description": "Identity Spoofing",
+          "capec-long-description": "Identity Spoofing refers to the action of assuming (i.e., taking on) the identity of some other entity (human or non-human) and then using that identity to accomplish a goal. An adversary may craft messages that appear to come from a different principle or use stolen / spoofed authentication credentials. Alternatively, an adversary may intercept a message from a legitimate sender and attempt to make it look like the message comes from them without changing its content. The latter form of this attack can be used to hijack credentials from legitimate users. Identity Spoofing attacks need not be limited to transmitted messages - any resource that is associated with an identity (for example, a file with a signature) can be the target of an attack where the adversary attempts to change the apparent identity. This attack differs from Content Spoofing attacks where the adversary does not wish to change the apparent identity of the message but instead wishes to change what the message says. In an Identity Spoofing attack, the adversary is attempting to change the identity of the content.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "component-identity-spoofed": "ControllerBoard_Impl.TCPA",
+            "component-under-attack": "all_connected_components"
+          }
+        },
+        {
+          "capec-id": 148,
+          "capec-short-description": "Content Spoofing",
+          "capec-long-description": "An adversary modifies content to make it contain something other than what the original content producer intended while keeping the apparent source of the content unchanged. The term content spoofing is most often used to describe modification of web pages hosted by a target to display the adversary's content instead of the owner's content. However, any content can be spoofed, including the content of email messages, file transfers, or the content of other network communication protocols. Content can be modified at the source (e.g. modifying the source file for a web page) or in transit (e.g. intercepting and modifying a message between the sender and recipient). Usually, the adversary will attempt to hide the fact that the content has been modified, but in some cases, such as with web site defacement, this is not necessary. Content Spoofing can lead to malware exposure, financial fraud (if the content governs financial transactions), privacy violations, and other unwanted outcomes.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "content-source": "ControllerBoard_Impl.TCPA",
+            "content-dest": "all_connected_components"
+          }
+        },
+        {
+          "capec-id": 216,
+          "capec-short-description": "Communication Channel Manipulation",
+          "capec-long-description": "An adversary manipulates a setting or parameter on communications channel in order to compromise its security. This can result in information exposure, insertion/removal of information from the communications stream, and/or potentially system compromise.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "channel-endpoint-a": "ControllerBoard_Impl.TCPA",
+            "channel-endpoint-b": "all_connected_components"
+          }
+        },
+        {
+          "capec-id": 594,
+          "capec-short-description": "Traffic Injection",
+          "capec-long-description": "An adversary injects traffic into the target's network connection. The adversary is therefore able to degrade or disrupt the connection, and potentially modify the content. This is not a flooding attack, as the adversary is not focusing on exhausting resources. Instead, the adversary is crafting a specific input to affect the system in a particular way.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "channel-endpoint-a": "ControllerBoard_Impl.TCPA",
+            "channel-endpoint-b": "all_connected_components"
+          }
+        }
+      ]
+    },
+    {
+      "requirement": [
+        "communications-should-guard-against-lateral-attacks-between",
+        "DeliveryPlanner",
+        "Connector"
+      ],
+      "desirable-properties": [
+        1
+      ],
+      "capecs": [
+        {
+          "capec-id": 94,
+          "capec-short-description": "Man in the Middle Attack",
+          "capec-long-description": "This type of attack targets the communication between two components (typically client and server). The attacker places himself in the communication channel between the two components. Whenever one component attempts to communicate with the other (data flow, authentication challenges, etc.), the data first goes to the attacker, who has the opportunity to observe or alter it, and it is then passed on to the other component as if it was never observed. This interposition is transparent leaving the two compromised components unaware of the potential corruption or leakage of their communications. The potential for Man-in-the-Middle attacks yields an implicit lack of trust in communication or identify between two components. MITM attacks differ from sniffing attacks since they often modify the communications prior to delivering it to the intended recipient. These attacks also differ from interception attacks since they may forward the sender's original unmodified data, after copying it, instead of keeping it for themselves.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "component-a": "FinControl_Impl",
+            "component-b": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 151,
+          "capec-short-description": "Identity Spoofing",
+          "capec-long-description": "Identity Spoofing refers to the action of assuming (i.e., taking on) the identity of some other entity (human or non-human) and then using that identity to accomplish a goal. An adversary may craft messages that appear to come from a different principle or use stolen / spoofed authentication credentials. Alternatively, an adversary may intercept a message from a legitimate sender and attempt to make it look like the message comes from them without changing its content. The latter form of this attack can be used to hijack credentials from legitimate users. Identity Spoofing attacks need not be limited to transmitted messages - any resource that is associated with an identity (for example, a file with a signature) can be the target of an attack where the adversary attempts to change the apparent identity. This attack differs from Content Spoofing attacks where the adversary does not wish to change the apparent identity of the message but instead wishes to change what the message says. In an Identity Spoofing attack, the adversary is attempting to change the identity of the content.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "component-identity-spoofed": "FinControl_Impl",
+            "component-under-attack": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 148,
+          "capec-short-description": "Content Spoofing",
+          "capec-long-description": "An adversary modifies content to make it contain something other than what the original content producer intended while keeping the apparent source of the content unchanged. The term content spoofing is most often used to describe modification of web pages hosted by a target to display the adversary's content instead of the owner's content. However, any content can be spoofed, including the content of email messages, file transfers, or the content of other network communication protocols. Content can be modified at the source (e.g. modifying the source file for a web page) or in transit (e.g. intercepting and modifying a message between the sender and recipient). Usually, the adversary will attempt to hide the fact that the content has been modified, but in some cases, such as with web site defacement, this is not necessary. Content Spoofing can lead to malware exposure, financial fraud (if the content governs financial transactions), privacy violations, and other unwanted outcomes.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "content-source": "FinControl_Impl",
+            "content-dest": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 216,
+          "capec-short-description": "Communication Channel Manipulation",
+          "capec-long-description": "An adversary manipulates a setting or parameter on communications channel in order to compromise its security. This can result in information exposure, insertion/removal of information from the communications stream, and/or potentially system compromise.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "channel-endpoint-a": "FinControl_Impl",
+            "channel-endpoint-b": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 594,
+          "capec-short-description": "Traffic Injection",
+          "capec-long-description": "An adversary injects traffic into the target's network connection. The adversary is therefore able to degrade or disrupt the connection, and potentially modify the content. This is not a flooding attack, as the adversary is not focusing on exhausting resources. Instead, the adversary is crafting a specific input to affect the system in a particular way.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "channel-endpoint-a": "FinControl_Impl",
+            "channel-endpoint-b": "MissileGuidanceBus_Impl"
+          }
+        }
+      ]
+    },
+    {
+      "requirement": [
+        "Should-be-guaranteed-to-be-absent-of-backdoors",
+        "Camera"
+      ],
+      "desirable-properties": 1,
+      "capecs": [
+        {
+          "capec-id": 443,
+          "capec-short-description": "Malicious Logic Inserted Into Product Software by Authorized Developer",
+          "capec-long-description": "An adversary uses their privileged position within an authorized software development organization to inject malicious logic into a codebase or product. Supply chain attacks from approved or trusted developers are extremely difficult to detect as it is generally assumed the quality control and internal security measures of these organizations conform to best practices. In some cases the malicious logic is intentional, embedded by a disgruntled employee, programmer, or individual with an otherwise hidden agenda. In other cases, the integrity of the product is compromised by accident (e.g. by lapse in the internal security of the organization that results in a product becoming contaminated). In other cases, the developer embeds a backdoor into a product to serve some purpose, such as product support, but discovery of the backdoor results in its malicious use by adversaries.",
+          "capec-category-id": 512
+        }
+      ]
+    },
+    {
+      "requirement": [
+        "Should-be-guaranteed-to-absent-of-supply-chain-vulnerabilities",
+        "Radio"
+      ],
+      "desirable-properties": 1,
+      "capecs": [
+        {
+          "capec-id": 176,
+          "capec-short-description": "Configuration/Environment Manipulation",
+          "capec-long-description": "An attacker modifies a technology, product, or component during a stage in its manufacture for the purpose of carrying out an attack against some entity involved in the supply chain lifecycle. There are an almost limitless number of ways an attacker can modify a technology when they are involved in its manufacture, as the attacker has potential inroads to the software composition, hardware design and assembly, firmware, or basic design mechanics. Additionally, manufacturing of key components is often outsourced with the final product assembled by the primary manufacturer. The greatest risk, however, is deliberate manipulation of design specifications to produce malicious hardware or devices. There are billions of transistors in a single integrated circuit and studies have shown that fewer than 10 transistors are required to create malicious functionality.",
+          "capec-category-id": 437
+        },
+        {
+          "capec-id": 438,
+          "capec-short-description": "Modification During Manufacture",
+          "capec-long-description": "An attacker modifies a technology, product, or component during a stage in its manufacture for the purpose of carrying out an attack against some entity involved in the supply chain lifecycle. There are an almost limitless number of ways an attacker can modify a technology when they are involved in its manufacture, as the attacker has potential inroads to the software composition, hardware design and assembly, firmware, or basic design mechanics. Additionally, manufacturing of key components is often outsourced with the final product assembled by the primary manufacturer. The greatest risk, however, is deliberate manipulation of design specifications to produce malicious hardware or devices. There are billions of transistors in a single integrated circuit and studies have shown that fewer than 10 transistors are required to create malicious functionality.",
+          "capec-category-id": 437
+        },
+        {
+          "capec-id": 439,
+          "capec-short-description": "Manipulation During Distribution",
+          "capec-long-description": "An attacker undermines the integrity of a product, software, or technology at some stage of the distribution channel. The core threat of modification or manipulation during distribution arise from the many stages of distribution, as a product may traverse multiple suppliers and integrators as the final asset is delivered. Components and services provided from a manufacturer to a supplier may be tampered with during integration or packaging.",
+          "capec-category-id": 437
+        },
+        {
+          "capec-id": 440,
+          "capec-short-description": "Hardware Integrity Attack",
+          "capec-long-description": "An adversary exploits a weakness in the system maintenance process and causes a change to be made to a technology, product, component, or sub-component or a new one installed during its deployed use at the victim location for the purpose of carrying out an attack.",
+          "capec-category-id": 437
+        },
+        {
+          "capec-id": 441,
+          "capec-short-description": "Malicious Logic Insertion",
+          "capec-long-description": "An adversary installs or adds malicious logic (also known as malware) into a seemingly benign component of a fielded system. This logic is often hidden from the user of the system and works behind the scenes to achieve negative impacts. With the proliferation of mass digital storage and inexpensive multimedia devices, Bluetooth and 802.11 support, new attack vectors for spreading malware are emerging for things we once thought of as innocuous greeting cards, picture frames, or digital projectors. This pattern of attack focuses on systems already fielded and used in operation as opposed to systems and their components that are still under development and part of the supply chain.",
+          "capec-category-id": 437
+        }
+      ]
+    },
+    {
+      "requirement": [
+        "Should-be-guaranteed-to-absent-of-supply-chain-vulnerabilities",
+        "Camera"
+      ],
+      "desirable-properties": 1,
+      "capecs": [
+        {
+          "capec-id": 176,
+          "capec-short-description": "Configuration/Environment Manipulation",
+          "capec-long-description": "An attacker modifies a technology, product, or component during a stage in its manufacture for the purpose of carrying out an attack against some entity involved in the supply chain lifecycle. There are an almost limitless number of ways an attacker can modify a technology when they are involved in its manufacture, as the attacker has potential inroads to the software composition, hardware design and assembly, firmware, or basic design mechanics. Additionally, manufacturing of key components is often outsourced with the final product assembled by the primary manufacturer. The greatest risk, however, is deliberate manipulation of design specifications to produce malicious hardware or devices. There are billions of transistors in a single integrated circuit and studies have shown that fewer than 10 transistors are required to create malicious functionality.",
+          "capec-category-id": 437
+        },
+        {
+          "capec-id": 438,
+          "capec-short-description": "Modification During Manufacture",
+          "capec-long-description": "An attacker modifies a technology, product, or component during a stage in its manufacture for the purpose of carrying out an attack against some entity involved in the supply chain lifecycle. There are an almost limitless number of ways an attacker can modify a technology when they are involved in its manufacture, as the attacker has potential inroads to the software composition, hardware design and assembly, firmware, or basic design mechanics. Additionally, manufacturing of key components is often outsourced with the final product assembled by the primary manufacturer. The greatest risk, however, is deliberate manipulation of design specifications to produce malicious hardware or devices. There are billions of transistors in a single integrated circuit and studies have shown that fewer than 10 transistors are required to create malicious functionality.",
+          "capec-category-id": 437
+        },
+        {
+          "capec-id": 439,
+          "capec-short-description": "Manipulation During Distribution",
+          "capec-long-description": "An attacker undermines the integrity of a product, software, or technology at some stage of the distribution channel. The core threat of modification or manipulation during distribution arise from the many stages of distribution, as a product may traverse multiple suppliers and integrators as the final asset is delivered. Components and services provided from a manufacturer to a supplier may be tampered with during integration or packaging.",
+          "capec-category-id": 437
+        },
+        {
+          "capec-id": 440,
+          "capec-short-description": "Hardware Integrity Attack",
+          "capec-long-description": "An adversary exploits a weakness in the system maintenance process and causes a change to be made to a technology, product, component, or sub-component or a new one installed during its deployed use at the victim location for the purpose of carrying out an attack.",
+          "capec-category-id": 437
+        },
+        {
+          "capec-id": 441,
+          "capec-short-description": "Malicious Logic Insertion",
+          "capec-long-description": "An adversary installs or adds malicious logic (also known as malware) into a seemingly benign component of a fielded system. This logic is often hidden from the user of the system and works behind the scenes to achieve negative impacts. With the proliferation of mass digital storage and inexpensive multimedia devices, Bluetooth and 802.11 support, new attack vectors for spreading malware are emerging for things we once thought of as innocuous greeting cards, picture frames, or digital projectors. This pattern of attack focuses on systems already fielded and used in operation as opposed to systems and their components that are still under development and part of the supply chain.",
+          "capec-category-id": 437
+        }
+      ]
+    },
+    {
+      "requirement": [
+        "communications-should-guard-against-lateral-attacks-between",
+        "DeliveryPlanner",
+        "GNC_dc_IMU"
+      ],
+      "desirable-properties": [
+        1
+      ],
+      "capecs": [
+        {
+          "capec-id": 94,
+          "capec-short-description": "Man in the Middle Attack",
+          "capec-long-description": "This type of attack targets the communication between two components (typically client and server). The attacker places himself in the communication channel between the two components. Whenever one component attempts to communicate with the other (data flow, authentication challenges, etc.), the data first goes to the attacker, who has the opportunity to observe or alter it, and it is then passed on to the other component as if it was never observed. This interposition is transparent leaving the two compromised components unaware of the potential corruption or leakage of their communications. The potential for Man-in-the-Middle attacks yields an implicit lack of trust in communication or identify between two components. MITM attacks differ from sniffing attacks since they often modify the communications prior to delivering it to the intended recipient. These attacks also differ from interception attacks since they may forward the sender's original unmodified data, after copying it, instead of keeping it for themselves.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "component-a": "FinControl_Impl",
+            "component-b": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 151,
+          "capec-short-description": "Identity Spoofing",
+          "capec-long-description": "Identity Spoofing refers to the action of assuming (i.e., taking on) the identity of some other entity (human or non-human) and then using that identity to accomplish a goal. An adversary may craft messages that appear to come from a different principle or use stolen / spoofed authentication credentials. Alternatively, an adversary may intercept a message from a legitimate sender and attempt to make it look like the message comes from them without changing its content. The latter form of this attack can be used to hijack credentials from legitimate users. Identity Spoofing attacks need not be limited to transmitted messages - any resource that is associated with an identity (for example, a file with a signature) can be the target of an attack where the adversary attempts to change the apparent identity. This attack differs from Content Spoofing attacks where the adversary does not wish to change the apparent identity of the message but instead wishes to change what the message says. In an Identity Spoofing attack, the adversary is attempting to change the identity of the content.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "component-identity-spoofed": "FinControl_Impl",
+            "component-under-attack": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 148,
+          "capec-short-description": "Content Spoofing",
+          "capec-long-description": "An adversary modifies content to make it contain something other than what the original content producer intended while keeping the apparent source of the content unchanged. The term content spoofing is most often used to describe modification of web pages hosted by a target to display the adversary's content instead of the owner's content. However, any content can be spoofed, including the content of email messages, file transfers, or the content of other network communication protocols. Content can be modified at the source (e.g. modifying the source file for a web page) or in transit (e.g. intercepting and modifying a message between the sender and recipient). Usually, the adversary will attempt to hide the fact that the content has been modified, but in some cases, such as with web site defacement, this is not necessary. Content Spoofing can lead to malware exposure, financial fraud (if the content governs financial transactions), privacy violations, and other unwanted outcomes.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "content-source": "FinControl_Impl",
+            "content-dest": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 216,
+          "capec-short-description": "Communication Channel Manipulation",
+          "capec-long-description": "An adversary manipulates a setting or parameter on communications channel in order to compromise its security. This can result in information exposure, insertion/removal of information from the communications stream, and/or potentially system compromise.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "channel-endpoint-a": "FinControl_Impl",
+            "channel-endpoint-b": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 594,
+          "capec-short-description": "Traffic Injection",
+          "capec-long-description": "An adversary injects traffic into the target's network connection. The adversary is therefore able to degrade or disrupt the connection, and potentially modify the content. This is not a flooding attack, as the adversary is not focusing on exhausting resources. Instead, the adversary is crafting a specific input to affect the system in a particular way.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "channel-endpoint-a": "FinControl_Impl",
+            "channel-endpoint-b": "MissileGuidanceBus_Impl"
+          }
+        }
+      ]
+    },
+    {
+      "requirement": [
+        "communications-should-guard-against-lateral-attacks-between",
+        "DeliveryPlanner",
+        "GNC_dc_GNC_p_Impl"
+      ],
+      "desirable-properties": [
+        1
+      ],
+      "capecs": [
+        {
+          "capec-id": 94,
+          "capec-short-description": "Man in the Middle Attack",
+          "capec-long-description": "This type of attack targets the communication between two components (typically client and server). The attacker places himself in the communication channel between the two components. Whenever one component attempts to communicate with the other (data flow, authentication challenges, etc.), the data first goes to the attacker, who has the opportunity to observe or alter it, and it is then passed on to the other component as if it was never observed. This interposition is transparent leaving the two compromised components unaware of the potential corruption or leakage of their communications. The potential for Man-in-the-Middle attacks yields an implicit lack of trust in communication or identify between two components. MITM attacks differ from sniffing attacks since they often modify the communications prior to delivering it to the intended recipient. These attacks also differ from interception attacks since they may forward the sender's original unmodified data, after copying it, instead of keeping it for themselves.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "component-a": "FinControl_Impl",
+            "component-b": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 151,
+          "capec-short-description": "Identity Spoofing",
+          "capec-long-description": "Identity Spoofing refers to the action of assuming (i.e., taking on) the identity of some other entity (human or non-human) and then using that identity to accomplish a goal. An adversary may craft messages that appear to come from a different principle or use stolen / spoofed authentication credentials. Alternatively, an adversary may intercept a message from a legitimate sender and attempt to make it look like the message comes from them without changing its content. The latter form of this attack can be used to hijack credentials from legitimate users. Identity Spoofing attacks need not be limited to transmitted messages - any resource that is associated with an identity (for example, a file with a signature) can be the target of an attack where the adversary attempts to change the apparent identity. This attack differs from Content Spoofing attacks where the adversary does not wish to change the apparent identity of the message but instead wishes to change what the message says. In an Identity Spoofing attack, the adversary is attempting to change the identity of the content.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "component-identity-spoofed": "FinControl_Impl",
+            "component-under-attack": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 148,
+          "capec-short-description": "Content Spoofing",
+          "capec-long-description": "An adversary modifies content to make it contain something other than what the original content producer intended while keeping the apparent source of the content unchanged. The term content spoofing is most often used to describe modification of web pages hosted by a target to display the adversary's content instead of the owner's content. However, any content can be spoofed, including the content of email messages, file transfers, or the content of other network communication protocols. Content can be modified at the source (e.g. modifying the source file for a web page) or in transit (e.g. intercepting and modifying a message between the sender and recipient). Usually, the adversary will attempt to hide the fact that the content has been modified, but in some cases, such as with web site defacement, this is not necessary. Content Spoofing can lead to malware exposure, financial fraud (if the content governs financial transactions), privacy violations, and other unwanted outcomes.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "content-source": "FinControl_Impl",
+            "content-dest": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 216,
+          "capec-short-description": "Communication Channel Manipulation",
+          "capec-long-description": "An adversary manipulates a setting or parameter on communications channel in order to compromise its security. This can result in information exposure, insertion/removal of information from the communications stream, and/or potentially system compromise.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "channel-endpoint-a": "FinControl_Impl",
+            "channel-endpoint-b": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 594,
+          "capec-short-description": "Traffic Injection",
+          "capec-long-description": "An adversary injects traffic into the target's network connection. The adversary is therefore able to degrade or disrupt the connection, and potentially modify the content. This is not a flooding attack, as the adversary is not focusing on exhausting resources. Instead, the adversary is crafting a specific input to affect the system in a particular way.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "channel-endpoint-a": "FinControl_Impl",
+            "channel-endpoint-b": "MissileGuidanceBus_Impl"
+          }
+        }
+      ]
+    },
+    {
+      "requirement": [
+        "Should-be-guaranteed-to-absent-of-supply-chain-vulnerabilities",
+        "DeliveryPlanner"
+      ],
+      "desirable-properties": 1,
+      "capecs": [
+        {
+          "capec-id": 176,
+          "capec-short-description": "Configuration/Environment Manipulation",
+          "capec-long-description": "An attacker modifies a technology, product, or component during a stage in its manufacture for the purpose of carrying out an attack against some entity involved in the supply chain lifecycle. There are an almost limitless number of ways an attacker can modify a technology when they are involved in its manufacture, as the attacker has potential inroads to the software composition, hardware design and assembly, firmware, or basic design mechanics. Additionally, manufacturing of key components is often outsourced with the final product assembled by the primary manufacturer. The greatest risk, however, is deliberate manipulation of design specifications to produce malicious hardware or devices. There are billions of transistors in a single integrated circuit and studies have shown that fewer than 10 transistors are required to create malicious functionality.",
+          "capec-category-id": 437
+        },
+        {
+          "capec-id": 438,
+          "capec-short-description": "Modification During Manufacture",
+          "capec-long-description": "An attacker modifies a technology, product, or component during a stage in its manufacture for the purpose of carrying out an attack against some entity involved in the supply chain lifecycle. There are an almost limitless number of ways an attacker can modify a technology when they are involved in its manufacture, as the attacker has potential inroads to the software composition, hardware design and assembly, firmware, or basic design mechanics. Additionally, manufacturing of key components is often outsourced with the final product assembled by the primary manufacturer. The greatest risk, however, is deliberate manipulation of design specifications to produce malicious hardware or devices. There are billions of transistors in a single integrated circuit and studies have shown that fewer than 10 transistors are required to create malicious functionality.",
+          "capec-category-id": 437
+        },
+        {
+          "capec-id": 439,
+          "capec-short-description": "Manipulation During Distribution",
+          "capec-long-description": "An attacker undermines the integrity of a product, software, or technology at some stage of the distribution channel. The core threat of modification or manipulation during distribution arise from the many stages of distribution, as a product may traverse multiple suppliers and integrators as the final asset is delivered. Components and services provided from a manufacturer to a supplier may be tampered with during integration or packaging.",
+          "capec-category-id": 437
+        },
+        {
+          "capec-id": 440,
+          "capec-short-description": "Hardware Integrity Attack",
+          "capec-long-description": "An adversary exploits a weakness in the system maintenance process and causes a change to be made to a technology, product, component, or sub-component or a new one installed during its deployed use at the victim location for the purpose of carrying out an attack.",
+          "capec-category-id": 437
+        },
+        {
+          "capec-id": 441,
+          "capec-short-description": "Malicious Logic Insertion",
+          "capec-long-description": "An adversary installs or adds malicious logic (also known as malware) into a seemingly benign component of a fielded system. This logic is often hidden from the user of the system and works behind the scenes to achieve negative impacts. With the proliferation of mass digital storage and inexpensive multimedia devices, Bluetooth and 802.11 support, new attack vectors for spreading malware are emerging for things we once thought of as innocuous greeting cards, picture frames, or digital projectors. This pattern of attack focuses on systems already fielded and used in operation as opposed to systems and their components that are still under development and part of the supply chain.",
+          "capec-category-id": 437
+        }
+      ]
+    },
+    {
+      "requirement": [
+        "communications-should-guard-against-lateral-attacks-between",
+        "DeliveryPlanner",
+        "Radio"
+      ],
+      "desirable-properties": [
+        1
+      ],
+      "capecs": [
+        {
+          "capec-id": 94,
+          "capec-short-description": "Man in the Middle Attack",
+          "capec-long-description": "This type of attack targets the communication between two components (typically client and server). The attacker places himself in the communication channel between the two components. Whenever one component attempts to communicate with the other (data flow, authentication challenges, etc.), the data first goes to the attacker, who has the opportunity to observe or alter it, and it is then passed on to the other component as if it was never observed. This interposition is transparent leaving the two compromised components unaware of the potential corruption or leakage of their communications. The potential for Man-in-the-Middle attacks yields an implicit lack of trust in communication or identify between two components. MITM attacks differ from sniffing attacks since they often modify the communications prior to delivering it to the intended recipient. These attacks also differ from interception attacks since they may forward the sender's original unmodified data, after copying it, instead of keeping it for themselves.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "component-a": "FinControl_Impl",
+            "component-b": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 151,
+          "capec-short-description": "Identity Spoofing",
+          "capec-long-description": "Identity Spoofing refers to the action of assuming (i.e., taking on) the identity of some other entity (human or non-human) and then using that identity to accomplish a goal. An adversary may craft messages that appear to come from a different principle or use stolen / spoofed authentication credentials. Alternatively, an adversary may intercept a message from a legitimate sender and attempt to make it look like the message comes from them without changing its content. The latter form of this attack can be used to hijack credentials from legitimate users. Identity Spoofing attacks need not be limited to transmitted messages - any resource that is associated with an identity (for example, a file with a signature) can be the target of an attack where the adversary attempts to change the apparent identity. This attack differs from Content Spoofing attacks where the adversary does not wish to change the apparent identity of the message but instead wishes to change what the message says. In an Identity Spoofing attack, the adversary is attempting to change the identity of the content.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "component-identity-spoofed": "FinControl_Impl",
+            "component-under-attack": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 148,
+          "capec-short-description": "Content Spoofing",
+          "capec-long-description": "An adversary modifies content to make it contain something other than what the original content producer intended while keeping the apparent source of the content unchanged. The term content spoofing is most often used to describe modification of web pages hosted by a target to display the adversary's content instead of the owner's content. However, any content can be spoofed, including the content of email messages, file transfers, or the content of other network communication protocols. Content can be modified at the source (e.g. modifying the source file for a web page) or in transit (e.g. intercepting and modifying a message between the sender and recipient). Usually, the adversary will attempt to hide the fact that the content has been modified, but in some cases, such as with web site defacement, this is not necessary. Content Spoofing can lead to malware exposure, financial fraud (if the content governs financial transactions), privacy violations, and other unwanted outcomes.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "content-source": "FinControl_Impl",
+            "content-dest": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 216,
+          "capec-short-description": "Communication Channel Manipulation",
+          "capec-long-description": "An adversary manipulates a setting or parameter on communications channel in order to compromise its security. This can result in information exposure, insertion/removal of information from the communications stream, and/or potentially system compromise.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "channel-endpoint-a": "FinControl_Impl",
+            "channel-endpoint-b": "MissileGuidanceBus_Impl"
+          }
+        },
+        {
+          "capec-id": 594,
+          "capec-short-description": "Traffic Injection",
+          "capec-long-description": "An adversary injects traffic into the target's network connection. The adversary is therefore able to degrade or disrupt the connection, and potentially modify the content. This is not a flooding attack, as the adversary is not focusing on exhausting resources. Instead, the adversary is crafting a specific input to affect the system in a particular way.",
+          "capec-category-id": 512,
+          "capec-template-parameters": {
+            "channel-endpoint-a": "FinControl_Impl",
+            "channel-endpoint-b": "MissileGuidanceBus_Impl"
+          }
+        }
+      ]
+    }
+  ],
+  "state": "No PCC generated",
+  "pcc": null
+}

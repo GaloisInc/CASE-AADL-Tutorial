@@ -1,0 +1,209 @@
+package Complete
+public
+    with UAV, Comms, GC, Comms_Properties;
+
+    system Complete
+    features
+        eavesdropper_success : out event port;
+    annex agree {**
+        guarantee eve_sees_encrypted "Eavesdropper sees only encrypted messages" :
+            not event(eavesdropper_success);
+    **};
+    end Complete;
+
+    system implementation Complete.Radio_Eavesdropper
+    subcomponents
+        UAV : system UAV::UAV.I
+            {Comms_Properties::Address => Comms_Properties::UAV_Address;};
+        UAV_Peripheral : system UAV::UAV_Peripheral
+            {Comms_Properties::Address => Comms_Properties::UAV_Peripheral_Address;};
+        GC : system GC::GC
+            {Comms_Properties::Address => Comms_Properties::GC_Address;};
+
+        Radio : system Comms::Hub4;
+
+        Eavesdropper : abstract Eavesdropper;
+    connections
+        C0 : port UAV.Radio_TX -> Radio.RX0;
+        C1 : port Radio.TX0 -> UAV.Radio_RX;
+
+        C2 : port GC.Radio_TX -> Radio.RX1;
+        C3 : port Radio.TX1 -> GC.Radio_RX;
+        
+        C4 : port UAV.Wired_TX -> UAV_Peripheral.RX;
+        C5 : port UAV_Peripheral.TX -> UAV.Wired_RX;
+
+        C6 : port Radio.TX3 -> Eavesdropper.Radio_RX;
+        C7 : port Eavesdropper.success -> eavesdropper_success;
+    flows
+        UAVtoPeripheral : end to end flow
+            UAV.Wired_TX_Source -> C4 -> UAV_Peripheral.RX_Sink
+                {Latency => 0 ms .. Comms_Properties::UAV_Peripheral_Deadline;};
+        UAVfromPeripheral : end to end flow
+            UAV_Peripheral.TX_Source -> C5 -> UAV.Wired_RX_Sink
+                {Latency => 0 ms .. Comms_Properties::UAV_Peripheral_Deadline;};
+    annex agree {**
+        -- No input events on unconnected ports
+        eq unconnected_event : bool =
+            event(Eavesdropper.Wired_RX) or
+            event(Radio.RX2) or
+            event(Radio.RX3);
+        assert unconnected_event = false;
+    **};
+    end Complete.Radio_Eavesdropper;
+
+    system implementation Complete.Wired_Eavesdropper
+    subcomponents
+        UAV : system UAV::UAV.I
+            {Comms_Properties::Address => Comms_Properties::UAV_Address;};
+        UAV_Peripheral : system UAV::UAV_Peripheral
+            {Comms_Properties::Address => Comms_Properties::UAV_Peripheral_Address;};
+        GC : system GC::GC
+            {Comms_Properties::Address => Comms_Properties::GC_Address;};
+        Radio : system Comms::Hub4;
+
+        Corrupted_UAV : system UAV::UAV
+            {Comms_Properties::Address => Comms_Properties::Corrupted_UAV_Address;};
+        Eavesdropper : abstract Eavesdropper;
+    connections
+        C0  : port UAV.Radio_TX -> Radio.RX0;
+        C1  : port Radio.TX0 -> UAV.Radio_RX;
+
+        C2  : port GC.Radio_TX -> Radio.RX1;
+        C3  : port Radio.TX1 -> GC.Radio_RX;
+        
+        C4  : port UAV.Wired_TX -> UAV_Peripheral.RX;
+        C5  : port UAV_Peripheral.TX -> UAV.Wired_RX;
+
+        C6  : port Corrupted_UAV.Radio_TX -> Radio.RX2;
+        C7  : port Radio.TX2 -> Corrupted_UAV.Radio_RX;
+        C8  : port Corrupted_UAV.Wired_TX -> Eavesdropper.Wired_RX;
+
+        C9  : port Radio.TX3 -> Eavesdropper.Radio_RX;
+        C10 : port Eavesdropper.success -> eavesdropper_success;
+    flows	
+        UAVtoPeripheral : end to end flow
+            UAV.Wired_TX_Source -> C4 -> UAV_Peripheral.RX_Sink
+                {Latency => 0 ms .. Comms_Properties::UAV_Peripheral_Deadline;};
+        UAVfromPeripheral : end to end flow
+            UAV_Peripheral.TX_Source -> C5 -> UAV.Wired_RX_Sink
+                {Latency => 0 ms .. Comms_Properties::UAV_Peripheral_Deadline;};
+    annex agree {**
+        -- No input events on unconnected ports
+        eq unconnected_event : bool = event(Radio.RX3);
+        assert unconnected_event = false;
+    **};
+    end Complete.Wired_Eavesdropper;
+    
+    system implementation Complete.Wired_Eavesdropper_Fixed
+    subcomponents
+        UAV : system UAV::UAV_Wrapper.Fixed
+            {Comms_Properties::Address => Comms_Properties::UAV_Address;};
+        UAV_Peripheral : system UAV::UAV_Peripheral
+            {Comms_Properties::Address => Comms_Properties::UAV_Peripheral_Address;};
+        GC : system GC::GC
+            {Comms_Properties::Address => Comms_Properties::GC_Address;};
+
+        Radio : system Comms::Hub4;
+
+        Corrupted_UAV : system UAV::UAV_Wrapper.Fixed
+            {Comms_Properties::Address => Comms_Properties::Corrupted_UAV_Address;};
+        Eavesdropper : abstract Eavesdropper;
+    connections
+        C0  : port UAV.Radio_TX -> Radio.RX0;
+        C1  : port Radio.TX0 -> UAV.Radio_RX;
+
+        C2  : port GC.Radio_TX -> Radio.RX1;
+        C3  : port Radio.TX1 -> GC.Radio_RX;
+        
+        C4  : port UAV.Wired_TX -> UAV_Peripheral.RX;
+        C5  : port UAV_Peripheral.TX -> UAV.Wired_RX;
+
+        C6  : port Corrupted_UAV.Radio_TX -> Radio.RX2;
+        C7  : port Radio.TX2 -> Corrupted_UAV.Radio_RX;
+        C8  : port Corrupted_UAV.Wired_TX -> Eavesdropper.Wired_RX;
+
+        C9  : port Radio.TX3 -> Eavesdropper.Radio_RX;
+        C10 : port Eavesdropper.success -> eavesdropper_success;
+    flows	
+        UAVtoPeripheral : end to end flow
+            UAV.Wired_TX_Source -> C4 -> UAV_Peripheral.RX_Sink
+                {Latency => 0 ms .. Comms_Properties::UAV_Peripheral_Deadline;};
+        UAVfromPeripheral : end to end flow
+            UAV_Peripheral.TX_Source -> C5 -> UAV.Wired_RX_Sink
+                {Latency => 0 ms .. Comms_Properties::UAV_Peripheral_Deadline;};
+    annex agree {**
+        -- No input events on unconnected ports
+        eq unconnected_event : bool = event(Radio.RX3);
+        assert unconnected_event = false;
+    **};
+    end Complete.Wired_Eavesdropper_Fixed;
+    
+    system implementation Complete.Wired_Eavesdropper_Fixed_Timing
+    subcomponents
+        UAV : system UAV::UAV_Wrapper.Fixed_Timing
+            {Comms_Properties::Address => Comms_Properties::UAV_Address;};
+        UAV_Peripheral : system UAV::UAV_Peripheral
+            {Comms_Properties::Address => Comms_Properties::UAV_Peripheral_Address;};
+        GC : system GC::GC
+            {Comms_Properties::Address => Comms_Properties::GC_Address;};
+
+        Radio : system Comms::Hub4;
+
+        Corrupted_UAV : system UAV::UAV_Wrapper.Fixed_Timing
+            {Comms_Properties::Address => Comms_Properties::Corrupted_UAV_Address;};
+        Eavesdropper : abstract Eavesdropper;
+    connections
+        C0  : port UAV.Radio_TX -> Radio.RX0;
+        C1  : port Radio.TX0 -> UAV.Radio_RX;
+
+        C2  : port GC.Radio_TX -> Radio.RX1;
+        C3  : port Radio.TX1 -> GC.Radio_RX;
+        
+        C4  : port UAV.Wired_TX -> UAV_Peripheral.RX;
+        C5  : port UAV_Peripheral.TX -> UAV.Wired_RX;
+
+        C6  : port Corrupted_UAV.Radio_TX -> Radio.RX2;
+        C7  : port Radio.TX2 -> Corrupted_UAV.Radio_RX;
+        C8  : port Corrupted_UAV.Wired_TX -> Eavesdropper.Wired_RX;
+
+        C9  : port Radio.TX3 -> Eavesdropper.Radio_RX;
+        C10 : port Eavesdropper.success -> eavesdropper_success;
+    flows	
+        UAVtoPeripheral : end to end flow
+            UAV.Wired_TX_Source -> C4 -> UAV_Peripheral.RX_Sink
+                {Latency => 0 ms .. Comms_Properties::UAV_Peripheral_Deadline;};
+        UAVfromPeripheral : end to end flow
+            UAV_Peripheral.TX_Source -> C5 -> UAV.Wired_RX_Sink
+                {Latency => 0 ms .. Comms_Properties::UAV_Peripheral_Deadline;};
+    annex agree {**
+        -- No input events on unconnected ports
+        eq unconnected_event : bool = event(Radio.RX3);
+        assert unconnected_event = false;
+    **};
+    end Complete.Wired_Eavesdropper_Fixed_Timing;
+
+    abstract Eavesdropper
+    features
+        Radio_RX : in event data port Comms::Message.Base;
+        Wired_RX : in event data port Comms::Message.Base;
+        success : out event port;
+    annex agree {**
+        guarantee eve_success "Eavesdropper succeeds if unencrypted message observed" :
+            event(success) =
+                (event(Radio_RX) and eavesdrop(Radio_RX)) or
+                (event(Wired_RX) and eavesdrop(Wired_RX));
+
+        fun eavesdrop(msg : Comms::Message.Base) : bool =
+            msg.src_addr = uav_address and not msg.encrypted;
+    **};
+    end Eavesdropper;
+
+    annex agree {**
+        const uav_address : int = Get_Property(this, Comms_Properties::UAV_Address);
+        const uav_peripheral_address : int = Get_Property(this, Comms_Properties::UAV_Address);
+        const gc_address : int = Get_Property(this, Comms_Properties::UAV_Address);
+        const corrupted_uav_address : int = Get_Property(this, Comms_Properties::UAV_Address);
+    **};
+
+end Complete;

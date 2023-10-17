@@ -1,0 +1,35 @@
+package Hub
+public
+    with Eth;
+
+    system Hub4
+    features
+        RX0 : in  event data port Eth::Frame.Base;
+        TX0 : out event data port Eth::Frame.Base;
+
+        RX1 : in  event data port Eth::Frame.Base;
+        TX1 : out event data port Eth::Frame.Base;
+
+        RX2 : in  event data port Eth::Frame.Base;
+        TX2 : out event data port Eth::Frame.Base;
+
+        RX3 : in  event data port Eth::Frame.Base;
+        TX3 : out event data port Eth::Frame.Base;
+    annex agree {**
+        guarantee "TXed data is arbitrated RXed data" :
+            event(TX0) = (in_event and not event(RX0)) and TX0 = arbitrated_data and
+            event(TX1) = (in_event and not event(RX1)) and TX1 = arbitrated_data and
+            event(TX2) = (in_event and not event(RX2)) and TX2 = arbitrated_data and
+            event(TX3) = (in_event and not event(RX3)) and TX3 = arbitrated_data;
+
+        eq in_event : bool =
+            event(RX0) or event(RX1) or event(RX2) or event(RX3);
+        eq arbitrated_data : Eth::Frame.Base = -- Look Ma, no queueing!
+            if event(RX0) then RX0 else
+            if event(RX1) then RX1 else
+            if event(RX2) then RX2 else
+            if event(RX3) then RX3 else RX0;
+    **};
+    end Hub4;
+
+end Hub;

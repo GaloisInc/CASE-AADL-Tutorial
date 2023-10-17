@@ -1,0 +1,21 @@
+{ "ExternalConnections":
+  ["Radio"],
+
+  "InternalConnections" :
+  [ "Bus", "bus", "Connector"],
+
+  "NavigationalSensor":
+  ["GPS"],
+
+  "NavigationalSensorNotDependentOnRadio":
+  ["IMU"],
+
+  "SmartController":
+  ["DeliveryPlanner"],
+
+  "SmartCamera":
+  ["Camera"],
+
+  "SmartRadio":
+  ["Radio"]
+}
