@@ -1,0 +1,63 @@
+package types
+public
+	with Base_Types;
+	
+	data Message
+	end Message;
+	
+	data implementation Message.I
+		subcomponents
+			command : data Command.I;
+			key : data Key.I;
+			authorized : data Base_Types::Boolean;
+	end Message.I;
+
+
+	data Response
+	end Response;
+	
+	data implementation Response.I
+		subcomponents
+			command : data Command.I;
+			authorized : data Base_Types::Boolean;
+	end Response.I;
+
+	
+	data Command extends Base_Types::Integer
+	end Command;
+	
+	data implementation Command.I
+	end Command.I;
+	
+	
+	data Key extends Base_Types::Integer
+	end Key;
+	
+	data implementation Key.I
+	end Key.I;
+	
+	
+	data Auth_Level extends Base_Types::Integer
+	end Auth_Level;
+	
+	data implementation Auth_Level.I
+	end Auth_Level.I;
+	
+	
+	annex agree {**
+		const UNAUTH : int = 0;
+		const AUTH   : int = 1;
+		const WAITING : int = 2;
+		
+		const LOGIN      : int = 3;
+		const TURN_LEFT  : int = 4;
+		const TURN_RIGHT : int = 5;
+		
+--		const TAKE_OFF : int = 6;
+--		const LAND     : int = 7;
+--		const REBOOT   : int = 8;
+		
+		fun valid_auth_level(l : int) : bool = l = UNAUTH or l = AUTH or l = WAITING;
+		fun valid_command(c : int) : bool = c = LOGIN or c = TURN_LEFT or c = TURN_RIGHT;
+	**};
+end types;

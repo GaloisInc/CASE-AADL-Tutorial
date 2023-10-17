@@ -1,0 +1,148 @@
+package UAV
+public
+    with Comms, Comms_Properties;
+
+    system UAV
+    features
+        Radio_RX : in  event data port Comms::Message.Base;
+        Radio_TX : out event data port Comms::Message.Base;
+
+        Wired_RX : in  event data port Comms::Message.Base;
+        Wired_TX : out event data port Comms::Message.Base;
+    flows
+        Wired_TX_Source : flow source Wired_TX;
+        Wired_RX_Sink : flow sink Wired_RX;
+    properties
+        Comms_Properties::Address => 0; -- No address by default
+    annex agree {**
+        guarantee radio_tx_encrypted "Radio output is encrypted" :
+            event(Radio_TX) => Radio_TX.encrypted;
+        guarantee wired_tx_encrypted "Wired output is unencrypted" :
+            event (Wired_TX) => not Wired_TX.encrypted;
+
+        eq address : int = Get_Property(this, Comms_Properties::Address);
+        guarantee wired_output_address "Wired output is either a recv'd or has this component's address" :
+            event(Wired_TX) =>
+                Wired_TX.src_addr = address or
+                (event(Wired_RX) and Wired_TX.src_addr = Wired_RX.src_addr) or
+                (event(Radio_RX) and Wired_TX.src_addr = Radio_RX.src_addr);
+    **};
+    end UAV;
+
+    system implementation UAV.I
+    subcomponents
+        Platform : abstract UAV_Platform;
+        Enc_Dec  : abstract Comms::Enc_Dec_Module;
+        Switch   : system Comms::Hub4;
+    connections
+        C0 : port Platform.TX -> Switch.RX0;
+        C1 : port Switch.TX0  -> Platform.RX;
+
+        C2 : port Wired_RX   -> Switch.RX1;
+        C3 : port Switch.TX1 -> Wired_TX;
+
+        C4 : port Switch.TX2     -> Enc_Dec.RX_Int;
+        C5 : port Enc_Dec.TX_Int -> Switch.RX2;
+        C6 : port Enc_Dec.TX_Ext -> Radio_TX;
+        C7 : port Radio_RX       -> Enc_Dec.RX_Ext;
+    flows
+        Wired_TX_Source : flow source Platform.TX_Source -> C0 ->
+            Switch.RX0toTX1 -> C3 -> Wired_TX;
+        Wired_RX_Sink : flow sink Wired_RX -> C2 -> Switch.RX1toTX0 ->
+            C1 -> Platform.RX_Sink;
+    annex agree {**
+        -- No events on unconnected ports
+        eq unconnected_event : bool = event(Switch.RX3);
+        assert unconnected_event = false;
+    **};
+    end UAV.I;
+
+    abstract UAV_Platform
+    features
+        RX : in  event data port Comms::Message.Base;
+        TX : out event data port Comms::Message.Base;
+    flows
+        RX_Sink   : flow sink RX;
+        TX_Source : flow source TX;
+    annex agree {**
+    	eq address : int = Get_Property(this, Comms_Properties::Address);
+        guarantee tx_output "TX output" : event(TX) => TX = Comms::Message.Base {
+            src_addr = address;
+            encrypted = false
+        };
+    **};
+    end UAV_Platform;
+
+    abstract implementation UAV_Platform.I
+    annex agree {** **};
+    end UAV_Platform.I;
+    
+    system UAV_Peripheral
+    features
+        RX : in  event data port Comms::Message.Base;
+        TX : out event data port Comms::Message.Base;
+    flows
+        TX_Source : flow source TX;
+        RX_Sink : flow sink RX;
+    end UAV_Peripheral;
+
+    system UAV_Wrapper
+    features
+        Radio_RX : in  event data port Comms::Message.Base;
+        Radio_TX : out event data port Comms::Message.Base;
+
+        Wired_RX : in  event data port Comms::Message.Base;
+        Wired_TX : out event data port Comms::Message.Base;
+    flows
+        Wired_TX_Source : flow source Wired_TX;
+        Wired_RX_Sink : flow sink Wired_RX;
+    annex agree {**
+        guarantee radio_tx_encrypted "Radio output is encrypted" :
+            event(Radio_TX) => Radio_TX.encrypted;
+
+        eq my_address : int = Get_Property(this, Comms_Properties::Address);
+        eq message_leaked : bool = not Wired_TX.encrypted and
+            Wired_TX.src_addr != my_address;
+        guarantee wired_tx_encrypted "Wired output does not reveal other UAVs' messages'" :
+            event(Wired_TX) => not message_leaked;
+    **};
+    end UAV_Wrapper;
+
+    system implementation UAV_Wrapper.Fixed
+    subcomponents
+        UAV : system UAV.I;
+
+        Wired_Enc_Dec : abstract Comms::Enc_Dec_Module;
+    connections
+        C0 : port UAV.Radio_TX -> Radio_TX;
+        C1 : port Radio_RX -> UAV.Radio_RX;
+
+        C2 : port UAV.Wired_TX -> Wired_Enc_Dec.RX_Int;
+        C3 : port Wired_Enc_Dec.TX_Ext -> Wired_TX;
+        C4 : port Wired_RX -> Wired_Enc_Dec.RX_Ext;
+        C5 : port Wired_Enc_Dec.TX_Int -> UAV.Wired_RX;
+    flows
+        Wired_TX_Source : flow source UAV.Wired_TX_Source -> C2 ->
+            Wired_Enc_Dec.InttoExt -> C3 -> Wired_TX;
+        Wired_RX_Sink : flow sink Wired_RX -> C4 ->
+            Wired_Enc_Dec.ExttoInt -> C5 -> UAV.Wired_RX_Sink;
+    end UAV_Wrapper.Fixed;
+
+    system implementation UAV_Wrapper.Fixed_Timing
+    subcomponents
+        UAV : system UAV.I;
+
+        Address_Filter : abstract Comms::Address_Filter;
+    connections
+        C0 : port UAV.Radio_TX -> Radio_TX;
+        C1 : port Radio_RX -> UAV.Radio_RX;
+
+        C2 : port UAV.Wired_TX -> Address_Filter.RX;
+        C3 : port Address_Filter.TX -> Wired_TX;
+        C4 : port Wired_RX -> UAV.Wired_RX;
+    flows
+        Wired_TX_Source : flow source UAV.Wired_TX_Source -> C2 ->
+            Address_Filter.RXtoTX -> C3 -> Wired_TX;
+    end UAV_Wrapper.Fixed_Timing;
+
+end UAV;

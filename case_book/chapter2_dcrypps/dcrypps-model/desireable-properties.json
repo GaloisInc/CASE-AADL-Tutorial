@@ -1,0 +1,9 @@
+[
+  {
+    "property-number": "1",
+    "property-type": "temporal",
+    "property-name": "important",
+    "attribute": "camera.camera_out",
+    "description": "The Camera out is important to mission success."
+  }
+]

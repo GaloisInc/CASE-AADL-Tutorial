@@ -1,0 +1,25 @@
+\usepackage{fancyvrb,newverbs,xcolor}
+
+\definecolor{Light}{HTML}{F4F4F4}
+
+\let\oldverbatim\verbatim
+\let\oldtexttt\texttt
+
+\renewcommand{\texttt}[1]{
+  \colorbox{Light}{\oldtexttt{#1}}
+}
+
+\newenvironment{boxed2}
+    {\begin{center}
+    \begin{tabular}{|p{.96\textwidth}|}
+    \hline\\
+    }
+    {
+    \\\hline
+    \end{tabular}
+    \end{center}
+    }
+
+\renewenvironment{verbatim}
+{\begin{oldverbatim}\begin{boxed2}\begin{small}}
+{\end{small}\end{boxed2}\end{oldverbatim}}

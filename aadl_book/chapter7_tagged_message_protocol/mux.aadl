@@ -1,0 +1,31 @@
+package Mux
+public
+    with Messages;
+
+    abstract Mux
+    features
+        Input      : in  event data port Messages::Msg.Tagged;
+        Left_Turn  : out event data port Messages::Msg.Left_Turn;
+        Right_Turn : out event data port Messages::Msg.Right_Turn;
+    annex agree {**
+        guarantee "Left and right output are mutually exclusive" :
+            not (event(Left_Turn) and event(Right_Turn));
+
+        guarantee "Output matches input" :
+            if event(Input) -- and Input.length >= Messages::tag_length
+                then output_matches_input
+                else not (event(Left_Turn) or event(Right_Turn));
+
+        eq output_matches_input: bool =
+            (Input.Tag = Messages::left_turn_tag =>
+                event(Left_Turn) and
+                Left_Turn.length = Input.length and
+                Left_Turn.Tag = Input.Tag) and
+            (Input.Tag = Messages::right_turn_tag =>
+                event(Right_Turn) and
+                Right_Turn.length = Input.length and
+                Right_Turn.Tag = Input.Tag);
+    **};
+    end Mux;
+
+end Mux;

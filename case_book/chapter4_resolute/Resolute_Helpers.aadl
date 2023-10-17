@@ -1,0 +1,48 @@
+package Resolute_Helpers
+public
+	annex resolute {**
+		
+		-- XXX: the built-in sum function errors when called on an empty list.
+		-- This wrapper calls sum, but returns 0.0 if the list is empty.
+		realsum(rs: [real]): real = if size(rs) = 0 then 0.0 else sum(rs)
+		
+		-- XXX: Using `instanceof` errors on `flow_spec`s, making it difficult
+		-- to find connections among a list that includes them. This function
+		-- works around that.
+		is_connection(a: aadl): bool = exists (c: connection). a = c
+		
+		-- Isolate the `connection` instances from the output of `flow_elements`
+		-- (which may contain `connection`, `flow_spec`, and `component`
+	    -- instances) using `is_connection`.
+		flow_connections(f: end_to_end_flow): {connection} =
+			{ e for (e: flow_elements(f)) | is_connection(e) }
+		
+		-- XXX: Somewhat unintuitively, the elements of a flow can only be
+		-- accessed as an unordered set, whereas it seems natural to want to
+		-- process them in the order they appear in, in the flow. This function
+		-- returns an ordered list of connections (assuming no loops).
+		sorted_flow_connections(f: end_to_end_flow): [connection] =
+			let cs: {connection} = flow_connections(f);
+			let src: connection = find_source_connection(cs);
+			sorted_flow_connections_rec(src, {c for (c: cs) | c <> src})
+		
+		-- Helper function for `sorted_flow_connections`.
+		sorted_flow_connections_rec(c: connection, cs: {connection}): [connection] =
+			if length(cs) = 0 then [c] else
+				let nexts: [connection] = [n for (n: cs) | parent(destination(c)) = parent(source(n))];
+				let rest: {connection} = {r for (r: cs) | not member(r, nexts)};
+				if length(nexts) <> 1
+					then fail ** "No unique next connection in flow: " c " -> " nexts **
+					else append([c], sorted_flow_connections_rec(head(nexts), rest))
+		
+		-- Helper function for `sorted_flow_connections`. Find the source
+		-- connection by looking for a connection whose source is not the
+		-- destination of any other connection.
+		find_source_connection(cs: {connection}): connection =
+			let srcs: [connection] = [s for (s: cs) | forall (d: cs). parent(source(s)) <> parent(destination(d))];
+			if length(srcs) <> 1
+				then fail ** "No unique source connection in flow: " srcs **
+				else head(srcs)
+		
+	**};
+end Resolute_Helpers;

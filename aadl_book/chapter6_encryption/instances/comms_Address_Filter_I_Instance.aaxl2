@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ASCII"?>
+<instance:SystemInstance xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aadl2="http://aadl.info/AADL/2.0" xmlns:instance="http://aadl.info/AADL/2.0/instance" name="Address_Filter_I_Instance">
+  <featureInstance name="RX" category="eventDataPort">
+    <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedEventDataPort.0"/>
+  </featureInstance>
+  <featureInstance name="TX" category="eventDataPort" direction="out">
+    <feature xsi:type="aadl2:EventDataPort" href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedEventDataPort.1"/>
+  </featureInstance>
+  <flowSpecification name="RXtoTX" source="//@featureInstance.0" destination="//@featureInstance.1">
+    <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+      <property href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#Communication_Properties.Actual_Latency"/>
+      <ownedValue>
+        <ownedValue xsi:type="aadl2:RangeValue">
+          <minimum xsi:type="aadl2:IntegerLiteral" value="5">
+            <unit href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
+          </minimum>
+          <maximum xsi:type="aadl2:IntegerLiteral" value="7">
+            <unit href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
+          </maximum>
+        </ownedValue>
+      </ownedValue>
+      <propertyAssociation href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedFlowSpecification.0/@ownedPropertyAssociation.0"/>
+    </ownedPropertyAssociation>
+    <flowSpecification href="../comms.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedFlowSpecification.0"/>
+  </flowSpecification>
+  <systemOperationMode name="No Modes"/>
+  <componentImplementation xsi:type="aadl2:AbstractImplementation" href="../comms.aadl#Comms.Address_Filter.I"/>
+</instance:SystemInstance>

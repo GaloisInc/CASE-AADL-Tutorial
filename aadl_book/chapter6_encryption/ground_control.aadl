@@ -1,0 +1,19 @@
+package GC
+public
+    with Comms, Comms_Properties;
+
+    system GC
+    features
+        Radio_RX : in  event data port Comms::Message.Base;
+        Radio_TX : out event data port Comms::Message.Base;
+    annex agree {**
+    	eq address : int = Get_Property(this, Comms_Properties::Address);
+        guarantee "Output is encrypted" :
+            event(Radio_TX) => Radio_TX = Comms::Message.Base {
+                encrypted = true;
+                src_addr  = address
+            };
+    **};
+    end GC;
+
+end GC;

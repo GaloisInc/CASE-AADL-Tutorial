@@ -1,0 +1,43 @@
+package complete
+public
+    with Control, UAV, Base_Types;
+
+    system Complete
+    features
+        state_good : out data port Base_Types::Boolean;
+    annex agree {**
+        guarantee "State remains good" : state_good;
+    **};
+    end Complete;
+
+    system implementation Complete.Unsanitized
+    subcomponents
+        Control : system Control::Control;
+        UAV     : system UAV::UAV.Unsanitized;
+    connections
+        DC0 : port Control.Output           -> UAV.Input;
+        DC1 : port UAV.Output               -> Control.Input;
+        DC2 : port UAV.autopilot_state_good -> state_good;
+    end Complete.Unsanitized;
+
+    system implementation Complete.Input_Sanitized
+    subcomponents
+        Control : system Control::Control;
+        UAV     : system UAV::UAV.Sanitized;
+    connections
+        DC0 : port Control.Output           -> UAV.Input;
+        DC1 : port UAV.Output               -> Control.Input;
+        DC2 : port UAV.autopilot_state_good -> state_good;
+    end Complete.Input_Sanitized;
+
+    system implementation Complete.Output_Sanitized
+    subcomponents
+        Control          : system Control::Control.Sanitized;
+        UAV              : system UAV::UAV.Unsanitized;
+    connections
+        DC0 : port Control.Output           -> UAV.Input;
+        DC2 : port UAV.Output               -> Control.Input;
+        DC3 : port UAV.autopilot_state_good -> state_good;
+    end Complete.Output_Sanitized;
+
+end complete;

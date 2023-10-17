@@ -1,0 +1,63 @@
+package Protocol
+public
+    with Base_Types;
+
+    data Message
+    end Message;
+
+    data implementation Message.I
+    subcomponents
+        Tag          : data Base_Types::Integer {Data_Size => 2  bits;};
+        FW_Data_Size : data Base_Types::Integer {Data_Size => 14 bits;};
+        FW_Data      : data Base_Types::String;
+
+        length  : data Base_Types::Natural;
+    end Message.I;
+
+    abstract Mux
+    features
+        Input : in event data port Message.I;
+
+        Take_Off : out event port;
+        Land     : out event port;
+        Reboot   : out event port;
+        Update   : out event port;
+    annex agree {**
+        guarantee "Input tag is valid" : tag_is_valid;
+        guarantee "Output matches input if present" :
+            output_matches_input_if_present;
+
+        property output_matches_input_if_present =
+            output_event => event(Input) and
+                (event(Take_Off) => is_take_off) and
+                (event(Land)     => is_land) and
+                (event(Reboot)   => is_reboot) and
+                (event(Update)   => is_update);
+
+        property output_event =
+            event(Take_Off) or
+            event(Land) or
+            event(Reboot) or
+            event(Update);
+
+        property tag_is_valid =
+            is_take_off or is_land or is_reboot or is_update;
+
+        property is_take_off = Input.Tag = TAKE_OFF;
+        property is_land     = Input.Tag = LAND;
+        property is_reboot   = Input.Tag = REBOOT;
+        property is_update   = Input.Tag = UPDATE;
+    **};
+    end Mux;
+
+    annex agree {**
+        const tag_length : int = 2;
+
+        -- Message types
+        const TAKE_OFF : int = 0;
+        const LAND     : int = 1;
+        const REBOOT   : int = 2;
+        const UPDATE   : int = 3;
+    **};
+
+end Protocol;

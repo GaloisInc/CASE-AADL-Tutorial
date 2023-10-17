@@ -1,0 +1,173 @@
+package Comms
+public
+    with Base_Types, Comms_Properties;
+
+    data Message
+    end Message;
+
+    data implementation Message.Base
+    subcomponents
+        src_addr  : data Base_Types::Integer;
+        encrypted : data Base_Types::Boolean;
+    end Message.Base;
+
+    system Hub4
+    features
+        RX0 : in  event data port Message.Base;
+        TX0 : out event data port Message.Base;
+
+        RX1 : in  event data port Message.Base;
+        TX1 : out event data port Message.Base;
+
+        RX2 : in  event data port Message.Base;
+        TX2 : out event data port Message.Base;
+
+        RX3 : in  event data port Message.Base;
+        TX3 : out event data port Message.Base;
+    flows
+        RX0toTX1 : flow path RX0 -> TX1;
+        RX0toTX2 : flow path RX0 -> TX2;
+        RX0toTX3 : flow path RX0 -> TX3;
+        
+        RX1toTX0 : flow path RX1 -> TX0;
+        RX1toTX2 : flow path RX1 -> TX2;
+        RX1toTX3 : flow path RX1 -> TX3;
+        
+        RX2toTX0 : flow path RX2 -> TX0;
+        RX2toTX1 : flow path RX2 -> TX1;
+        RX2toTX3 : flow path RX2 -> TX3;
+        
+        RX3toTX0 : flow path RX3 -> TX0;
+        RX3toTX1 : flow path RX3 -> TX1;
+        RX3toTX2 : flow path RX3 -> TX2;
+    properties
+        Latency => 0 ms .. 10 ms applies to
+            RX0toTX1, RX0toTX2, RX0toTX3,
+            RX1toTX0, RX1toTX2, RX1toTX3,
+            RX2toTX0, RX2toTX1, RX2toTX3,
+            RX3toTX0, RX3toTX1, RX3toTX2;
+    annex agree {**
+        guarantee tx_muxed_rx "TXed data is muxed RXed data" :
+            if input_event then
+                TX0 = input_data and event(TX0) = (sel != 0) and
+                TX1 = input_data and event(TX1) = (sel != 1) and
+                TX2 = input_data and event(TX2) = (sel != 2) and
+                TX3 = input_data and event(TX3) = (sel != 3)
+            else -- not input_event
+                not event(TX0) and
+                not event(TX1) and
+                not event(TX2) and
+                not event(TX3);
+                
+        eq sel : int =
+                 if event(RX0) then  0
+            else if event(RX1) then  1
+            else if event(RX2) then  2
+            else if event(RX3) then  3
+            else                     -1;
+            
+        eq input_event : bool = sel != -1;
+        eq input_data : Message.Base =
+                 if sel = 0 then RX0
+            else if sel = 1 then RX1
+            else if sel = 2 then RX2
+            else if sel = 3 then RX3
+            else                 no_message;
+    **};
+    end Hub4;
+
+    system implementation Hub4.I
+    annex agree {** **};
+    end Hub4.I;
+
+    -- Encrypt messages seen on RX_Int and send the encrypted messages out
+    -- on TX_Ext. Decrypt messages seen on RX_Ext and send the decrypted
+    -- messages out on TX_Int.
+    abstract Enc_Dec_Module
+    features
+        RX_Int : in  event data port Message.Base;
+        TX_Int : out event data port Message.Base;
+
+        RX_Ext : in  event data port Message.Base;
+        TX_Ext : out event data port Message.Base;
+    flows
+        InttoExt : flow path RX_Int -> TX_Ext;
+        ExttoInt : flow path RX_Ext -> TX_Int;
+    properties
+        Latency => 20 ms .. 20 ms
+            applies to InttoExt, ExttoInt; -- Constant time en/decryption
+    annex agree {**
+        guarantee irx_to_etx "Internal RX to external TX" :
+            event(RX_Int) = event(TX_Ext);
+        guarantee erx_to_itx "External RX to internal TX" :
+            event(RX_Ext) = event(TX_Int);
+
+        guarantee etx_encrypted "External TX is encrypted" :
+            TX_Ext = RX_Int { encrypted := true };
+        guarantee itx_encrypted "Internal TX is unencrypted" :
+            TX_Int = RX_Ext { encrypted := false };
+    **};
+    end Enc_Dec_Module;
+
+    abstract implementation Enc_Dec_Module.I
+    annex agree {** **};
+    end Enc_Dec_Module.I;
+
+    -- Allow messages to pass through only if they match this component's
+    -- (possibly inherited) address.
+    abstract Address_Filter
+        features
+            RX : in  event data port Message.Base;
+            TX : out event data port Message.Base;
+    	flows
+            RXtoTX : flow path RX -> TX { Latency => 5 ms .. 7 ms; };
+        annex agree {**
+            eq my_address : int = Get_Property(this, Comms_Properties::Address);
+            guarantee address_match "Pass only messages with matching addresses" :
+            	if RX.src_addr = my_address then TX = RX else not event(TX);
+        **};
+    end Address_Filter;
+
+    abstract implementation Address_Filter.I
+    annex agree {** **};
+    end Address_Filter.I;
+
+    annex agree {**
+        const no_address : int = -1;
+        const no_message : Message.Base =
+            Message.Base { encrypted = false; src_addr = no_address };
+    **};
+
+    --------
+    -- This would be a more modular design, but AGREE
+    -- doesn't understand type extensions.
+    --------
+
+    --abstract Passthru
+    --features
+    --    RX_Int : in  event data port Message.Base;
+    --    TX_Int : out event data port Message.Base;
+
+    --    RX_Ext : in  event data port Message.Base;
+    --    TX_Ext : out event data port Message.Base;
+    --annex agree {**
+    --    guarantee "Internal RX to external TX" :
+    --        event(RX_Int) = event(TX_Ext);
+    --    guarantee "External RX to internal TX" :
+    --        event(RX_Ext) = event(TX_Int);
+    --**};
+    --end Passthru;
+
+    --abstract Enc_Dec_Module extends Passthru
+    --features -- These are needed for agree to recognize the base type's ports
+    --    TX_Int : refined to out event data port Message.Base;
+    --    TX_Ext : refined to out event data port Message.Base;
+    --annex agree {**
+    --    guarantee "External TX is encrypted" :
+    --        TX_Ext = RX_Int { encrypted := true };
+    --    guarantee "Internal TX is unencrypted" :
+    --        TX_Int = RX_Ext { encrypted := true };
+    --**};
+    --end Enc_Dec_Module;
+
+end Comms;

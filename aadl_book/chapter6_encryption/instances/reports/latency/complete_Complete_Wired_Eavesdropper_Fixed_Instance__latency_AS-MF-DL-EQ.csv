@@ -1,0 +1,40 @@
+Latency analysis with preference settings: asynchronous system/major partition frame/worst case as deadline/best case as empty queue
+
+Latency results for end-to-end flow 'UAVtoPeripheral' of system 'Complete.Wired_Eavesdropper_Fixed'
+
+Result,Min Specified,Min Actual,Min Method,Max Specified,Max Actual,Max Method,Comments
+abstract UAV.UAV.Platform,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+connection Platform.TX -> Switch.RX0,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+system UAV.UAV.Switch,0.0ms,0.0ms,no sampling/queuing latency,10.0ms,10.0ms,specified
+connection UAV.Switch.TX1 -> Wired_Enc_Dec.RX_Int,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+abstract UAV.Wired_Enc_Dec,20.0ms,20.0ms,specified,20.0ms,20.0ms,specified
+connection UAV.Wired_Enc_Dec.TX_Ext -> UAV_Peripheral.RX,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+system UAV_Peripheral,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+Latency Total,20.0ms,20.0ms,,30.0ms,30.0ms
+Specified End To End Latency,,0.0ms,,,25.0ms
+End to end Latency Summary
+INFO,Minimum actual latency total 20.0ms is greater or equal to expected minimum end to end latency 0.000ms
+ERROR,Maximum specified flow latency total 30.0ms exceeds expected maximum end to end latency 25.0ms
+ERROR,Maximum actual latency total 30.0ms exceeds expected maximum end to end latency 25.0ms
+
+
+
+Latency results for end-to-end flow 'UAVfromPeripheral' of system 'Complete.Wired_Eavesdropper_Fixed'
+
+Result,Min Specified,Min Actual,Min Method,Max Specified,Max Actual,Max Method,Comments
+system UAV_Peripheral,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+connection UAV_Peripheral.TX -> UAV.Wired_Enc_Dec.RX_Ext,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+abstract UAV.Wired_Enc_Dec,20.0ms,20.0ms,specified,20.0ms,20.0ms,specified
+connection Wired_Enc_Dec.TX_Int -> UAV.Switch.RX1,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+system UAV.UAV.Switch,0.0ms,0.0ms,no sampling/queuing latency,10.0ms,10.0ms,specified
+connection Switch.TX0 -> Platform.RX,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+abstract UAV.UAV.Platform,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+Latency Total,20.0ms,20.0ms,,30.0ms,30.0ms
+Specified End To End Latency,,0.0ms,,,25.0ms
+End to end Latency Summary
+INFO,Minimum actual latency total 20.0ms is greater or equal to expected minimum end to end latency 0.000ms
+ERROR,Maximum specified flow latency total 30.0ms exceeds expected maximum end to end latency 25.0ms
+ERROR,Maximum actual latency total 30.0ms exceeds expected maximum end to end latency 25.0ms
+
+
+

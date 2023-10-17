@@ -1,0 +1,159 @@
+package gc
+public
+	with AGREE_PLTL;
+	with Types;
+	
+	system GC
+		features
+			auth_recv : in  event data port Types::Auth_Level.I;
+			output    : out event data port Types::Message.I;
+			
+			auth_state : out data port Types::Auth_Level.I;
+			
+		annex agree {**
+			eq UNAUTH  : Types::Auth_Level.I = Types::UNAUTH;
+			eq WAITING : Types::Auth_Level.I = Types::WAITING;
+			eq AUTH    : Types::Auth_Level.I = Types::AUTH;
+			
+			eq LOGIN      : Types::Command.I = Types::LOGIN;
+			eq TURN_LEFT  : Types::Command.I = Types::TURN_LEFT;
+			eq TURN_RIGHT : Types::Command.I = Types::TURN_RIGHT;
+			
+			
+			-- State rules
+			--------------
+			guarantee "UNAUTH to begin with" : 
+				(auth_state = UNAUTH) -> true;
+			
+			guarantee "UNAUTH transitions to WAITING or UNAUTH" :
+				pre(auth_state = UNAUTH) => ((auth_state = UNAUTH) or (auth_state = WAITING));
+			
+			guarantee "WAITING transitions to UNAUTH or AUTH" :
+				pre(auth_state = WAITING) => ((auth_state = UNAUTH) or (auth_state = AUTH));
+			
+
+			-- Rules relating to authority
+			------------------------------
+			property auth_received = AGREE_PLTL::Once((event(auth_recv) and auth_recv = AUTH));
+			property auth_received_after_login = auth_received and 
+			                                     pre(AGREE_PLTL::Once(event(output) and 
+			                                     	                  output.command = LOGIN));
+			guarantee "AUTH reached internally if AUTH received after LOGIN sent" :
+				(auth_state = AUTH) => auth_received_after_login;
+				
+			guarantee "Authorized bit set when in AUTH" :
+				output.authorized <=> auth_state = AUTH;
+				
+				
+			-- Misc. rules, output validity
+			-------------------------------
+			guarantee "No command sent while waiting" :
+				event(output) => auth_state != WAITING;
+
+			guarantee "Non-LOGIN commands sent only in AUTH" :
+				event(output) => (output.command != LOGIN => auth_state = AUTH);
+				
+			guarantee "Only valid commands sent" :
+				event(output) => Types::valid_command(output.command);
+			
+			guarantee "Only valid auth levels exported" : 
+				Types::valid_auth_level(auth_state);
+				
+			guarantee "LOGIN is unauthorized" :
+				event(output) => (output.command = LOGIN => not output.authorized);
+				
+			
+		**};
+	end GC;
+	
+	system implementation GC.I
+		subcomponents
+			MessageSend : abstract MessageSend;
+			
+		connections
+			C0 : port auth_recv -> MessageSend.auth_recv;
+			C1 : port MessageSend.auth_state -> auth_state;
+			C2 : port MessageSend.output -> output;
+		
+		properties
+			Communication_Properties::Timing => Immediate
+            	applies to C0, C1, C2;
+	end GC.I;
+	
+
+	abstract MessageSend
+		features
+			auth_recv : in event data port Types::Auth_Level.I;
+			output : out event data port Types::Message.I;
+			
+			auth_state : out data port Types::Auth_Level.I;
+		
+		annex agree {**
+			eq UNAUTH  : Types::Auth_Level.I = Types::UNAUTH;
+			eq WAITING : Types::Auth_Level.I = Types::WAITING;
+			eq AUTH    : Types::Auth_Level.I = Types::AUTH;
+			
+			eq LOGIN      : Types::Command.I = Types::LOGIN;
+			eq TURN_LEFT  : Types::Command.I = Types::TURN_LEFT;
+			eq TURN_RIGHT : Types::Command.I = Types::TURN_RIGHT;
+			
+			eq key : Types::Key.I;
+			
+			
+			-- Some of these rules are, in spirit, duplicated above - such practice "exposes" 
+			-- those rules, allowing for cross-validation of this and UAV in `complete.aadl` 
+			
+			eq auth_state_int : Types::Auth_Level.I = UNAUTH ->
+				if pre(auth_state_int = UNAUTH) and pre(output.command = LOGIN) and pre(event(output))
+				then WAITING
+				else
+				
+				if pre(auth_state_int = WAITING) and pre(event(auth_recv) and auth_recv = AUTH)
+				then AUTH
+				else
+				
+				if pre(auth_state_int = AUTH)
+				then AUTH
+				else
+				
+				UNAUTH;
+			guarantee "Valid auth state transitions" :
+				auth_state_int = auth_state;
+				
+			property send_command = false ->
+				if auth_state = UNAUTH
+				then true
+				else
+				
+				if auth_state = WAITING
+				then false
+				else
+				
+				true;
+			guarantee "Only send a command in the proper state" :
+				event(output) = send_command;
+				
+			property good_command =
+				if auth_state = UNAUTH
+				then output.command = LOGIN and (not output.authorized) and output.key = key
+				else
+				
+				if auth_state = WAITING
+				then (not output.authorized) -- don't care about anything else, since we
+				else                         -- dictate above that no command is sent in this
+											 -- state anyway
+				if auth_state = AUTH
+				then output.command != LOGIN and Types::valid_command(output.command) and output.authorized
+				else
+				
+				false;
+			guarantee "Only send a proper command in the proper state" :
+				good_command;
+				
+			guarantee "Only valid commands sent" :
+				event(output) => Types::valid_command(output.command);
+		**};
+	end MessageSend;
+
+
+end gc;
